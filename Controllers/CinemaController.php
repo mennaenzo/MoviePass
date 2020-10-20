@@ -1,15 +1,23 @@
 <?php
 
     namespace Controllers;
+
     use Models\Cinema as Cinema;
+    use DAO\CinemaDAO as CinemaDAO;
 
     class CinemaController
     {
-        public function ShowListView($cinema)
-        {
+        private $cinemaDAO;
 
-            //$cinemaList = $this->cinemaDAO->GetAll();
-            require_once(VIEWS_PATH."Cinema-list.php");
+        public function __construct()
+        {
+            $this->cinemaDAO = new CinemaDAO();
+        }
+
+        public function ShowListView()
+        {
+            $cinemaList = $this->cinemaDAO->GetAll();
+            require_once(VIEWS_PATH . "cinema-list.php");
         }
 
         public function Add($name, $address, $ticketPrice)
@@ -18,7 +26,20 @@
             $cinema->setName($name);
             $cinema->setAddress($address);
             $cinema->setTicketPrice($ticketPrice);
-            $this->ShowListView($cinema);
+            
+            $this->cinemaDAO->Add($cinema);
+
+            //array_push($this->cinemaList, $cinema);
+
+            echo "<script> alert('Agregado con exito.');
+            </script>";
+
+            $this->ShowListView();
+        }
+
+        public function ShowAddView()
+        {
+            require_once VIEWS_PATH . "cine-add.php";
         }
     }
 ?>

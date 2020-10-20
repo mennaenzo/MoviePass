@@ -14,6 +14,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                    <?php foreach($cinemaList as $cinema){ ?>
                         <td><?php echo $cinema->getName() ?></td>
                         <td><?php echo $cinema->getAddress() ?></td>
                         <td><?php echo $cinema->getTicketPrice() ?></td>
@@ -28,6 +29,7 @@
                             </form>
                         </td>
                     </tr>
+                    <?php }?>
                 </tbody>
             </table>
         </div>

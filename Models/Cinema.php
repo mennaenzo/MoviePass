@@ -57,22 +57,21 @@
         }
 
         /*
-    function __construct( $name, $adress, $ticketPrice){
-        //$this->id = $id;
-        $this->name = $name;
-      //  $this->capacity = $capacity;
-        $this->adress = $adress;
-        $this->ticketPrice = $ticketPrice;
-    }*/
+        function __construct( $name, $adress, $ticketPrice){
+            //$this->id = $id;
+            $this->name = $name;
+        //  $this->capacity = $capacity;
+            $this->adress = $adress;
+            $this->ticketPrice = $ticketPrice;
+        }*/
 
 
-    /*
-	public function getCapacity(){
-		return $this->capacity;
-	}
-	public function setCapacity($capacity){
-		$this->capacity = $capacity;
-	}*/
-
-
-}
+        /*
+        public function getCapacity(){
+            return $this->capacity;
+        }
+        public function setCapacity($capacity){
+            $this->capacity = $capacity;
+        }*/
+    }
+?>

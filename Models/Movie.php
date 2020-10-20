@@ -10,7 +10,7 @@
         private $genres = array();
 
 
-        function __constructor($id, $adult, $name, $summary, $language,$genres){
+        function __construct($id, $adult, $name, $summary, $language,$genres){
             $this->id =  $id;
             $this->adult =  $adult;
             $this->name =  $name;
