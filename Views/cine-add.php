@@ -25,9 +25,6 @@
                              <label for="">Address</label>
                              <input type="text" name="cinema_address" value="" class="form-control" required>
 
-                             <label for="">Capacity</label>
-                             <input type="int" name="cinema_capacity" value="" class="form-control" required>
-
                              <label for="">Ticket Price</label>
                              <input type="number" name="ticket_price" value="" class="form-control" required>
                              <br>

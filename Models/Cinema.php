@@ -4,50 +4,75 @@
     class Cinema {
         private $id;
         private $name;
-        private $capacity;
-        private $adress;
-        private $ticket_price;
-    
+       //private $capacity;  La capacidad pertenece a la sala, no al cine
+        private $address;
+        private $ticketPrice;
 
-    function __construct($id, $name, $capacity, $adress){
-        $this->id = $id;
+        /**
+         * @return mixed
+         */
+        public function getName()
+        {
+            return $this->name;
+        }
+
+        /**
+         * @param mixed $name
+         */
+        public function setName($name)
+        {
+            $this->name = $name;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getAddress()
+        {
+            return $this->address;
+        }
+
+        /**
+         * @param mixed $address
+         */
+        public function setAddress($address)
+        {
+            $this->address = $address;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getTicketPrice()
+        {
+            return $this->ticketPrice;
+        }
+
+        /**
+         * @param mixed $ticketPrice
+         */
+        public function setTicketPrice($ticketPrice)
+        {
+            $this->ticketPrice = $ticketPrice;
+        }
+
+        /*
+    function __construct( $name, $adress, $ticketPrice){
+        //$this->id = $id;
         $this->name = $name;
-        $this->capacity = $capacity;
+      //  $this->capacity = $capacity;
         $this->adress = $adress;
-    }
+        $this->ticketPrice = $ticketPrice;
+    }*/
 
-    public function getId(){
-		return $this->id;
-	}
-	public function setId($id){
-		$this->id = $id;
-	}
 
-	public function getName(){
-		return $this->name;
-	}
-	public function setName($name){
-		$this->name = $name;
-	}
-
+    /*
 	public function getCapacity(){
 		return $this->capacity;
 	}
 	public function setCapacity($capacity){
 		$this->capacity = $capacity;
-	}
+	}*/
 
-	public function getAdress(){
-		return $this->adress;
-	}
-	public function setAdress($adress){
-		$this->adress = $adress;
-    }
-    
-    public function getTicketPrice(){
-		return $this->value;
-	}
-	public function setTicketPrice($ticket_price){
-		$this->ticket_price = $ticket_price;
-    }
+
 }
