@@ -6,8 +6,8 @@ namespace Controllers;
 
 class CinemaController
 {
-    public function ShowAddView(){
-        require_once (VIEWS_PATH."cine-add.php");
+    public function Add(){
+        require_once (VIEWS_PATH."index.php");
     }
 
 
