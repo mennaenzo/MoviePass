@@ -7,9 +7,9 @@
         private $capacity;
         private $adress;
         private $ticket_price;
-    }
+    
 
-    function __constructor($id, $name, $capacity, $adress){
+    function __construct($id, $name, $capacity, $adress){
         $this->id = $id;
         $this->name = $name;
         $this->capacity = $capacity;
@@ -49,4 +49,5 @@
 	}
 	public function setTicketPrice($ticket_price){
 		$this->ticket_price = $ticket_price;
-	}
+    }
+}
