@@ -1,14 +1,9 @@
 <?php
     require_once('header.php');
     require_once('nav.php');
-    require_once('cine-add.php');
     require_once('footer.php');
 ?>
 <main class="py-auto">
-    <br>
-    <br>
-    <h2 class="miEstilo">Movie Pass</h2>
-    <h2 class="miEstilo">Add Cinema</h2>
     <section id="listado" class="mb-5">
         <form id= "signup" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
             <header class="header">
