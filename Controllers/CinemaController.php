@@ -31,9 +31,6 @@
 
             //array_push($this->cinemaList, $cinema);
 
-            echo "<script> alert('Agregado con exito.');
-            </script>";
-
             $this->ShowListView();
         }
 
