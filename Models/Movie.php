@@ -14,7 +14,7 @@
             $this->id =  $id;
             $this->adult =  $adult;
             $this->name =  $name;
-            $this->sumarry = $summary;
+            $this->summary = $summary;
             $this->language = $language;
             $this->genres = $genres;
         }
