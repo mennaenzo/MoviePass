@@ -12,18 +12,30 @@
                   <div class="sep"></div>
                          <div class="inputs">
 
-                             <label for="">Name</label>
+                             <label for="name">Name</label>
                              <input type="text" name="cinema_name" value="" class="form-control" required>
 
-                             <label for="">Address</label>
+                             <label for="address">Address</label>
                              <input type="text" name="cinema_address" value="" class="form-control" required>
 
-                             <label for="">Ticket Price</label>
+                             <label for="ticketPrice">Ticket Price</label>
                              <input type="number" name="ticket_price" value="" class="form-control" required>
+                             
+                             <label for="numberOfRoom">Number of Room</label>
+                             <input type="number" name="number_room" value="" class="form-control" required>
+                             
+                             <label for="numberOfSeats">Number of Seats</label>
+                             <input type="number" name="number_seats" value="" class="form-control" required>
+                             
                              <br>
                              <button id="submit" type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
 
                          </div>
+                         <?php 
+                            if(isset($message)){  
+                                echo "<script> alert('$message'); </script>";
+                            }                      
+                        ?> 
               </form>
           </div>
      </section>

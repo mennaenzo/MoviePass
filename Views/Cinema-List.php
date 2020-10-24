@@ -29,7 +29,12 @@
                             </form>
                         </td>
                     </tr>
-                    <?php }?>
+                    <?php 
+                        }
+                        if(isset($message)){ 
+                            echo "<script> alert('$message'); </script>";
+                        }
+                    ?> 
                 </tbody>
             </table>
         </div>
