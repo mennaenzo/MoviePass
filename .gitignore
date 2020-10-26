@@ -3,3 +3,5 @@
 /.idea/MoviePass.iml
 /.idea/vcs.xml
 /.idea/workspace.xml
+Config/Config.php
+Config/Api.php
