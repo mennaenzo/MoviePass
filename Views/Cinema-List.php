@@ -10,34 +10,60 @@
 
                 <th>Name</th>
                 <th>Address</th>
-                <th>Ticket Price</th>
+                
                 </thead>
                 <tbody>
-                    <tr>
-                    <?php foreach($cinemaList as $cinema){ ?>
-                        <td><?php echo $cinema->getName() ?></td>
-                        <td><?php echo $cinema->getAddress() ?></td>
-                        <td><?php echo $cinema->getTicketPrice() ?></td>
-                        <td>
-                            <form action="<?php echo FRONT_ROOT ?>Cinema/Delete" method="POST">
-                                <button type="submit" name="btnRemove" class="btn btn-danger" value=""> Eliminar </button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="<?php echo FRONT_ROOT ?>Cinema/ViewModify" method="POST">
-                                <button type="submit" name="btnModify" class="btn btn-danger" value=""> Modificar </button>
-                            </form>
-                        </td>
+                    <tr> 
+                        <tr>
+                            <?php foreach($cinemaList as $cinema){ ?>
+                            <td><?php echo $cinema->getName();?></td>
+                            <td><?php echo $cinema->getAddress(); ?></td>
+                        </tr>
+                        <?php } ?>
                     </tr>
+                </tbody>
+            </table>
+
+           <form action="<?php echo FRONT_ROOT ?>Room/ShowListView" method="POST">
+                
+                <select name="seeCinemas">
+                        <?php foreach($cinemaList as $cinema){ ;?>
+                            <option value="<?php echo $cinema->getName();?>"> <?php echo $cinema->getName();?> </option>    
+                        <?php } ?>
+                </select>  
+            
+                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getName();?>"> Ver Salas </button>
+   
+                 </form> 
+                <!-- <form action="<?php echo FRONT_ROOT ?>Cinema/ShowAddRoomView" method="POST">
+                <select name="seeCinemass">
+                                <?php foreach($cinemaList as $cinema){ ?>
+                                    <option value="<?php echo $cinema->getName();?>"> <?php echo $cinema->getName();?> </option>    
+                            <?php } ?>
+                            </select>  
+                        <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getName();?>"> Agregar sala </button>    
+                    
+                    </form> 
+            -->
+                   
+                    
+                <!--     <form action="<?php echo FRONT_ROOT ?>Cinema/Delete" method="POST">
+                        <button type="submit" name="btnRemove" class="btn btn-danger" value=""> Eliminar </button>
+                    </form>
+                </td>
+                <td>
+                    <form action="<?php echo FRONT_ROOT ?>Cinema/ViewModify" method="POST">
+                        <button type="submit" name="btnModify" class="btn btn-danger" value=""> Modificar </button>
+                    </form>
+                </td>  -->
+             </div>             
                     <?php 
-                        }
+                        
                         if(isset($message)){ 
                             echo "<script> alert('$message'); </script>";
                         }
                     ?> 
-                </tbody>
-            </table>
-        </div>
+                
     </section>
 </main>
 

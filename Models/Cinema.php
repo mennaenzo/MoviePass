@@ -6,7 +6,7 @@
         private $name;
        //private $capacity;  La capacidad pertenece a la sala, no al cine
         private $address;
-        private $ticketPrice;
+        //private $ticketPrice;
 
         /**
          * @return mixed
@@ -40,21 +40,25 @@
             $this->address = $address;
         }
 
-        /**
-         * @return mixed
-         */
-        public function getTicketPrice()
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
+        public function getId()
+        {
+            return $this->id;
+        }
+
+      /*   public function getTicketPrice()
         {
             return $this->ticketPrice;
         }
 
-        /**
-         * @param mixed $ticketPrice
-         */
+        
         public function setTicketPrice($ticketPrice)
         {
             $this->ticketPrice = $ticketPrice;
-        }
+        } */
 
         /*
         function __construct( $name, $adress, $ticketPrice){

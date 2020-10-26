@@ -4,6 +4,7 @@
 
     use Models\Cinema as Cinema;
     use DAO\CinemaDAO as CinemaDAO;
+    use DAO\RoomDAO as RoomDAO;
 
     class CinemaController
     {
@@ -13,28 +14,32 @@
         public function __construct()
         {
             $this->cinemaDAO = new CinemaDAO();
+            $this->roomDAO = new RoomDAO();
         }
 
         public function ShowListView($message = "")
         {
             $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
+            //$roomList = $this->roomDAO->GetAll();
             require_once(VIEWS_PATH . "cinema-list.php");
         }
 
-        public function Add($name, $address, $ticketPrice)
+        public function Add($name, $address)
         {
             if($this->validateData()){
                 $cinema = new Cinema();
                 $cinema->setName($name);
                 $cinema->setAddress($address);
-                $cinema->setTicketPrice($ticketPrice);
-                
+                //$cinema->setTicketPrice($ticketPrice);
+          
                 $this->cinemaDAO->Add($cinema);
                 $this->message = "Los datos del cine fueron cargados correctamente.";
                 //array_push($this->cinemaList, $cinema);
 
-                $this->ShowListView($this->message);
+                $this->ShowAddRoomView($this->message);
+              
+                //$this->ShowListView($this->message);
             }
             else {
                 $this->message = "Al validar los datos ingresados, se produjo un error. Por favor vuelva a ingresarlos.";
@@ -48,12 +53,19 @@
             require_once VIEWS_PATH . "cine-add.php";
         }
 
+        public function ShowAddRoomView($message = ""){
+                $message = $this->message;
+              
+                require_once VIEWS_PATH . "room-add.php";
+        }
+
         public function validateData(){
             if(!empty($_POST)){
                 if($this->validateField($_POST["cinema_name"]) && $this->validateField(["cinema_address"])){
-                    if($this->validateFieldNumber($_POST["ticket_price"]) && $this->validateFieldNumber($_POST["number_room"]) && $this->validateFieldNumber($_POST["number_seats"])){
+                    return true;
+                 /*  if($this->validateFieldNumber($_POST["ticket_price"]) && $this->validateFieldNumber($_POST["number_room"]) && $this->validateFieldNumber($_POST["number_seats"])){
                         return true;
-                    }
+                    } */
                 }
             }
             else {
@@ -62,7 +74,7 @@
         }
 
         public function validateFieldNumber($fieldNumber){
-            //Falta validar que no se carguen dos cines con el mismo nombre y/o direccion
+            
             if($this->validateField($fieldNumber) && is_numeric($fieldNumber) && $fieldNumber > 0 ){
                 return true;
             }
