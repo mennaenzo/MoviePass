@@ -27,9 +27,7 @@ if(isset($message)){ echo "<script> alert('$message'); </script>"; }
         </div>
         <br>
         <div>
-            <form action="<?php echo FRONT_ROOT ?>User/ShowRegisterView" method="POST">
-                <button type="submit" name="" class="" value=""> Register </button>
-            </form>
+            <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView"><button>Register</button></a>
         </div>
     </section>
 
