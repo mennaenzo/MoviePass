@@ -25,5 +25,6 @@ class Genres
     public function getId_api(){
         return $this->id_api;
     }
+    //probando
 
 }
