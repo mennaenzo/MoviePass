@@ -37,7 +37,7 @@
 
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
-
+                $user = null;
                 if($resultSet){
                     foreach ($resultSet as $row){
                         $user = new User();
