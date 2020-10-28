@@ -21,8 +21,7 @@
         {
             $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
-            //$roomList = $this->roomDAO->GetAll();
-            require_once(VIEWS_PATH . "cinema-list.php");
+            require_once(VIEWS_PATH . "Cinema-List.php");
         }
 
         public function Add($name, $address)
@@ -31,15 +30,11 @@
                 $cinema = new Cinema();
                 $cinema->setName($name);
                 $cinema->setAddress($address);
-                //$cinema->setTicketPrice($ticketPrice);
           
                 $this->cinemaDAO->Add($cinema);
                 $this->message = "Los datos del cine fueron cargados correctamente.";
-                //array_push($this->cinemaList, $cinema);
 
                 $this->ShowAddRoomView($this->message);
-              
-                //$this->ShowListView($this->message);
             }
             else {
                 $this->message = "Al validar los datos ingresados, se produjo un error. Por favor vuelva a ingresarlos.";
@@ -63,9 +58,6 @@
             if(!empty($_POST)){
                 if($this->validateField($_POST["cinema_name"]) && $this->validateField(["cinema_address"])){
                     return true;
-                 /*  if($this->validateFieldNumber($_POST["ticket_price"]) && $this->validateFieldNumber($_POST["number_room"]) && $this->validateFieldNumber($_POST["number_seats"])){
-                        return true;
-                    } */
                 }
             }
             else {

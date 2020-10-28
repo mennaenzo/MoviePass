@@ -4,9 +4,7 @@
     class Cinema {
         private $id;
         private $name;
-       //private $capacity;  La capacidad pertenece a la sala, no al cine
         private $address;
-        //private $ticketPrice;
 
         /**
          * @return mixed

@@ -17,18 +17,7 @@ require_once(VIEWS_PATH."nav.php");
 
                             <label for="address">Address</label>
                             <input type="text" name="cinema_address" value="" class="form-control" required>
-
-                           <!--   <label for="ticketPrice">Ticket Price</label>
-                             <input type="number" name="ticket_price" value="" class="form-control" required>
-                             
-                             <label for="numberOfRoom">Number of Room</label>
-                             <input type="number" name="number_room" value="" class="form-control" required>
-                             
-                             <label for="numberOfSeats">Number of Seats</label>
-                             <input type="number" name="number_seats" value="" class="form-control" required>
-                              -->
-                             <br>
-                            
+                            <br>
                             <button id="submit" type="submit" name="button" class="btn btn-dark ml-auto d-block">Add Room</button>
                          </div>
                          <?php 
