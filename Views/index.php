@@ -1,4 +1,12 @@
+<?php
+///require_once('nav.php');
+if(isset($message)){
+    if($message != null){
+        echo "<script> alert('$message'); </script>";
+    }
+}
 
+?>
 <main class="">
     <section id="" class="">
         <div class="">
