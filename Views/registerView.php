@@ -7,26 +7,26 @@
                          <div class="">
                               <div class="">
                                    <label for="name">Name</label>
-                                   <input type="text" id="name" name="name" value="" class="" required>
+                                   <input type="text" id="name" name="name" value="" class="" placeholder="Name" required>
                               </div>
                          </div>
                          <div class="">
                               <div class="">
                                    <label for="lastName">Last Name</label>
-                                   <input type="text" id="lastName" name="lastName" value="" class="" required>
+                                   <input type="text" id="lastName" name="lastName" value="" class="" placeholder="Last Name" required>
                               </div>
                          </div>
                          <div class="">
                               <div class="">
                                    <label for="email">Email</label>
-                                   <input type="email" id="email" name="email" value="" class="" required>
+                                   <input type="email" id="email" name="email" value="" class="" placeholder="Email" required>
                               </div>
                          </div>
 
                     <div class="">
                               <div class="">
                                    <label for="password">Password</label>
-                                   <input type="password" id="password" name="password" value="" class="">
+                                   <input type="password" id="password" name="password" value="" class="" placeholder="Password" required>
                               </div>
                          </div>
                     </div>

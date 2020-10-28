@@ -16,13 +16,13 @@ if(isset($message)){
                     <div class="">
                         <div class="">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" value="" class="" required>
+                            <input type="text" name="email" id="email" value="" class="" placeholder="Email" required>
                         </div>
                     </div>
                     <div class="">
                         <div class="">
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" value="" class=""required>
+                            <input type="password" name="password" id="password" value="" class="" placeholder="Password" required>
                         </div>
                     </div>
 
