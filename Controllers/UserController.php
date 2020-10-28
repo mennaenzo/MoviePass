@@ -1,94 +1,139 @@
 <?php
-    namespace Controllers;
+namespace Controllers;
 
-    use DAO\UserDAO as UserDAO;
-    use Models\User as User;
+use DAO\UserDAO as UserDAO;
+use Models\User as User;
 
-    class UserController
+class UserController
+{
+    private $userDAO;
+    private $message = null;
+
+    public function __construct()
     {
-        private $userDAO;
-        private $message;
+        $this->userDAO = new UserDAO();
+    }
 
-        public function __construct()
-        {
-            $this->userDAO = new UserDAO();
-        }
+    public function ShowAddView($message = "")
+    {
+        $message = $this->message;
+        require_once(VIEWS_PATH . "user-add.php");
+    }
 
-        public function ShowAddView($message = "")
-        {
-            $message = $this->message;
-            require_once(VIEWS_PATH."user-add.php");
-        }
+    public function ShowListView()
+    {
+        $userList = $this->userDAO->GetAll();
 
-        public function ShowListView()
-        {
-            $userList = $this->userDAO->GetAll();
+        require_once(VIEWS_PATH . "user-list.php");
+    }
 
-            require_once(VIEWS_PATH."user-list.php");
-        }
+    public function Add($name, $lastName, $email, $password)
+    {
+        ////Primero compruebo si existe el usuario que estoy tratando de agregar.
+        $userExists = $this->userDAO->SearchUser($email, $password);
 
-        public function Add($name, $lastName, $email, $password)
-        {
-            $this->message = "Usuario agregado con exito";
+        if (!$userExists) {
+            /////Si no exite el usuario, creo uno nuevo y lo cargo en la base de datos
             $user = new User();
-            $user->setName($name);
-            $user->setLastName($lastName);
-            $user->setEmail($email);
-            $user->setPassword($password);
+            $user->setName(trim($name));
+            $user->setLastName(trim($lastName));
+            $user->setEmail(trim($email));
+            $user->setPassword(trim($password));
             $this->userDAO->Add($user);
-
+            $this->message = "Usuario agregado con exito";
             $this->ShowLoginView($this->message);
+        } else {
+            /////Si el usuario existe, no me lo agrega a la base de datos, me sale el cartel de ya exite dicho usuario
+            /// y me lleva a la vista de registrar usuario nuevamente
+            $this->message = "El Usuario que intenta registrar ya exite. Registrese con otro Email";
+            $this->ShowRegisterView($this->message);
         }
 
-        public function ShowLoginView($message = "")
-        {
-            $message = $this->message;
-            require_once(VIEWS_PATH."index.php");
-        }
+    }
 
-        public function ShowRegisterView($message = "")
-        {
-            $message = $this->message;
-            require_once(VIEWS_PATH."registerView.php");
-        }
+    public function ShowLoginView($message = "")
+    {
+        $message = $this->message;
+        require_once(VIEWS_PATH . "index.php");
+    }
 
-        public function Login ($email, $password){
-            $userExists = $this->userDAO->SearchUser($email,$password);
+    public function ShowRegisterView($message = "")
+    {
+        $message = $this->message;
+        require_once(VIEWS_PATH . "registerView.php");
+    }
 
-            if($userExists != null){
+    public function Login($email, $password)
+    {
+        if ($this->validateDataLogin()) {
+            ////quito espacios del email
+            $trimEmail = trim($email);
+            $trimPassword = trim($password);
+
+            $userExists = $this->userDAO->SearchUser($trimEmail, $trimPassword);
+
+            if ($userExists != null) {
                 //guardar en session
-                $_SESSION['userLogged'] = $userExists->getId();
+                $_SESSION['loggedUser'] = $userExists->getId();
 
-                $enzo = "enzo@moviepass.com";
-                $martin = "martin@moviepass.com";
-                $federico = "federico@moviepass.com";
-                $fabian = "fabian@moviepass.com";
 
-                if($userExists->getEmail() == $enzo || $userExists->getEmail() == $martin || $userExists->getEmail() == $federico || $userExists->getEmail() == $fabian   )
-                {
-                    require_once(VIEWS_PATH."admin-menu.php");
+                if ($userExists->getId() == 1 || $userExists->getId() == 2 || $userExists->getId() == 3 || $userExists->getId() == 4) {
+                    require_once(VIEWS_PATH . "admin-menu.php");
                 }
-
-                else{
+                else {
 
                     $this->ShowListView_user();
                 }
-            }
-            else{
-                $this->message = "Usuario no registrado";
+            } else {
+                $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
                 $this->ShowLoginView($this->message);
             }
         }
+        else{
+            $this->message = "Al validar los datos ingresados, se produjo un error. Por favor vuelva a ingresarlos.";
+            $this->ShowLoginView($this->message);
+        }
+    }
 
-        public function SearchUser($email, $password){
-            $userList = $this->userDAO->GetAll();
-            foreach ($userList as $user){
-                if($user->getEmail() == $email && $user->getPassword() == $password){
-                    return true;
-                }
+    public function SearchUser($email, $password){
+        $userList = $this->userDAO->GetAll();
+        foreach ($userList as $user){
+            if($user->getEmail() == $email && $user->getPassword() == $password){
+                return true;
             }
+        }
+        return false;
+    }
+
+    public function validateDataLogin(){
+        if(!empty($_POST)){
+            if($this->validateField($_POST["email"]) && $this->validateField(["password"])){
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function validateFieldNumber($fieldNumber){
+
+        if($this->validateField($fieldNumber) && is_numeric($fieldNumber) && $fieldNumber > 0 ){
+            return true;
+        }
+        else {
             return false;
         }
 
     }
+    public function validateField($field){
+        if(isset($field) && !empty($field)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+}
 ?>
