@@ -14,9 +14,9 @@
 
         public function  Add(User $user){
             try{
-                $query = "INSERT INTO ".$this->tableName." (name, lastName, email, password) VALUES (:name, :lastName, :email, :password);";
+                $query = "INSERT INTO ".$this->tableName." (userName, lastName, email, password) VALUES (:userName, :lastName, :email, :password);";
 
-                $parameters["name"] = $user->getName();
+                $parameters["userName"] = $user->getUserName();
                 $parameters["lastName"] = $user->getLastName();
                 $parameters["email"] = $user->getEmail();
                 $parameters["password"] = $user->getPassword();
@@ -42,7 +42,7 @@
                     foreach ($resultSet as $row){
                         $user = new User();
                         $user->setId($row["id"]);
-                        $user->setName($row["name"]);
+                        $user->setUserName($row["userName"]);
                         $user->setLastName("lastName");
                         $user->setEmail($row["email"]);
                         $user->setPassword($row["password"]);

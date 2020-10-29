@@ -7,7 +7,7 @@ namespace Models;
 class User
 {
     private $id;
-    private $name;
+    private $userName;
     private $lastName;
     private $email;
     private $password;
@@ -22,14 +22,14 @@ class User
         $this->email=$email;
     }
 
-    public function getName()
+    public function getUserName()
     {
-        return $this->name;
+        return $this->userName;
     }
 
-    public function setName($name)
+    public function setUserName($userName)
     {
-        $this->name = $name;
+        $this->userName = $userName;
     }
 
     public function getLastName(){

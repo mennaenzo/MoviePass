@@ -7,7 +7,7 @@
                          <div class="">
                               <div class="">
                                    <label for="name">Name</label>
-                                   <input type="text" id="name" name="name" value="" class="" placeholder="Name" required>
+                                   <input type="text" id="name" name="userName" value="" class="" placeholder="Name" required>
                               </div>
                          </div>
                          <div class="">
