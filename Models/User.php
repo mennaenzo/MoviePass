@@ -10,7 +10,7 @@ class User
     private $userName;
     private $lastName;
     private $email;
-    private $password;
+    private $userPassword;
     private $listMovie;
     private $listTicket;
 
@@ -48,14 +48,14 @@ class User
     {
         $this->id = $id;
     }
-    public function getPassword()
+    public function getUserPassword()
     {
-        return $this->password;
+        return $this->userPassword;
     }
 
-    public function setPassword($password)
+    public function setUserPassword($userPassword)
     {
-        $this->password = $password;
+        $this->userPassword = $userPassword;
     }
 
     public function getListMovie(){

@@ -27,10 +27,10 @@ class UserController
         require_once(VIEWS_PATH . "user-list.php");
     }
 
-    public function Add($userName, $lastName, $email, $password)
+    public function Add($userName, $lastName, $email, $userPassword)
     {
         ////Primero compruebo si existe el usuario que estoy tratando de agregar.
-        $userExists = $this->userDAO->SearchUser($email, $password);
+        $userExists = $this->userDAO->SearchUser($email, $userPassword);
 
         if (!$userExists) {
             /////Si no exite el usuario, creo uno nuevo y lo cargo en la base de datos
@@ -38,7 +38,7 @@ class UserController
             $user->setUserName(trim($userName));
             $user->setLastName(trim($lastName));
             $user->setEmail(trim($email));
-            $user->setPassword(trim($password));
+            $user->setUserPassword(trim($userPassword));
             $this->userDAO->Add($user);
             $this->message = "Usuario agregado con exito";
             $this->ShowLoginView($this->message);

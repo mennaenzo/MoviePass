@@ -14,12 +14,12 @@
 
         public function  Add(User $user){
             try{
-                $query = "INSERT INTO ".$this->tableName." (userName, lastName, email, password) VALUES (:userName, :lastName, :email, :password);";
+                $query = "INSERT INTO ".$this->tableName." (userName, lastName, email, userPassword) VALUES (:userName, :lastName, :email, :userPassword);";
 
                 $parameters["userName"] = $user->getUserName();
                 $parameters["lastName"] = $user->getLastName();
                 $parameters["email"] = $user->getEmail();
-                $parameters["password"] = $user->getPassword();
+                $parameters["userPassword"] = $user->getUserPassword();
 
                 $this->connection = Connection::GetInstance();
 
@@ -31,7 +31,7 @@
             }
         }
 
-        public function SearchUser($email, $password){
+        public function SearchUser($email, $userPassword){
             try{
                 $query = "SELECT * FROM " . $this->tableName . " WHERE email = '".$email."';";
 
@@ -45,9 +45,9 @@
                         $user->setUserName($row["userName"]);
                         $user->setLastName("lastName");
                         $user->setEmail($row["email"]);
-                        $user->setPassword($row["password"]);
+                        $user->setUserPassword($row["userPassword"]);
                     }
-                    if($user->getPassword() != $password){
+                    if($user->getUserPassword() != $userPassword){
                         $user = null;
                     }
                 }
