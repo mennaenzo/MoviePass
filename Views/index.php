@@ -16,7 +16,7 @@ if(isset($message)){
                     <div class="">
                         <div class="">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" value="" class="" placeholder="Email" required>
+                            <input type="email" name="email" id="email" value="" class="" placeholder="Email" required>
                         </div>
                     </div>
                     <div class="">
