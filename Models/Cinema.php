@@ -5,6 +5,7 @@
         private $id;
         private $name;
         private $address;
+        //private $roomList;  hacer get and set
 
         /**
          * @return mixed

@@ -2,7 +2,7 @@
     namespace Models;
 
     class Room {
-        private $id;  segun la base de datos
+        private $id; 
         private $nameCinema;
         private $name;
         private $room_price;

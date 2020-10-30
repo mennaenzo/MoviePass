@@ -8,6 +8,7 @@
         private $summary;
         private $language;
         private $genres = array();
+        private $releaseDate; //falta get and set
 
 
         function __construct($id, $adult, $name, $summary, $language,$genres){
