@@ -1,12 +1,121 @@
 <?php
+
+
     namespace DAO;
     use DAO\ICinemaDAO as ICinemaDAO;
     use Models\Cinema as Cinema;
     use Models\Room as Room;
+    use \Exception as Exception;
+    use DAO\Connection as Connection;
+
     class CinemaDAO implements ICinemaDAO
     {
-        private $fileName = "Data/cinema.json";
         private $cinemaList = array();
+        private $connection;
+        private $tableName = "cinema";   //Observación: ver si en la base de datos tiene  que ir "cinemas" ( en plural)
+   
+        public function Add(Cinema $cinema ){
+            if($this->validateNameCinema($cinema->getName())){
+                if($this->validateAddressCinema($cinema->getAddress())){
+                    $message = "El cine ya esta registrado.";
+                }
+                else{
+                    $message = "El cine esta registrado con otra dirección.";
+                }
+            }
+            elseif($this->validateAddressCinema($cinema->getAddress())){
+                    $message = "La direccion ya esta registrada para otro cine";
+                }
+                else{
+                   try{ 
+                        $query = "INSERT INTO " . $this->tableName . " (nameCinema, addressCinema) VALUES (:nameCinema, :addressCinema);";
+                        $parameters["nameCinema"] = $cinema->getName();
+                        $parameters["addressCinema"] = $cinema->getAddress();
+                        $this->connection = Connection::GetInstance();
+                        $this->connection->ExecuteNonQuery($query, $parameters);
+                        $message = "Los datos del cine fueron creados correctamente.";
+                    }       
+                    catch (Exception $ex)
+                    {
+                        throw $ex;
+                    }
+                }   
+            return $message;  
+        }
+    
+        
+        public function GetAll(){
+            $this->RetrieveData();
+            return $this->cinemaList;
+
+        }
+        public function RetrieveData() {
+            try {
+                $query = "SELECT * FROM " .  $this->tableName . ";";
+                $this->connection = Connection::GetInstance();
+             
+                $result = $this->connection->Execute($query);
+                if($result){
+                    foreach($result as $value){
+                        $cinema = new Cinema();
+                        $cinema->setId($value["idCinema"]);
+                        $cinema->setName($value["nameCinema"]);
+                        $cinema->setAddress($value["addressCinema"]);
+                        array_push($this->cinemaList, $cinema);
+                        }
+                    }
+                }
+                catch (Exception $ex){
+                    throw $ex;
+                }
+        }
+
+        public function validateNameCinema($name){
+            $this->RetrieveData();
+            $flag = false;
+            foreach($this->cinemaList as $value){
+                if($name == $value->getName()){
+                   $flag = true;
+                } 
+            }
+            return $flag;
+            
+        }
+
+        public function validateAddressCinema($address){
+            $this->RetrieveData();
+            $flag = false;
+            foreach($this->cinemaList as $value){
+                if($address == $value->getAddress()){
+                    $flag = true;
+                } 
+            }
+            return $flag;
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //PARA TRABAJAR CON JSON
+        /* 
+        private $cinemaList = array();   
+        private $fileName = "Data/cinema.json";
 
         public function Add(Cinema $cinema) //sin terminar
         {
@@ -33,23 +142,6 @@
             $this->RetrieveData();
             return $this->cinemaList;
         }
-
-    /*     private function SaveData()
-        {
-            $arrayToEncode = array();
-            foreach($this->cinemaList as $cinema)
-            {
-                $valuesArray=array();
-                $valuesArray["name"] = $cinema->getName();
-                $valuesArray["adress"] = $cinema->getAdress();
-                $valuesArray["capacity"] = $cinema->getCapacity();
-                $valuesArray["ticket_price"] = $cinema->getTicketPrice();
-                array_push($arrayToEncode, $valuesArray);
-            }
-            $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-            file_put_contents($this->fileName, $jsonContent);
-        } */
 
         private function SaveData()
         {
@@ -108,4 +200,4 @@
            $cinema =( end($this->cinemaList));
            return $cinema->getname();
         }
-    }
+    } */
