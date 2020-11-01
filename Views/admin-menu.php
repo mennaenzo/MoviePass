@@ -5,7 +5,7 @@
 <main class="py-auto">
     <section id="listado" class="mb-5">
         <h1>¡¡Bienvenido!!</h1>
-        <h2>¿Que operación desea realizar?</h3>
+        <h2>¿Que operación desea realizar?</h2>
         <form action="<?php echo FRONT_ROOT?> AdminMenu/ShowAddCinemaView" method="POST">
             <div class="sep">
                     <button id="submitAdd" type="submit" name="btnAdd" class="btn btn-dark ml">Agregar Cine</button>

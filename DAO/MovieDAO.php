@@ -57,11 +57,9 @@
             $arrayGenre = json_decode(file_get_contents("https://api.themoviedb.org/3/genre/movie/list?api_key=" . KEY . "&language=es&page=1"), TRUE);
 
             foreach ($arrayGenre["genres"] as $genre) {
-                //var_dump($genre);
                 $genres = new Genres();
                 $genres->setName($genre["name"]);
                 $genres->setIdApi($genre["id"]);
-                var_dump($genres);
                 array_push($this->genresList, $genres);
             }
         }
