@@ -45,7 +45,7 @@
     
         
         public function GetAll(){
-            $this->RetrieveData();
+           // return $this->RetrieveData();
             return $this->cinemaList;
 
         }
