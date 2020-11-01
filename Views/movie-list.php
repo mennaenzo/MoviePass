@@ -12,6 +12,7 @@
                 <th>Description</th>
                 <th>Language</th>
                 <th>Adult</th>
+                <th>Genres</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -20,6 +21,7 @@
                         <td><?php echo $movie->getSummary() ?></td>
                         <td><?php echo $movie->getLanguage() ?></td>
                         <td><?php echo $movie->getAdult() ? "Si" : "No"; ?></td>
+                        <td><?php var_dump($movie->getGenres())?></td>
                     </tr>
                     <?php }?>
                 </tbody>

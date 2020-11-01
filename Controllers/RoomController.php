@@ -51,8 +51,7 @@
         }
        
         public function ShowListCinemaView($message =""){
-            $cinemaList = $this->cinemaDAO->GetAll();
-            require_once( VIEWS_PATH . "Cinema-List.php");
+            $this->cinemaDAO->ShowListView($message);
         }
 
         public function ShowListRoomView($option){
