@@ -20,7 +20,7 @@
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>>List Cinema</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListGenres">List Movie</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">List Movie</a>
                 </li>
                <!-- </li>
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Room/ShowListView">List Room</a>

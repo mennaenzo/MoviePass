@@ -13,16 +13,15 @@ class Genres
         $this->name=$name;
     }
 
-    public function setId_api($id){
+    public function setIdApi($id){
         $this->id_api=$id;
     }
-
 
     public function getName(){
         return $this->name;
     }
 
-    public function getId_api(){
+    public function getIdApi(){
         return $this->id_api;
     }
     //probando

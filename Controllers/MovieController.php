@@ -15,7 +15,9 @@
         public function ShowListView()
         {
             $movieList = $this->MovieDAO->GetAll();
-            require_once(VIEWS_PATH . "movie-list.php");
+            $genresList = $this->MovieDAO->GetGenres();
+
+            require_once(VIEWS_PATH . "user-menu.php");
         }
     }
 ?>

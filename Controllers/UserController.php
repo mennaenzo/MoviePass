@@ -41,12 +41,12 @@ class UserController
             $user->setEmail(trim($email));
             $user->setUserPassword(trim($userPassword));
             $this->userDAO->Add($user);
-            $this->message = "Usuario agregado con exito";
+            $this->message = "Usuario agregado con exito.";
             $this->ShowLoginView($this->message);
         } else {
             /////Si el usuario existe, no me lo agrega a la base de datos, me sale el cartel de ya exite dicho usuario
             /// y me lleva a la vista de registrar usuario nuevamente
-            $this->message = "El Usuario que intenta registrar ya exite. Registrese con otro Email";
+            $this->message = "El Usuario que intenta registrar ya exite. Registrese con otro Email.";
             $this->ShowRegisterView($this->message);
         }
 
@@ -63,6 +63,7 @@ class UserController
         $message = $this->message;
         require_once(VIEWS_PATH . "registerView.php");
     }
+
 
     public function Login($email, $password)
     {
@@ -82,9 +83,7 @@ class UserController
                     require_once(VIEWS_PATH . "admin-menu.php");
                 }
                 else {
-
                     $this->ShowListView_user();
-
                 }
             } else {
                 $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
@@ -128,6 +127,7 @@ class UserController
         }
 
     }
+
     public function validateField($field){
         if(isset($field) && !empty($field)){
             return true;
@@ -137,18 +137,24 @@ class UserController
         }
     }
 
+
+    public function Logout(){
+        session_destroy();
+        //require_once(VIEWS_PATH."index.php");
+        $this->ShowLoginView();
+    }
+
     public function ShowListView_user(){
         $movieDAO = new MovieDAO();
         $movieList = $movieDAO->GetAll();
         //var_dump($movieList);
         require_once VIEWS_PATH . "user-menu.php";
-
     }
+
     public function ShowListViewCinema_user()
     {
         $cinemaList = $this->cinemaDAOBD->GetAll();
         require_once(VIEWS_PATH."Cinema-List.php");
     }
-
 }
 ?>

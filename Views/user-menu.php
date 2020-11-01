@@ -1,16 +1,20 @@
-<?php require_once "nav.php";?>
+<?php require_once "nav.php";
+//var_dump($genresList);?>
     <main class="py-5">
         <section id="listado" class="mb-5">
 
-            <form action="<?php echo FRONT_ROOT . "UserMenu"?>" method="POST">
+            <form action="<?php echo FRONT_ROOT . "UserMenu/"?>" method="POST">
                 <label for ="lblSearch">Genero</label>
 
                 <select name="searchGenre">
-                    <option value="1"> Accion </option>
-                    <option value="2"> Comedia </option>
+                    <?php
+                    foreach($genresList as $genre){ ?>
+                        <option value="<?php echo $genre->getIdApi();?>"><?php echo $genre->getName();?></option>
+                    <?php } ?>
                 </select>
+
                 <label for ="lblSearch"> Fecha </label>
-               <input type = "date" name="date"required>
+                <input type = "date" name="date"required>
 
                 <button type="submit" name="" class="btn btn-danger" value="">Filtrar </button>
             </form>
