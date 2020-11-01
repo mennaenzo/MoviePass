@@ -83,7 +83,7 @@ class UserController
                 }
                 else {
 
-                    $this->ShowListView_user();
+                    $this->ShowListViewUser();
                 }
             } else {
                 $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
