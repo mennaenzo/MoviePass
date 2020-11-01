@@ -18,7 +18,7 @@ require_once(VIEWS_PATH."nav.php");
                             <label for="address">Address</label>
                             <input type="text" name="cinema_address" value="" class="form-control" required>
                             <br>
-                            <button id="submit" type="submit" name="button" class="btn btn-dark ml-auto d-block">Add Room</button>
+                            <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Add Room</button>
                          </div>
                          <?php 
                             if(isset($message)){  

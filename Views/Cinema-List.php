@@ -34,19 +34,11 @@ require_once(VIEWS_PATH."nav.php");
                         <?php } ?>
                 </select>  
             
-                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getName();?>"> Ver Salas </button>
-   
-                 </form> 
-                <!-- <form action="<?php echo FRONT_ROOT ?>Cinema/ShowAddRoomView" method="POST">
-                <select name="seeCinemass">
-                                <?php foreach($cinemaList as $cinema){ ?>
-                                    <option value="<?php echo $cinema->getName();?>"> <?php echo $cinema->getName();?> </option>    
-                            <?php } ?>
-                            </select>  
-                        <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getName();?>"> Agregar sala </button>    
+                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="1"> Ver Salas </button>
+                <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="2"> Agregar sala </button>    
                     
-                    </form> 
-            -->
+            </form> 
+          
                    
                     
                 <!--     <form action="<?php echo FRONT_ROOT ?>Cinema/Delete" method="POST">

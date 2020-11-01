@@ -70,5 +70,11 @@
         "name": "32",
         "room_price": "13",
         "capacity": "21"
+    },
+    {
+        "nameCinema": "",
+        "name": "67",
+        "room_price": "67",
+        "capacity": "67"
     }
 ]

@@ -55,6 +55,7 @@
                 $this->connection = Connection::GetInstance();
              
                 $result = $this->connection->Execute($query);
+               
                 if($result){
                     foreach($result as $value){
                         $cinema = new Cinema();
@@ -70,27 +71,67 @@
                 }
         }
 
+        public function searchIdCinemaByName($name){
+            $query = "SELECT idCinema FROM " . $this->tableName . " WHERE nameCinema = '".$name."';";
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);  
+            
+            if($result){
+                foreach($result as $value){
+                   $cinema = new Cinema();
+                   $cinema->setId(($value["idCinema"]));
+                }
+              return $cinema->getId();
+            }
+            else {
+                return null;
+            }
+        }
+
         public function validateNameCinema($name){
-            $this->RetrieveData();
+            $flag = false;
+            $query = "SELECT nameCinema FROM ". $this->tableName. " WHERE nameCinema= '".$name."';";
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);  
+
+            if($result){
+                $flag = true;
+            }
+           /*  $this->RetrieveData();
             $flag = false;
             foreach($this->cinemaList as $value){
                 if($name == $value->getName()){
                    $flag = true;
                 } 
-            }
+            } */
             return $flag;
-            
         }
 
         public function validateAddressCinema($address){
-            $this->RetrieveData();
+            $flag = false;
+            $query = "SELECT addressCinema FROM ". $this->tableName. " WHERE addressCinema = '".$address."';";
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);  
+           
+            if($result){
+                $flag = true;
+            }
+
+            /* $this->RetrieveData();
             $flag = false;
             foreach($this->cinemaList as $value){
                 if($address == $value->getAddress()){
                     $flag = true;
                 } 
-            }
+            } */
             return $flag;
+        }
+
+        public function lastLoadedCinema(){
+            $cinema = new Cinema();
+            $this->RetrieveData();
+           $cinema = (end($this->cinemaList));
+           return $cinema->getname();
         }
 }
 

@@ -4,7 +4,7 @@
      <main class="py-5">
          <section id="listado" class="mb-5">
              <div class="container">
-                 <h2 class="mb-4">Listado de Cines</h2>
+                 <h2 class="mb-4">Listado de Salas</h2>
                  <table class="table bg-light-alpha">
                      <thead>
                         <th>Sala</th>
@@ -13,13 +13,15 @@
                      </thead>
                      <tbody>
                          <tr>
-                             <?php foreach($roomList as $room) {?>
-                            <tr>
-                                <td><?php  echo $room->getName();?></td> 
-                                <td><?php  echo $room->getRoom_price();?></td> 
-                                <td><?php  echo $room->getCapacity();?></td> 
-                             </tr>     
-                             <?php } ?>
+                             <?php foreach($roomList as $room) {
+                                
+                                        if($room->getNameCinema() == $option){?>
+                                            <tr>
+                                                <td><?php  echo $room->getName();?></td> 
+                                                <td><?php  echo $room->getRoom_price();?></td> 
+                                                <td><?php  echo $room->getCapacity();?></td> 
+                                            </tr>     
+                            <?php }} ?>
                         </tr>
                     </tbody>
                 </table>
