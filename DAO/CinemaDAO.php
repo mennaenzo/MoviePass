@@ -12,7 +12,7 @@
     {
         private $cinemaList = array();
         private $connection;
-        private $tableName = "cinema";   //Observación: ver si en la base de datos tiene  que ir "cinemas" ( en plural)
+        private $tableName = "Cinemas";   //Observación: ver si en la base de datos tiene  que ir "cinemas" ( en plural)
    
         public function Add(Cinema $cinema ){
             if($this->validateNameCinema($cinema->getName())){
@@ -28,9 +28,9 @@
                 }
                 else{
                    try{ 
-                        $query = "INSERT INTO " . $this->tableName . " (nameCinema, addressCinema) VALUES (:nameCinema, :addressCinema);";
-                        $parameters["nameCinema"] = $cinema->getName();
-                        $parameters["addressCinema"] = $cinema->getAddress();
+                        $query = "INSERT INTO " . $this->tableName . " (cinemaName, address) VALUES (:cinemaName, :address);";
+                        $parameters["cinemaName"] = $cinema->getName();
+                        $parameters["address"] = $cinema->getAddress();
                         $this->connection = Connection::GetInstance();
                         $this->connection->ExecuteNonQuery($query, $parameters);
                         $message = "Los datos del cine fueron creados correctamente.";
@@ -72,7 +72,7 @@
         }
 
         public function searchIdCinemaByName($name){
-            $query = "SELECT idCinema FROM " . $this->tableName . " WHERE nameCinema = '".$name."';";
+            $query = "SELECT id FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);  
             
@@ -90,7 +90,7 @@
 
         public function validateNameCinema($name){
             $flag = false;
-            $query = "SELECT nameCinema FROM ". $this->tableName. " WHERE nameCinema= '".$name."';";
+            $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."';";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);  
 
@@ -109,7 +109,7 @@
 
         public function validateAddressCinema($address){
             $flag = false;
-            $query = "SELECT addressCinema FROM ". $this->tableName. " WHERE addressCinema = '".$address."';";
+            $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."';";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);  
            
