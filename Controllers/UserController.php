@@ -1,6 +1,7 @@
 <?php
     namespace Controllers;
 
+    use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO;
     use DAO\UserDAO as UserDAO;
     use Models\User as User;
@@ -8,11 +9,13 @@
     class UserController
     {
         private $userDAO;
+        private $cinemaDAO;
         private $message = null;
 
         public function __construct()
         {
             $this->userDAO = new UserDAO();
+            $this->cinemaDAO = new CinemaDAO();
         }
 
         public function ShowAddView($message = "")
@@ -151,8 +154,10 @@
 
         public function ShowListViewCinema_user()
         {
-            $cinemaList = $this->cinemaDAOBD->GetAll();
-            require_once(VIEWS_PATH."Cinema-List.php");
+            $cinemaList = $this->cinemaDAO->GetAll();
+            require_once(VIEWS_PATH."Cinema-List-user.php");
         }
+
+
     }
 ?>

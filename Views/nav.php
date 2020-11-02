@@ -14,7 +14,7 @@
          </span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>">Lista de cine</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowListViewCinema_user">Lista de cine</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
