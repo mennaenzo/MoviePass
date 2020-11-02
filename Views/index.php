@@ -36,5 +36,28 @@ if(isset($message)){
         </div>
     </section>
 
+    <!-- <main class="d-flex align-items-center justify-content-center height-100">
+          <div class="content">
+               <header class="text-center">
+                    <h2>Login</h2>
+               </header>
+               <form action="<?php //echo FRONT_ROOT ?>User/Login" method="post" class="login-form bg-dark-alpha p-5 text-white">
+                    <div class="form-group">
+                         <label for="">Usuario</label>
+                         <input type="text" name="" class="form-control form-control-lg" placeholder="Ingresar usuario" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="">Contraseña</label>
+                         <input type="text" name="" class="form-control form-control-lg" placeholder="Ingresar constraseña" required>
+                    </div>
+                    <div class="form-group">
+                    <button class="btn btn-dark btn-block btn-lg" type="submit">Iniciar Sesión</button>
+                    </div>
+                    <div class="form-group">
+                    <a href="<?php //echo FRONT_ROOT ?>User/ShowRegisterView"><button class="btn btn-dark btn-block btn-lg">Registrarse</button></a>
+                    </div>
+               </form>
+          </div>
+     </main> -->
 
 </main>

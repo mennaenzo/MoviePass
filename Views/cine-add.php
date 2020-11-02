@@ -1,5 +1,5 @@
 <?php
-require_once(VIEWS_PATH."nav.php");
+    require_once VIEWS_PATH . "nav.php";
 ?>
 <main class="py-auto">
      <section id="listado" class="mb-5">
@@ -20,15 +20,12 @@ require_once(VIEWS_PATH."nav.php");
                             <br>
                             <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Add Room</button>
                          </div>
-                         <?php 
-                            if(isset($message)){  
+                         <?php
+                            if (isset($message)) {
                                 echo "<script> alert('$message'); </script>";
-                            }                      
+                            }
                         ?> 
               </form>
           </div>
      </section>
-
 </main>
-
-

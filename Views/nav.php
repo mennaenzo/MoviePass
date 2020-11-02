@@ -1,45 +1,44 @@
 <?php
-    if (isset($_SESSION['loggedUser'])){
-        $user= $_SESSION['loggedUser'];
-    }
+    use DAO\UserDAO as UserDAO;
 
-    if($user>=5){
+if (isset($_SESSION['loggedUser'])) {
+    $user = $_SESSION['loggedUser'];
+    $userDao = new UserDAO();
+    if (!$userDao->esAdmin($user)) {
+        //Nav USUARIO
+?>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <span class="navbar-text">
+            <strong>Movie Pass</strong>
+            <h4><strong><?php echo "Usuario: " . $userDao->getUserName($user); ?></strong></h4>
+        </span>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowListViewCinema_user">Lista de cine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
+            </li>
+            <!-- </li>
+            <a class="nav-link" href="<?php echo FRONT_ROOT ?>Room/ShowListView">List Room</a>
+            </li> -->
 
-    //Nav USUARIO
-        ?>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Lista de funciones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
+            </li>
+        </ul>
+    </nav>
 
-        <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-         <span class="navbar-text">
-              <h1><strong>MoviePass</strong></h1>
-         </span>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowListViewCinema_user">Lista de cine</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
-                </li>
-               <!-- </li>
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Room/ShowListView">List Room</a>
-                </li> -->
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Lista de funciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
-                </li>
-            </ul>
-
-        </nav>
-
-    <?php }
-    else // Nav Administrador
-    {
+    <?php
+    } else { // Nav Administrador
         ?>
         <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
      <span class="navbar-text">
           <strong>Movie Pass</strong>
+          <h4><strong><?php echo "Admin: " . $userDao->getUserName($user); ?></strong></h4>
      </span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -60,6 +59,9 @@
             </ul>
         </nav>
 
-        <?php
-    }
-    ?>
+<?php
+        }
+} else {
+    header("Location: http://localhost:8080/MoviePass/");
+}
+?>

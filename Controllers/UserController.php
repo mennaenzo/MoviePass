@@ -34,7 +34,7 @@
         public function Add($userName, $lastName, $email, $userPassword)
         {
             ////Primero compruebo si existe el usuario que estoy tratando de agregar.
-            $userExists = $this->userDAO->SearchUser($email, $userPassword);
+            $userExists = $this->userDAO->SearchUser($email);
 
             if (!$userExists) {
                 /////Si no exite el usuario, creo uno nuevo y lo cargo en la base de datos
@@ -49,7 +49,7 @@
             } else {
                 /////Si el usuario existe, no me lo agrega a la base de datos, me sale el cartel de ya exite dicho usuario
                 /// y me lleva a la vista de registrar usuario nuevamente
-                $this->message = "El Usuario que intenta registrar ya exite. Registrese con otro Email.";
+                $this->message = "Ya existe un usuario registrado con: $email";
                 $this->ShowRegisterView($this->message);
             }
         }
@@ -74,17 +74,22 @@
                 $trimEmail = trim($email);
                 $trimPassword = trim($password);
 
-                $userExists = $this->userDAO->SearchUser($trimEmail, $trimPassword);
+                $userExists = $this->userDAO->SearchUser($trimEmail);
 
                 if ($userExists != null) {
-                    //guardar en session
-                    $_SESSION['loggedUser'] = $userExists->getId();
-
-
-                    if ($userExists->getId() == 1 || $userExists->getId() == 2 || $userExists->getId() == 3 || $userExists->getId() == 4) {
-                        require_once(VIEWS_PATH . "admin-menu.php");
+                    if ($userExists->getUserPassword() == $password) {
+                        //guardar en session
+                        $_SESSION['loggedUser'] = $userExists->getId();
+                    
+                        //cambiar ----------------------------
+                        if ($userExists->getId() == 1 || $userExists->getId() == 2 || $userExists->getId() == 3 || $userExists->getId() == 4) {
+                            require_once(VIEWS_PATH . "admin-menu.php");
+                        } else {
+                            $this->ShowListView_user();
+                        }
                     } else {
-                        $this->ShowListView_user();
+                        $this->message = "Contraseña incorrecta.";
+                        $this->ShowLoginView($this->message);
                     }
                 } else {
                     $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
@@ -96,11 +101,11 @@
             }
         }
 
-        public function SearchUser($email, $password)
+        public function SearchUser($email)
         {
             $userList = $this->userDAO->GetAll();
             foreach ($userList as $user) {
-                if ($user->getEmail() == $email && $user->getPassword() == $password) {
+                if ($user->getEmail() == $email) {
                     return true;
                 }
             }
@@ -157,7 +162,4 @@
             $cinemaList = $this->cinemaDAO->GetAll();
             require_once(VIEWS_PATH."cinema-list-user.php");
         }
-
-
     }
-?>

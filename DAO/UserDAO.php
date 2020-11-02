@@ -30,7 +30,7 @@
             }
         }
 
-        public function SearchUser($email, $userPassword)
+        public function SearchUser($email)
         {
             try {
                 $query = "SELECT * FROM " . $this->tableName . " WHERE email = '".$email."';";
@@ -47,9 +47,6 @@
                         $user->setEmail($row["email"]);
                         $user->setUserPassword($row["userPassword"]);
                     }
-                    if ($user->getUserPassword() != $userPassword) {
-                        $user = null;
-                    }
                 }
             } catch (Exception $ex) {
                 throw $ex;
@@ -57,6 +54,25 @@
             return $user;
         }
 
+        public function esAdmin($id)
+        {
+            $query = "SELECT esAdmin FROM " . $this->tableName . " WHERE id = '$id';";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            if ($resultSet[0]["esAdmin"]) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function getUserName($id)
+        {
+            $query = "SELECT userName FROM " . $this->tableName . " WHERE id = '$id';";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet[0]["userName"];
+        }
 
         /* Funciones para trabajar con JSON
         public function Add(User $user)
@@ -118,4 +134,3 @@
         }
         */
     }
-?>

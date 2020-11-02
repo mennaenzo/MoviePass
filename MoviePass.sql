@@ -4,7 +4,7 @@ create table if not exists Cinemas(
     id int auto_increment not null,
     cinemaName varchar (50) not null,
     address varchar (50) not null,
-    status boolean default 1,
+    statusCinema boolean default 1,
     constraint Pk_Cinemas primary key (id)
 );
 create table if not exists Users (
