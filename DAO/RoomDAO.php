@@ -2,6 +2,7 @@
     namespace DAO;
 
     use DAO\IRoomDAO as IRoomDAO;
+    use DAO\CinemaDAO as CinemaDAO;
     use Models\Cinema as Cinema;
     use Models\Room as Room;
     use \Exception as Exception;
@@ -9,9 +10,14 @@
 
     class RoomDAO implements IRoomDAO
     {
-        private $roomList = array();
+        ///private $roomList = array();
         private $connection;
         private $tableName = "Rooms";
+        private $cinemaDAO;
+
+        public function __construct(){
+            $this->cinemaDAO=new CinemaDAO();
+        }
 
         public function add(Room $room, $idCinema)
         {
@@ -38,16 +44,36 @@
 
         public function GetAll()
         {
-            $this->RetrieveData();
-            return $this->roomList;
-        }
 
+            try{
+                $roomList = array();
+                $query = "SELECT * FROM ".$this->tableName . " WHERE statusRoom=1;";
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+
+                foreach ($result as $row){
+                    $room = new Room();
+                    $room->setId($row["id"]);
+                    $room->setName($row["roomName"]);
+                    $room->setCapacity($row["capacity"]);
+                    $cine = $this->cinemaDAO->GetCinema($row["idCinema"]);
+                    $room->setRoom_price($row["price"]);
+                    array_push($roomList, $room);
+                }
+                return $roomList;
+            }
+            catch (Exception $ex){
+                throw $ex;
+            }
+        }
+/*
         public function RetrieveData()
         {
             try {
                 $query = "SELECT id, idCinema, roomName, price, capacity  FROM " . $this->tableName . ";";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
+                $roomList = array();
 
                 if ($result) {
                     foreach ($result as $value) {
@@ -57,14 +83,14 @@
                         $room->setName($value["roomName"]);
                         $room->setRoom_price($value["price"]);
                         $room->setCapacity($value["capacity"]);
-                        array_push($this->roomList, $room);
+                        array_push($roomList, $room);
                     }
                 }
             } catch (Exception$ex) {
                 throw $ex;
             }
         }
-        
+        */
  
     
         public function searchRoomsByIdCinema($idCinema)
@@ -87,7 +113,6 @@
                         $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
                         array_push($roomList, $room);
                     }
-                } else {
                 }
             } catch (Exceptio $ex) {
                 throw $ex;

@@ -37,7 +37,7 @@
         }
     
        
-
+/*
         public function ShowListView($message = "")
         {
             $option = $_POST["select"];
@@ -48,19 +48,23 @@
                 $this->ShowAddRoomView($option);
             }
         }
-       
+       */
         public function ShowListCinemaView($message ="")
         {
             $cinemaList = $this->cinemaDAO->GetAll();
-            var_dump($cinemaList);
-            ECHO "<br> AFSSDSA";
             require_once  VIEWS_PATH . "Cinema-List.php";
         }
 
-        public function ShowListRoomView($option)
+        public function ShowListRoomView($id)
         {
-            $roomList = $this->roomDAO->searchRoomsByIdCinema($option);
+            $roomList = $this->roomDAO->searchRoomsByIdCinema($id);
             require_once VIEWS_PATH . "Room-List.php";
+        }
+
+        public function ShowRoomListView_User($id)
+        {
+            $roomList = $this->roomDAO->searchRoomsByIdCinema($id);
+            require_once VIEWS_PATH . "room-list-user.php";
         }
 
         public function ShowAddRoomView($option)

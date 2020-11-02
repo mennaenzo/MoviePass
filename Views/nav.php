@@ -24,7 +24,7 @@
                 </li> -->
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Show/ShowListView">Lista de funciones</a>
+                    <a class="nav-link" href="#">Lista de funciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>

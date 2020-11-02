@@ -155,7 +155,7 @@
         public function ShowListViewCinema_user()
         {
             $cinemaList = $this->cinemaDAO->GetAll();
-            require_once(VIEWS_PATH."Cinema-List-user.php");
+            require_once(VIEWS_PATH."cinema-list-user.php");
         }
 
 

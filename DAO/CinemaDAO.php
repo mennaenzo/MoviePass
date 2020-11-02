@@ -155,6 +155,33 @@
             $cinema = (end($cinemaList));
             return $cinema->getname();
         }
+
+        public function GetCinema($id){
+            try
+            {
+
+
+                $query = "SELECT * FROM ".$this->tableName." where id=$id;";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                //var_dump($resultSet);
+                $cinema = new Cinema();
+
+                foreach ($resultSet as $row){
+
+                    $cinema->setId($row["id"]);
+                    $cinema->setName($row["cinemaName"]);
+                    $cinema->setAddress($row["address"]);
+                }
+                return $cinema;
+
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+
+        }
     }
 
 

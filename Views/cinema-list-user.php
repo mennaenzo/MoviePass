@@ -9,6 +9,7 @@ require_once('nav.php');
                 <thead>
                 <th>Name</th>
                 <th>Address</th>
+                <th>Rooms</th>
 
                 </thead>
                 <tbody>
@@ -20,6 +21,11 @@ require_once('nav.php');
                     <tr>
                         <td><?php echo $cinema->getName() ?></td>
                         <td><?php echo $cinema->getAddress() ?></td>
+                        <td>
+                            <form action="<?php echo FRONT_ROOT ?>Room/ShowRoomListView_User" method="POST">
+                                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Rooms </button>
+                            </form>
+                        </td>
 
                     </tr>
                     <?php
