@@ -12,9 +12,10 @@
         private $connection;
         private $tableName = "Users";
 
-        public function  Add(User $user){
-            try{
-                $query = "INSERT INTO ".$this->tableName." (userName, lastName, email, userPassword) VALUES (:userName, :lastName, :email, :userPassword);";
+        public function Add(User $user)
+        {
+            try {
+                $query = "INSERT INTO " . $this->tableName . " (userName, lastName, email, userPassword) VALUES (:userName, :lastName, :email, :userPassword);";
 
                 $parameters["userName"] = $user->getUserName();
                 $parameters["lastName"] = $user->getLastName();
@@ -24,22 +25,21 @@
                 $this->connection = Connection::GetInstance();
 
                 $this->connection->ExecuteNonQuery($query, $parameters);
-            }
-            catch (Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
             }
         }
 
-        public function SearchUser($email, $userPassword){
-            try{
+        public function SearchUser($email, $userPassword)
+        {
+            try {
                 $query = "SELECT * FROM " . $this->tableName . " WHERE email = '".$email."';";
 
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 $user = null;
-                if($resultSet){
-                    foreach ($resultSet as $row){
+                if ($resultSet) {
+                    foreach ($resultSet as $row) {
                         $user = new User();
                         $user->setId($row["id"]);
                         $user->setUserName($row["userName"]);
@@ -47,12 +47,11 @@
                         $user->setEmail($row["email"]);
                         $user->setUserPassword($row["userPassword"]);
                     }
-                    if($user->getUserPassword() != $userPassword){
+                    if ($user->getUserPassword() != $userPassword) {
                         $user = null;
                     }
                 }
-            }
-            catch (Exception $ex){
+            } catch (Exception $ex) {
                 throw $ex;
             }
             return $user;
@@ -63,7 +62,7 @@
         public function Add(User $user)
         {
             $this->RetrieveData();
-            
+
             array_push($this->userList, $user);
 
             $this->SaveData();
@@ -91,7 +90,7 @@
             }
 
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-            
+
             file_put_contents('Data/users.json', $jsonContent);
         }
 

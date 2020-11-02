@@ -2,6 +2,7 @@
 
 
     namespace DAO;
+
     use DAO\ICinemaDAO as ICinemaDAO;
     use Models\Cinema as Cinema;
     use Models\Room as Room;
@@ -14,106 +15,104 @@
         private $connection;
         private $tableName = "Cinemas";   //Observación: ver si en la base de datos tiene  que ir "cinemas" ( en plural)
    
-        public function Add(Cinema $cinema ){
-            if($this->validateNameCinema($cinema->getName())){
-                if($this->validateAddressCinema($cinema->getAddress())){
+        public function Add(Cinema $cinema)
+        {
+            if ($this->validateNameCinema($cinema->getName())) {
+                if ($this->validateAddressCinema($cinema->getAddress())) {
                     $message = "El cine ya esta registrado.";
-                }
-                else{
+                } else {
                     $message = "El cine esta registrado con otra dirección.";
                 }
-            }
-            elseif($this->validateAddressCinema($cinema->getAddress())){
-                    $message = "La direccion ya esta registrada para otro cine";
+            } elseif ($this->validateAddressCinema($cinema->getAddress())) {
+                $message = "La direccion ya esta registrada para otro cine";
+            } else {
+                try {
+                    $query = "INSERT INTO " . $this->tableName . " (cinemaName, address) VALUES (:cinemaName, :address);";
+                    $parameters["cinemaName"] = $cinema->getName();
+                    $parameters["address"] = $cinema->getAddress();
+                    $this->connection = Connection::GetInstance();
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                    $message = "Los datos del cine fueron creados correctamente.";
+                } catch (Exception $ex) {
+                    throw $ex;
                 }
-                else{
-                   try{ 
-                        $query = "INSERT INTO " . $this->tableName . " (cinemaName, address) VALUES (:cinemaName, :address);";
-                        $parameters["cinemaName"] = $cinema->getName();
-                        $parameters["address"] = $cinema->getAddress();
-                        $this->connection = Connection::GetInstance();
-                        $this->connection->ExecuteNonQuery($query, $parameters);
-                        $message = "Los datos del cine fueron creados correctamente.";
-                    }       
-                    catch (Exception $ex)
-                    {
-                        throw $ex;
-                    }
-                }   
-            return $message;  
+            }
+            return $message;
         }
     
         
-        public function GetAll(){
-           // return $this->RetrieveData();
+        public function GetAll()
+        {
+            // return $this->RetrieveData();
             return $this->cinemaList;
-
         }
-        public function RetrieveData() {
+        public function RetrieveData()
+        {
             try {
                 $query = "SELECT * FROM " .  $this->tableName . ";";
                 $this->connection = Connection::GetInstance();
              
                 $result = $this->connection->Execute($query);
                
-                if($result){
-                    foreach($result as $value){
+                if ($result) {
+                    foreach ($result as $value) {
                         $cinema = new Cinema();
                         $cinema->setId($value["id"]);
                         $cinema->setName($value["cinemaName"]);
                         $cinema->setAddress($value["address"]);
                         array_push($this->cinemaList, $cinema);
-                        }
                     }
                 }
-                catch (Exception $ex){
-                    throw $ex;
-                }
+            } catch (Exception $ex) {
+                throw $ex;
+            }
         }
 
-        public function searchIdCinemaByName($name){
+        public function searchIdCinemaByName($name)
+        {
             $query = "SELECT id FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
             $this->connection = Connection::GetInstance();
-            $result = $this->connection->Execute($query);  
+            $result = $this->connection->Execute($query);
             
-            if($result){
-                foreach($result as $value){
-                   $cinema = new Cinema();
-                   $cinema->setId(($value["id"]));
+            if ($result) {
+                foreach ($result as $value) {
+                    $cinema = new Cinema();
+                    $cinema->setId(($value["id"]));
                 }
-              return $cinema->getId();
-            }
-            else {
+                return $cinema->getId();
+            } else {
                 return null;
             }
         }
 
-        public function validateNameCinema($name){
+        public function validateNameCinema($name)
+        {
             $flag = false;
             $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."';";
             $this->connection = Connection::GetInstance();
-            $result = $this->connection->Execute($query);  
+            $result = $this->connection->Execute($query);
 
-            if($result){
+            if ($result) {
                 $flag = true;
             }
-           /*  $this->RetrieveData();
-            $flag = false;
-            foreach($this->cinemaList as $value){
-                if($name == $value->getName()){
-                   $flag = true;
-                } 
-            } */
+            /*  $this->RetrieveData();
+             $flag = false;
+             foreach($this->cinemaList as $value){
+                 if($name == $value->getName()){
+                    $flag = true;
+                 }
+             } */
             return $flag;
         }
 
-        public function validateAddressCinema($address){
+        public function validateAddressCinema($address)
+        {
             $flag = false;
             $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."';";
             $this->connection = Connection::GetInstance();
-            $result = $this->connection->Execute($query);  
+            $result = $this->connection->Execute($query);
            
-            if($result){
+            if ($result) {
                 $flag = true;
             }
 
@@ -122,18 +121,19 @@
             foreach($this->cinemaList as $value){
                 if($address == $value->getAddress()){
                     $flag = true;
-                } 
+                }
             } */
             return $flag;
         }
 
-        public function lastLoadedCinema(){
+        public function lastLoadedCinema()
+        {
             $cinema = new Cinema();
             $this->RetrieveData();
-           $cinema = (end($this->cinemaList));
-           return $cinema->getname();
+            $cinema = (end($this->cinemaList));
+            return $cinema->getname();
         }
-}
+    }
 
 
 
@@ -154,8 +154,8 @@
 
 
         //PARA TRABAJAR CON JSON
-        /* 
-        private $cinemaList = array();   
+        /*
+        private $cinemaList = array();
         private $fileName = "Data/cinema.json";
 
         public function Add(Cinema $cinema) //sin terminar
@@ -163,10 +163,10 @@
             $this->RetrieveData();
             if(!$this->validateNameCinema($cinema->getName())){
                 array_push($this->cinemaList, $cinema);
-                $this->SaveData(); 
+                $this->SaveData();
             }
         }
-        
+
         public function validateNameCinema($name){
                 $this->RetrieveData();
                 foreach($this->cinemaList as $value){
@@ -175,7 +175,7 @@
                     }
                     else {
                         return false;
-                    }  
+                    }
                 }
         }
         public function GetAll()
@@ -194,7 +194,7 @@
                 $valuesArray["name"] = $cinema->getName();
                 $valuesArray["address"] = $cinema->getAddress();
                // $valuesArray["room"] = $cinema->getRoom();
-               
+
                 array_push($arrayToEncode, $valuesArray);
             }
             $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
@@ -242,3 +242,4 @@
            return $cinema->getname();
         }
     } */
+?>

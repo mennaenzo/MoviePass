@@ -3,8 +3,8 @@
 
     use DAO\MovieDAO as MovieDAO;
 
-    class MovieController{
-
+    class MovieController
+    {
         private $MovieDAO;
 
         public function __construct()

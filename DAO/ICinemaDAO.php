@@ -1,13 +1,14 @@
 <?php
-namespace DAO;
-use Models\Cinema as Cinema;
+    namespace DAO;
 
-interface ICinemaDAO
-{
-    function Add(Cinema $cinema);
-    function GetAll();
-   // function Delete($id);
-    //function Modify(Cinema $cine);
-}
+    use Models\Cinema as Cinema;
+
+    interface ICinemaDAO
+    {
+        public function Add(Cinema $cinema);
+        public function GetAll();
+        // function Delete($id);
+        //function Modify(Cinema $cine);
+    }
 ?>
 
