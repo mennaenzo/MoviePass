@@ -34,7 +34,7 @@
             $object = json_decode(file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1"), false);
             //var_dump($object);
             foreach ($object->results as $movie) {
-                $newMovie = new Movie($movie->id, $movie->adult, $movie->title, $movie->overview, $movie->original_language, $movie->genre_ids);
+                $newMovie = new Movie($movie->id, $movie->adult, $movie->title, $movie->overview, $movie->original_language,$movie->poster_path, $movie->genre_ids);
                 
                 array_push($this->moviesList, $newMovie);
             }

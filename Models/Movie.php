@@ -7,21 +7,39 @@
         private $name;
         private $summary;
         private $language;
+        private $image;
         private $genres = array();
         private $releaseDate; //falta get and set
 
 
-        function __construct($id, $adult, $name, $summary, $language,$genres){
+        function __construct($id, $adult, $name, $summary, $language,$image,$genres){
             $this->id =  $id;
             $this->adult =  $adult;
             $this->name =  $name;
             $this->summary = $summary;
             $this->language = $language;
+            $this->image = $image;
             $this->genres = $genres;
         }
 
         public function getId(){
             return $this->id;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getImage()
+        {
+            return $this->image;
+        }
+
+        /**
+         * @param mixed $image
+         */
+        public function setImage($image)
+        {
+            $this->image = $image;
         }
 
         public function setId($id){
