@@ -72,6 +72,11 @@
             require_once VIEWS_PATH . "room-add.php";
         }
 
+        public function ShowAddRoom(){
+            $cinemaList = $this->cinemaDAO->GetAll();
+            require_once VIEWS_PATH . "room-add-admin.php";
+        }
+
 
         public function DeleteRoom($name)
         {

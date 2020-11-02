@@ -46,6 +46,9 @@
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Cinema/ShowAddView">Agregar Cine</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Room/ShowAddRoom">Agregar Sala</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Cinema/ShowListView">Listar Cine</a>
                 </li>
                 <li class="nav-item">
