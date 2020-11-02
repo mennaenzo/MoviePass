@@ -78,7 +78,7 @@
         public function validateData()
         {
             if (!empty($_POST)) {
-                if ($this->validateField($_POST["name"]) && $this->validateFieldNumber($_POST["room_price"]) &&  $this->validateFieldNumber($_POST["number_seats"])) {
+                if ($this->validateField($_POST["name"]) && $this->validateFieldNumber($_POST["room_price"]) &&  $this->validateFieldNumber($_POST["capacity"])) {
                     return true;
                 }
             } else {

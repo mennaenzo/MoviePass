@@ -11,7 +11,7 @@
 
     class CinemaDAO implements ICinemaDAO
     {
-        private $cinemaList = array();
+        ///private $cinemaList = array();  Comento esta lista para hacer solo las consultas sobre los objetos a la base de datos
         private $connection;
         private $tableName = "Cinemas";  
    
@@ -43,10 +43,30 @@
         
         public function GetAll()
         {
+            try{
+                $cinemasList = array();
+                $query = "SELECT * FROM ".$this->tableName . " WHERE statusCinema=1;";
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+
+                foreach ($result as $row){
+                    $cinema = new Cinema();
+                    $cinema->setId($row["id"]);
+                    $cinema->setName($row["cinemaName"]);
+                    $cinema->setAddress($row["address"]);
+                    array_push($cinemasList, $cinema);
+                }
+                return $cinemasList;
+            }
+            catch (Exception $ex){
+                throw $ex;
+            }
+            /*
             $this->RetrieveData();
             return $this->cinemaList;
+            */
         }
-        
+        /*
         public function RetrieveData()
         {
             try {
@@ -68,7 +88,7 @@
                 throw $ex;
             }
         }
-
+*/
         public function searchIdCinemaByName($name)
         {
             $query = "SELECT id FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
@@ -129,9 +149,10 @@
 
         public function lastLoadedCinema()
         {
+            $cinemaList = array();
             $cinema = new Cinema();
-            $this->RetrieveData();
-            $cinema = (end($this->cinemaList));
+            $cinemaList = $this->GetAll();
+            $cinema = (end($cinemaList));
             return $cinema->getname();
         }
     }

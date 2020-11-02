@@ -18,7 +18,7 @@
                             <input type="number" name="room_price" value="" class="form-control" required>
                              
                             <label for="numberOfSeats">Cantidad de butacas</label>
-                            <input type="number" name="number_seats" value="" class="form-control" required>
+                            <input type="number" name="capacity" value="" class="form-control" required>
                              
                             <br>
                             <button id="submit" type="submit" name="button" value = "<?php $option?>" class="btn btn-dark ml-auto d-block">Add</button>
