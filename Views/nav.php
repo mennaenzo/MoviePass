@@ -1,7 +1,7 @@
 <?php
-    if (isset($_SESSION['loggedUser']))
-
+    if (isset($_SESSION['loggedUser'])){
         $user= $_SESSION['loggedUser'];
+    }
 
     if($user>=5){
 

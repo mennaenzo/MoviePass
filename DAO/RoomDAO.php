@@ -21,18 +21,38 @@
 
         public function add(Room $room, $idCinema)
         {
-            try {
-                $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)" ;
-                $parameters["roomName"] = $room->getName();
-                $parameters["capacity"] = $room->getCapacity();
-                $parameters["price"] = $room->getRoom_price();
-                $parameters["idCinema"] = $idCinema;
-                $this->connection = Connection::GetInstance();
-                $count = $this->connection->ExecuteNonQuery($query, $parameters);
-            } catch (Exception $ex) {
-                throw $ex;
+            if ($this->validateRoomName($room->getName())) {
+                $message = "Ya existe esta sala. Agregue una sala con otro nombre.";
+            }else {
+                try {
+                    $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)";
+                    $parameters["roomName"] = $room->getName();
+                    $parameters["capacity"] = $room->getCapacity();
+                    $parameters["price"] = $room->getRoom_price();
+                    $parameters["idCinema"] = $idCinema;
+                    $this->connection = Connection::GetInstance();
+                    $count = $this->connection->ExecuteNonQuery($query, $parameters);
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
             }
+            return $message;
         }
+
+
+        public function validateRoomName($name)
+        {
+            $flag = false;
+            $query = "SELECT roomName FROM ". $this->tableName. " WHERE roomName= '".$name."';";
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);
+
+            if ($result) {
+                $flag = true;
+            }
+            return $flag;
+        }
+
 
         /* falta validar nombres de salas para un mismo cine
           public function validateNameRoom($name, $nameCinema){

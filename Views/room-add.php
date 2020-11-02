@@ -15,7 +15,7 @@
                             <input type="text" name="name" value="" class="form-control" required>
                              
                             <label for="numberOfRoom">Precio de la Sala</label>
-                            <input type="number" name="room_price" value="" class="form-control" required>
+                            <input type="number" name="room_price" value="" class="form-control" min="1" required>
                              
                             <label for="numberOfSeats">Cantidad de butacas</label>
                             <input type="number" name="capacity" value="" class="form-control" min="1" max="500" required>

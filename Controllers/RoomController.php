@@ -26,9 +26,14 @@
                 $newRoom->setName($name);
                 $newRoom->setRoom_price($room_price);
                 $newRoom->setCapacity($capacity);
-                $this->roomDAO->add($newRoom, $this->cinemaDAO->searchIdCinemaByName($newRoom->getNameCinema()));
-                $this->message = "Carga con exito";
-                $this->ShowListCinemaView($this->message);
+                $this->message = $this->roomDAO->add($newRoom, $this->cinemaDAO->searchIdCinemaByName($newRoom->getNameCinema()));
+                if($this->message == "Ya existe esta sala. Agregue una sala con otro nombre."){
+                    $this->ShowAddRoom($this->message);
+                }
+                else {
+                    $this->message = "Carga con exito";
+                    $this->ShowListCinemaView($this->message);
+                }
             } else {
                 $this->message = "Error en la carga de datos.";
                 $this->ShowListCinemaView($this->message);
@@ -72,7 +77,8 @@
             require_once VIEWS_PATH . "room-add.php";
         }
 
-        public function ShowAddRoom(){
+        public function ShowAddRoom($message = ''){
+            $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
             require_once VIEWS_PATH . "room-add-admin.php";
         }
