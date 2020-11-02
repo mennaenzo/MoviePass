@@ -21,7 +21,7 @@ require_once VIEWS_PATH."nav.php";
                                     <td><?php echo $cinema->getName();?></td>
                                     <td><?php echo $cinema->getAddress(); ?></td>
                                     <td>
-                                        <input type="checkbox" name="select" value="<?php echo $cinema->getId()?>"> 
+                                        <input type="checkbox" name="select" value="<?php echo $cinema->getId()?>" required>
                                         <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="1"> Ver Salas </button>
                                         <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="2"> Agregar sala </button>    
                                     </td>

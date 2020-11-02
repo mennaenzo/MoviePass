@@ -32,7 +32,7 @@
                 $cinema = new Cinema();
                 $cinema->setName($name);
                 $cinema->setAddress($address);
-          
+
                 $this->message =$this->cinemaDAO->Add($cinema);
                 if ($this->message == "Los datos del cine fueron creados correctamente.") {
                     $this->ShowAddRoomView($this->message);
