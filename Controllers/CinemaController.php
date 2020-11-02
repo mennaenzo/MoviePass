@@ -22,7 +22,7 @@
         {
             $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
-            require_once(VIEWS_PATH . "Cinema-List.php");
+            require_once VIEWS_PATH . "Cinema-List.php";
         }
 
         // Agrega un cine, respetando las validaciones

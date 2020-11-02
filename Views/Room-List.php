@@ -33,8 +33,8 @@
                             <?php } ?>
                         </select>
 
-                        <button type="submit" name="btnDelete" class="btn btn-danger" value=""> Eliminar </button>    
-                    </form>
+<!--                         <button type="submit" name="btnDelete" class="btn btn-danger" value=""> Eliminar </button>    
+ -->                    </form>
                 </div>   
                 
                 <?php 

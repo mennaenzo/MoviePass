@@ -32,6 +32,7 @@
             } else {
                 $this->message = "Error en la carga de datos.";
                 $this->ShowListCinemaView($this->message);
+               
             }
         }
     
@@ -39,7 +40,7 @@
 
         public function ShowListView($message = "")
         {
-            $option = $_POST["seeCinemas"];
+            $option = $_POST["select"];
             if ($_POST["btnSeeRoom"] == 1) {
                 $this->ShowListRoomView($option);
             }
@@ -51,12 +52,14 @@
         public function ShowListCinemaView($message ="")
         {
             $cinemaList = $this->cinemaDAO->GetAll();
-            require_once(VIEWS_PATH . "Cinema-List.php");
+            var_dump($cinemaList);
+            ECHO "<br> AFSSDSA";
+            require_once  VIEWS_PATH . "Cinema-List.php";
         }
 
         public function ShowListRoomView($option)
         {
-            $roomList = $this->roomDAO->searchRoomsByNameCinema($option, $this->cinemaDAO->searchIdCinemaByName($option));
+            $roomList = $this->roomDAO->searchRoomsByIdCinema($option);
             require_once VIEWS_PATH . "Room-List.php";
         }
 

@@ -13,7 +13,7 @@
     {
         private $cinemaList = array();
         private $connection;
-        private $tableName = "Cinemas";   //Observación: ver si en la base de datos tiene  que ir "cinemas" ( en plural)
+        private $tableName = "Cinemas";  
    
         public function Add(Cinema $cinema)
         {
@@ -43,9 +43,10 @@
         
         public function GetAll()
         {
-            // return $this->RetrieveData();
+            $this->RetrieveData();
             return $this->cinemaList;
         }
+        
         public function RetrieveData()
         {
             try {

@@ -67,7 +67,7 @@
         
  
     
-        public function searchRoomsByNameCinema($nameCinema, $idCinema)
+        public function searchRoomsByIdCinema($idCinema)
         {
             $roomList = array();
             try {
@@ -84,7 +84,7 @@
                         $room->setName($value["roomName"]);
                         $room->setRoom_price($value["price"]);
                         $room->setCapacity($value["capacity"]);
-                        $room->setNameCinema($nameCinema);
+                        $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
                         array_push($roomList, $room);
                     }
                 } else {

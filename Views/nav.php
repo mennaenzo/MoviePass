@@ -14,23 +14,20 @@
          </span>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?></a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>">Lista de cine</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>>List Cinema</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">List Movie</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
                 </li>
                <!-- </li>
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Room/ShowListView">List Room</a>
                 </li> -->
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Show/ShowListView">List Show</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>Show/ShowListView">Lista de funciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Logout</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
                 </li>
             </ul>
 
@@ -55,7 +52,7 @@
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Movie/ShowListView">Listar Pelicula</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Logout</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
                 </li>
             </ul>
         </nav>

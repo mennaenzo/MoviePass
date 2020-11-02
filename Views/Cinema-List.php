@@ -1,46 +1,37 @@
 <?php
 
-require_once(VIEWS_PATH."nav.php");
+require_once VIEWS_PATH."nav.php";
 
 ?>
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Listado de Cines</h2>
-            <table class="table bg-light-alpha">
-                <thead>
-
-                <th>Name</th>
-                <th>Address</th>
-                
-                </thead>
-                <tbody>
-                    <tr> 
-                        <tr>
-                            <?php foreach($cinemaList as $cinema){ ?>
-                            <td><?php echo $cinema->getName();?></td>
-                            <td><?php echo $cinema->getAddress(); ?></td>
-                        </tr>
+            <form action="<?php echo FRONT_ROOT ?>Room/ShowListView" method="POST">
+                <table class="table bg-light-alpha">
+                    <thead>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Opciones</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach($cinemaList as $cinema){ ?>
+                           <tr> 
+                                <div>
+                                    <td><?php echo $cinema->getName();?></td>
+                                    <td><?php echo $cinema->getAddress(); ?></td>
+                                    <td>
+                                        <input type="checkbox" name="select" value="<?php echo $cinema->getId()?>"> 
+                                        <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="1"> Ver Salas </button>
+                                        <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="2"> Agregar sala </button>    
+                                    </td>
+                                </div>
+                             </tr>
                         <?php } ?>
-                    </tr>
-                </tbody>
-            </table>
-
-           <form action="<?php echo FRONT_ROOT ?>Room/ShowListView" method="POST">
-                
-                <select name="seeCinemas">
-                        <?php foreach($cinemaList as $cinema){ ;?>
-                            <option value="<?php echo $cinema->getName();?>"> <?php echo $cinema->getName();?> </option>    
-                        <?php } ?>
-                </select>  
-            
-                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="1"> Ver Salas </button>
-                <button type="submit" formmethod="POST"  name="btnSeeRoom" class="btn btn-danger" value="2"> Agregar sala </button>    
-                    
-            </form> 
-          
-                   
-                    
+                    </tbody>
+                </table>
+  </form> 
+       
                 <!--     <form action="<?php echo FRONT_ROOT ?>Cinema/Delete" method="POST">
                         <button type="submit" name="btnRemove" class="btn btn-danger" value=""> Eliminar </button>
                     </form>
