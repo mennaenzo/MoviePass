@@ -12,7 +12,6 @@ require_once VIEWS_PATH."nav.php";
                     <th>Name</th>
                     <th>Address</th>
                     <th>List Rooms</th>
-                    <th>Add Room</th>
                     </thead>
                     <tbody>
                         <?php foreach($cinemaList as $cinema){ ?>
@@ -24,11 +23,6 @@ require_once VIEWS_PATH."nav.php";
                                         <!--<input type="checkbox" name="select" value="<?php// echo $cinema->getId()?>" required>No puede ser checkbox porque me pide que debo seleccionar todos-->
                                         <form action="<?php echo FRONT_ROOT ?>Room/ShowRoomListView_User" method="POST">
                                             <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Rooms </button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form >
-                                        <button type="button" method="POST"  name="btnSeeRoom" class="btn btn-danger" value="2"> Agregar sala </button>
                                         </form>
                                     </td>
                                 </div>
