@@ -59,9 +59,9 @@
                 if($result){
                     foreach($result as $value){
                         $cinema = new Cinema();
-                        $cinema->setId($value["idCinema"]);
-                        $cinema->setName($value["nameCinema"]);
-                        $cinema->setAddress($value["addressCinema"]);
+                        $cinema->setId($value["id"]);
+                        $cinema->setName($value["cinemaName"]);
+                        $cinema->setAddress($value["address"]);
                         array_push($this->cinemaList, $cinema);
                         }
                     }
@@ -79,7 +79,7 @@
             if($result){
                 foreach($result as $value){
                    $cinema = new Cinema();
-                   $cinema->setId(($value["idCinema"]));
+                   $cinema->setId(($value["id"]));
                 }
               return $cinema->getId();
             }

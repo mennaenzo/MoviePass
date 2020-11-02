@@ -3,7 +3,7 @@
 
     class Room {
         private $id; 
-        private $nameCinema;
+        private $cinemaName;
         private $name;
         private $room_price;
         private $capacity;
@@ -22,10 +22,10 @@
         }
 
         public function getNameCinema(){
-            return $this->nameCinema;
+            return $this->cinemaName;
         }
         public function setNameCinema($nameCinema){
-            $this->nameCinema = $nameCinema;
+            $this->cinemaName = $nameCinema;
         }
     
         public function getRoom_price(){

@@ -10,14 +10,14 @@
 
         private $roomList = array();
         private $connection;
-        private $tableName = "rooms";
+        private $tableName = "Rooms";
 
         public function add(Room $room, $idCinema){
             try{
-                $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, roomPrice) VALUES (:roomName, :capacity, :idCinema, :roomPrice)" ;
+                $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)" ;
                 $parameters["roomName"] = $room->getName();
                 $parameters["capacity"] = $room->getCapacity();
-                $parameters["roomPrice"] = $room->getRoom_price();
+                $parameters["price"] = $room->getRoom_price();
                 $parameters["idCinema"] = $idCinema;
                 $this->connection = Connection::GetInstance();
                $count = $this->connection->ExecuteNonQuery($query, $parameters);
@@ -45,7 +45,7 @@
 
         public function RetrieveData(){
             try{
-                $query = "SELECT idRoom, idCinema, roomName, roomPrice, capacity  FROM " . $this->tableName . ";";
+                $query = "SELECT id, idCinema, roomName, price, capacity  FROM " . $this->tableName . ";";
                 $this->connection = Connection::GetInstance(); 
                 $result = $this->connection->Execute($query);
 
@@ -53,10 +53,10 @@
                 {
                     foreach($result as $value){
                         $room = new Room();
-                        $room->setId($value["idRoom"]);
+                        $room->setId($value["id"]);
                         $room->setNameCinema($value["idCinema"]);
                         $room->setName($value["roomName"]);
-                        $room->setRoom_price($value["roomPrice"]);
+                        $room->setRoom_price($value["price"]);
                         $room->setCapacity($value["capacity"]);
                         array_push($this->roomList, $room);
                     }           
@@ -72,7 +72,7 @@
     public function searchRoomsByNameCinema($nameCinema, $idCinema){
         $roomList = array();
         try{
-            $query = "SELECT idRoom, roomName, roomPrice, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
+            $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
         
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
@@ -81,9 +81,9 @@
             if ($result){
                 foreach($result as $value){
                     $room = new Room();
-                    $room->setId($value["idRoom"]);
+                    $room->setId($value["id"]);
                     $room->setName($value["roomName"]);
-                    $room->setRoom_price($value["roomPrice"]);
+                    $room->setRoom_price($value["price"]);
                     $room->setCapacity($value["capacity"]);
                     $room->setNameCinema($nameCinema);
                     array_push($roomList, $room);
