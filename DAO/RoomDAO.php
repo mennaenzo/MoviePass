@@ -22,7 +22,7 @@
         public function add(Room $room, $idCinema)
         {
             if ($this->validateRoomName($room->getName())) {
-                $message = "Ya existe esta sala. Agregue una sala con otro nombre.";
+                return false;
             }else {
                 try {
                     $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)";
@@ -30,13 +30,15 @@
                     $parameters["capacity"] = $room->getCapacity();
                     $parameters["price"] = $room->getRoom_price();
                     $parameters["idCinema"] = $idCinema;
+                    
                     $this->connection = Connection::GetInstance();
                     $count = $this->connection->ExecuteNonQuery($query, $parameters);
+                    return true;
                 } catch (Exception $ex) {
                     throw $ex;
+                    return 0;
                 }
             }
-            return $message;
         }
 
 

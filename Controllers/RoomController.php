@@ -18,21 +18,25 @@
             $this->cinemaDAO = new CinemaDAO();
         }
         
-        public function addRoom($name, $room_price, $capacity)
+        public function addRoom()
         {
+            $cinemaId = $_POST["comboBox"];
             if ($this->validatedata()) {
                 $newRoom = new Room();
-                $newRoom->setNameCinema($this->cinemaDAO->lastLoadedCinema());
-                $newRoom->setName($name);
-                $newRoom->setRoom_price($room_price);
-                $newRoom->setCapacity($capacity);
-                $this->message = $this->roomDAO->add($newRoom, $this->cinemaDAO->searchIdCinemaByName($newRoom->getNameCinema()));
-                if($this->message == "Ya existe esta sala. Agregue una sala con otro nombre."){
-                    $this->ShowAddRoom($this->message);
-                }
-                else {
-                    $this->message = "Carga con exito";
-                    $this->ShowListCinemaView($this->message);
+                $newRoom->setNameCinema($this->cinemaDAO->GetCinema($cinemaId)->getName());
+                $newRoom->setName($_POST["name"]);
+                $newRoom->setRoom_price($_POST["room_price"]);
+                $newRoom->setCapacity($_POST["capacity"]);
+                $status = $this->roomDAO->add($newRoom, $cinemaId);
+                if ($status <> 0) {
+                    if($status)
+                    {
+                        $this->ShowListCinemaView("Agregado correctamente.");
+                    }else{
+                        $this->ShowAddRoom("La Sala ya existe.");
+                    }
+                }else{
+                    $this->ShowAddRoom("Error de conexion. Pongase en contacto con su proveedor.");
                 }
             } else {
                 $this->message = "Error en la carga de datos.";

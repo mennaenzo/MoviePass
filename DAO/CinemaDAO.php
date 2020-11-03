@@ -45,7 +45,7 @@
         {
             try{
                 $cinemasList = array();
-                $query = "SELECT * FROM ".$this->tableName . " WHERE statusCinema=1;";
+                $query = "SELECT * FROM ".$this->tableName . " WHERE statusCinema=1 order by id desc;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
 

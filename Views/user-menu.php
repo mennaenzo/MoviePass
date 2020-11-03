@@ -13,7 +13,7 @@
                         <?php } ?>
                     </select>
 
-                    <button type="submit" name="" class="btn btn-danger" value="">Siguiente </button>
+                    <button type="button" name="" class="btn btn-danger" value="">Siguiente </button>
                 </form>
 
                 <form action="<?php echo FRONT_ROOT . "UserMenu/"?>" method="POST">
@@ -25,13 +25,13 @@
                             <option value="<?php echo $genre->getIdApi();?>"><?php echo $genre->getName();?></option>
                         <?php } ?>
                     </select>
-                    <button type="submit" name="" class="btn btn-danger" value="">Filtrar </button>
+                    <button type="button" name="" class="btn btn-danger" value="">Filtrar </button>
                 </form>
                 <form>
                     <label for ="lblSearch"> Fecha </label>
                     <input type = "date" name="date"required>
 
-                    <button type="submit" name="" class="btn btn-danger" value="">Filtrar </button>
+                    <button type="button" name="" class="btn btn-danger" value="">Filtrar </button>
                 </form>
                 <table class="table bg-light-alpha">
                     <thead>

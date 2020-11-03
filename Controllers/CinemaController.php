@@ -56,8 +56,8 @@
         public function ShowAddRoomView($message = "")
         {
             $message = $this->message;
-              
-            require_once VIEWS_PATH . "room-add.php";
+            $cinemaList = $this->cinemaDAO->GetAll(); 
+            require_once VIEWS_PATH . "room-add-admin.php";
         }
 
         // Validacion de campos en general
