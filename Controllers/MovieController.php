@@ -3,8 +3,8 @@
 
     use DAO\MovieDAO as MovieDAO;
 
-    class MovieController{
-
+    class MovieController
+    {
         private $MovieDAO;
 
         public function __construct()
@@ -15,7 +15,9 @@
         public function ShowListView()
         {
             $movieList = $this->MovieDAO->GetAll();
-            require_once(VIEWS_PATH . "movie-list.php");
+            $genresList = $this->MovieDAO->GetGenres();
+
+            require_once(VIEWS_PATH . "user-menu.php");
         }
     }
 ?>

@@ -1,0 +1,80 @@
+[
+    {
+        "nameCinema": "uno",
+        "name": "1",
+        "room_price": "2",
+        "capacity": "3"
+    },
+    {
+        "nameCinema": "dos",
+        "name": "2",
+        "room_price": "23",
+        "capacity": "24"
+    },
+    {
+        "nameCinema": "uno",
+        "name": "12",
+        "room_price": "123",
+        "capacity": "321"
+    },
+    {
+        "nameCinema": "dos",
+        "name": "22",
+        "room_price": "2212",
+        "capacity": "12312312"
+    },
+    {
+        "nameCinema": "dos",
+        "name": "444",
+        "room_price": "444",
+        "capacity": "4444"
+    },
+    {
+        "nameCinema": "dos",
+        "name": "66",
+        "room_price": "546",
+        "capacity": "45645645645"
+    },
+    {
+        "nameCinema": "uno",
+        "name": "989",
+        "room_price": "8989",
+        "capacity": "89898"
+    },
+    {
+        "nameCinema": "<br \/>\r\n<b>Notice<\/b>:  Undefined index: seecinemass in <b>C:\\xampp\\htdocs\\MoviePass\\Views\\room-add.php<\/b> on line <b>27<\/b><br \/>\r\n",
+        "name": "99",
+        "room_price": "99",
+        "capacity": "99"
+    },
+    {
+        "nameCinema": "<br \/>\r\n<b>Notice<\/b>:  Undefined index: seecinemass in <b>C:\\xampp\\htdocs\\MoviePass\\Views\\room-add.php<\/b> on line <b>27<\/b><br \/>\r\n",
+        "name": "67",
+        "room_price": "67",
+        "capacity": "67"
+    },
+    {
+        "nameCinema": "<br \/>\r\n<b>Notice<\/b>:  Undefined index: seecinemass in <b>C:\\xampp\\htdocs\\MoviePass\\Views\\room-add.php<\/b> on line <b>27<\/b><br \/>\r\n",
+        "name": "67",
+        "room_price": "67",
+        "capacity": "67"
+    },
+    {
+        "nameCinema": "<br \/>\r\n<b>Notice<\/b>:  Undefined index: seecinemass in <b>C:\\xampp\\htdocs\\MoviePass\\Views\\room-add.php<\/b> on line <b>27<\/b><br \/>\r\n",
+        "name": "67",
+        "room_price": "67",
+        "capacity": "67"
+    },
+    {
+        "nameCinema": "",
+        "name": "32",
+        "room_price": "13",
+        "capacity": "21"
+    },
+    {
+        "nameCinema": "",
+        "name": "67",
+        "room_price": "67",
+        "capacity": "67"
+    }
+]

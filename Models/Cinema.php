@@ -4,9 +4,8 @@
     class Cinema {
         private $id;
         private $name;
-       //private $capacity;  La capacidad pertenece a la sala, no al cine
         private $address;
-        private $ticketPrice;
+        //private $roomList;  hacer get and set
 
         /**
          * @return mixed
@@ -40,38 +39,19 @@
             $this->address = $address;
         }
 
-        /**
-         * @return mixed
-         */
-        public function getTicketPrice()
+        public function setId($id)
+        {
+            $this->id = $id;
+        }
+        public function getId()
+        {
+            return $this->id;
+        }
+
+      /*   public function getTicketPrice()
         {
             return $this->ticketPrice;
         }
-
-        /**
-         * @param mixed $ticketPrice
-         */
-        public function setTicketPrice($ticketPrice)
-        {
-            $this->ticketPrice = $ticketPrice;
-        }
-
-        /*
-        function __construct( $name, $adress, $ticketPrice){
-            //$this->id = $id;
-            $this->name = $name;
-        //  $this->capacity = $capacity;
-            $this->adress = $adress;
-            $this->ticketPrice = $ticketPrice;
-        }*/
-
-
-        /*
-        public function getCapacity(){
-            return $this->capacity;
-        }
-        public function setCapacity($capacity){
-            $this->capacity = $capacity;
-        }*/
+*/
     }
 ?>

@@ -1,14 +1,12 @@
 <?php
     namespace DAO;
 
-    use Models\Cinema as Cinema;
+    use Models\Room as Room;
 
-    interface ICinemaDAO
+    interface IRoomDAO
     {
-        public function Add(Cinema $cinema);
+        public function add(Room $room, $idCinema);
         public function GetAll();
         // function Delete($id);
         //function Modify(Cinema $cine);
     }
-?>
-

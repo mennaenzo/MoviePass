@@ -1,5 +1,5 @@
 <?php
-    require_once('nav.php');
+    require_once VIEWS_PATH . "nav.php";
 ?>
 <main class="py-auto">
      <section id="listado" class="mb-5">
@@ -12,22 +12,20 @@
                   <div class="sep"></div>
                          <div class="inputs">
 
-                             <label for="">Name</label>
-                             <input type="text" name="cinema_name" value="" class="form-control" required>
+                            <label for="name">Name</label>
+                            <input type="text" name="cinema_name" value="" class="form-control" required>
 
-                             <label for="">Address</label>
-                             <input type="text" name="cinema_address" value="" class="form-control" required>
-
-                             <label for="">Ticket Price</label>
-                             <input type="number" name="ticket_price" value="" class="form-control" required>
-                             <br>
-                             <button id="submit" type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
-
+                            <label for="address">Address</label>
+                            <input type="text" name="cinema_address" value="" class="form-control" required>
+                            <br>
+                            <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Add Room</button>
                          </div>
+                         <?php
+                            if (isset($message)) {
+                                echo "<script> alert('$message'); </script>";
+                            }
+                        ?> 
               </form>
           </div>
      </section>
-
 </main>
-
-
