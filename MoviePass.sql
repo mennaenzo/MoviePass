@@ -13,7 +13,7 @@ create table if not exists Users (
     lastName varchar (50) not null,
     email varchar (50) unique not null,
     userPassword varchar (20) not null,
-    esAdmin boolean,
+    esAdmin boolean default 0,
     constraint Pk_Users primary key (id)
 );
 create table if not exists Movies (

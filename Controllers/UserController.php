@@ -82,8 +82,8 @@
                         $_SESSION['loggedUser'] = $userExists->getId();
                     
                         //cambiar ----------------------------
-                        if ($userExists->getId() == 1 || $userExists->getId() == 2 || $userExists->getId() == 3 || $userExists->getId() == 4) {
-                            require_once(VIEWS_PATH . "Cinema-List.php");
+                        if ($userExists->getEsAdmin() == 1) {
+                            require_once(VIEWS_PATH . "movie-list.php");
                         } else {
                             $this->ShowListView_user();
                         }
