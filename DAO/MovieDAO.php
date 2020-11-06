@@ -11,34 +11,32 @@
         private $moviesList = array();
         private $tableName = "Movies";
         private $tableName2 = "genres";
+
         ///private $genresList = array();
 
         public function Add(Movie $movie)
         {
-           /* array_push($this->moviesList, $movie);*/
+            /* array_push($this->moviesList, $movie);*/
 
-            try
-            {
+            try {
 
-                $query = "INSERT INTO ".$this->tableName." (id, adult, movieName, summary, movieLanguage, dir_image, playingNow, releaseDate) VALUES (:id, :adult, :movieName, :summary, :movieLanguage, :dir_image, :playingNow, :releaseDate)
+                $query = "INSERT INTO " . $this->tableName . " (id, adult, movieName, summary, movieLanguage, dir_image, playingNow, releaseDate) VALUES (:id, :adult, :movieName, :summary, :movieLanguage, :dir_image, :playingNow, :releaseDate)
                 on duplicate key update id=id , adult=adult, movieName=movieName , summary=summary , movieLanguage=movieLanguage , dir_image=dir_image , releaseDate=releaseDate;";
                 //echo $query;
 
-                $parameters["id"]=$movie->getId();
-                $parameters["adult"]= $movie->getAdult() ? 1 : 0; //ver el tema del false
+                $parameters["id"] = $movie->getId();
+                $parameters["adult"] = $movie->getAdult() ? 1 : 0; //ver el tema del false
                 $parameters["movieName"] = $movie->getName();
                 $parameters["summary"] = $movie->getSummary();
                 $parameters["movieLanguage"] = $movie->getLanguage();
                 $parameters["dir_image"] = $movie->getImage();
-                $parameters["playingNow"] =$movie->getPlayingNow();
-                $parameters["releaseDate"] =$movie->getReleaseDate();
+                $parameters["playingNow"] = $movie->getPlayingNow();
+                $parameters["releaseDate"] = $movie->getReleaseDate();
 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
 
-            }
-            catch(Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
             }
 
@@ -51,15 +49,13 @@
             return $this->moviesList;
             */
 
-            try
-            {
+            try {
                 $movieList = array();
-                $query = "SELECT * FROM ".$this->tableName;
+                $query = "SELECT * FROM " . $this->tableName;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
-                foreach ($resultSet as $row)
-                {
+                foreach ($resultSet as $row) {
                     $movie = new Movie();
                     $movie->setId($row["id"]);
                     $movie->setName($row["movieName"]);
@@ -73,29 +69,30 @@
                 }
                 return $movieList;
 
-            }
-            catch(Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
             }
         }
+
         public function GetGenres()
         {
             $this->getGenresFromApi();
             return $this->genresList;
         }
 
+        /*
         public function GetNowPlaying()
-        {
-            /*
-            $object = json_decode(file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1"), false);
-            //var_dump($object);
-            foreach ($object->results as $movie) {
-                $newMovie = new Movie($movie->id, $movie->adult, $movie->title, $movie->overview, $movie->original_language,$movie->poster_path, $movie->genre_ids);
-                
-                array_push($this->moviesList, $newMovie);
-            }
-            */
+    {*/
+        /*
+        $object = json_decode(file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1"), false);
+        //var_dump($object);
+        foreach ($object->results as $movie) {
+            $newMovie = new Movie($movie->id, $movie->adult, $movie->title, $movie->overview, $movie->original_language,$movie->poster_path, $movie->genre_ids);
+
+            array_push($this->moviesList, $newMovie);
+        }
+        */
+        /*
             $jsonContent = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1");
 
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
@@ -111,14 +108,14 @@
                 $movie->setImage($valuesArray["poster_path"]);
                 $movie->setSummary($valuesArray["overview"]);
                 $movie->setReleaseDate($valuesArray["release_date"]);
+*/
+        /* $arrayGenres=array();
 
-                /* $arrayGenres=array();
-
-                 foreach($valuesArray["genre_ids"] as $values){
-                     array_push($arrayGenres,$values);
-                 }
-                 $movie->setGenres($arrayGenres);
-                 */
+         foreach($valuesArray["genre_ids"] as $values){
+             array_push($arrayGenres,$values);
+         }
+         $movie->setGenres($arrayGenres);
+         *//*
                 $movie->setPlayingNow(0);
 
                 ///var_dump($movie);
@@ -127,7 +124,7 @@
 
             }
         }
-
+*/
         public function addGenres(Genres $genres)
         {
             try {
@@ -140,6 +137,7 @@
                 throw $ex;
             }
         }
+
         public function getGenresFromApi()
         {
             $arrayGenre = json_decode(file_get_contents("https://api.themoviedb.org/3/genre/movie/list?api_key=" . KEY . "&language=es&page=1"), true);
@@ -151,5 +149,35 @@
                 array_push($this->genresList, $genres);
             }
         }
+
+        ///Funcion que retorna una movie buscandola por id
+        public function GetMovie($id)
+        {
+            try {
+                $query = "SELECT * FROM " . $this->tableName . " where id=$id;";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+
+                $movie = new Movie();
+
+                foreach ($resultSet as $row) {
+                    $movie->setId($row["id"]);
+                    $movie->setAdult($row["adult"]);
+                    $movie->setName($row["movieName"]);
+                    $movie->setSummary($row["summary"]);
+                    $movie->setLanguage($row["movieLanguage"]);
+                    $movie->setImage($row["dir_image"]);
+                    $movie->setReleaseDate($row["releaseDate"]);
+                    $movie->setGenres($this->GetGenres($row["id"]));
+                    $movie->setPlayingNow($row["playingNow"]);
+                }
+                return $movie;
+
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+
+        }
     }
+
 ?>

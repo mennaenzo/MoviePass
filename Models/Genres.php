@@ -6,23 +6,23 @@ namespace Models;
 
 class Genres
 {
-    private $id_api;
+    private $id;
     private $name;
 
     public function setName($name){
         $this->name=$name;
     }
 
-    public function setIdApi($id){
-        $this->id_api=$id;
+    public function setId($id){
+        $this->id=$id;
     }
 
     public function getName(){
         return $this->name;
     }
 
-    public function getIdApi(){
-        return $this->id_api;
+    public function getId(){
+        return $this->id;
     }
     //probando
 

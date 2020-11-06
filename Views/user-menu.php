@@ -4,6 +4,9 @@
                 <form action="<?php echo FRONT_ROOT . "Movie/DownloadMovies"?>" method="POST">
                     <button type="submit" name="" class="btn btn-danger" value="">Cargar Peliculas </button>
                 </form>
+                <form action="<?php echo FRONT_ROOT . "Genres/getGenresFromApi"?>" method="POST">
+                    <button type="submit" name="" class="btn btn-danger" value="">Cargar Generos </button>
+                </form>
 
 
                 <table class="table bg-light-alpha">
