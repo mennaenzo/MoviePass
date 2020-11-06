@@ -23,10 +23,12 @@ create table if not exists Movies (
     movieName varchar(50) not null,
     summary varchar(2000) not null,
     movieLanguage varchar(10) not null,
+    dir_image varchar(80),
     playingNow bool default 0,
     releaseDate date not null,
     constraint Pk_Movie primary key (id)
 );
+
 create table if not exists Genres (
     id int not null,
     genreName varchar (20) not null,

@@ -2,18 +2,21 @@
     namespace Controllers;
 
     use DAO\CinemaDAO as CinemaDAO;
-    use DAO\MovieDAO;
+    use DAO\MovieDAO as MovieDAO;
     use DAO\UserDAO as UserDAO;
     use Models\User as User;
+
 
     class UserController
     {
         private $userDAO;
         private $cinemaDAO;
+        private $movieDAO;
         private $message = null;
 
         public function __construct()
         {
+            $this->movieDAO = new MovieDAO();
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
         }
@@ -24,6 +27,10 @@
             require_once(VIEWS_PATH . "user-add.php");
         }
 
+        public function ShowMovieListAdmin(){
+            $movieList = $this->movieDAO->GetAll();
+            require_once(VIEWS_PATH . "user-menu.php");
+        }
         public function ShowListView()
         {
             $userList = $this->userDAO->GetAll();
@@ -83,7 +90,7 @@
                     
                         //cambiar ----------------------------
                         if ($userExists->getEsAdmin() == 1) {
-                            require_once(VIEWS_PATH . "movie-list.php");
+                            $this->ShowMovieListAdmin();
                         } else {
                             $this->ShowListView_user();
                         }

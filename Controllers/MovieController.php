@@ -14,10 +14,16 @@
 
         public function ShowListView()
         {
-            $movieList = $this->MovieDAO->GetAll();
-            $genresList = $this->MovieDAO->GetGenres();
+            $movieList= $this->MovieDAO->GetAll();
+            //var_dump($movieList);
+            //$genresList = $this->MovieDAO->GetGenres();
 
             require_once(VIEWS_PATH . "user-menu.php");
+        }
+
+        public function DownloadMovies(){
+            $this->MovieDAO->GetNowPlaying();
+            $this->ShowListView();
         }
     }
 ?>

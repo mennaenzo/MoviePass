@@ -8,10 +8,29 @@
         private $summary;
         private $language;
         private $image;
+        private $playingNow;
         private $genres = array();
-        private $releaseDate; //falta get and set
+        private $releaseDate;
 
 
+        public function getReleaseDate()
+        {
+            return $this->releaseDate;
+        }
+
+        public function setReleaseDate($releaseDate)
+        {
+            $this->releaseDate = $releaseDate;
+        }
+
+        public function setPlayingNow($playingNow){
+            $this->playingNow=$playingNow;
+        }
+
+        public function getPlayingNow(){
+            return $this->playingNow;
+        }
+/*
         function __construct($id, $adult, $name, $summary, $language,$image,$genres){
             $this->id =  $id;
             $this->adult =  $adult;
@@ -21,22 +40,16 @@
             $this->image = $image;
             $this->genres = $genres;
         }
-
+*/
         public function getId(){
             return $this->id;
         }
 
-        /**
-         * @return mixed
-         */
         public function getImage()
         {
             return $this->image;
         }
 
-        /**
-         * @param mixed $image
-         */
         public function setImage($image)
         {
             $this->image = $image;
