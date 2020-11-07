@@ -29,7 +29,7 @@ require_once VIEWS_PATH."nav.php";
                                                 <button style="margin: 10px" type="submit" formmethod="POST" name="btnRemove" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Eliminar </button>
                                             </form>
 
-                                            <form action="<?php echo FRONT_ROOT ?>" method="POST">
+                                            <form action="<?php echo FRONT_ROOT ?>Cinema/ShowModifyView" method="POST">
                                             <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Modificar </button>
                                         <div>
                                         </form>

@@ -193,7 +193,22 @@
             catch(Exception $ex)
             {
                 throw $ex;
-                $message = "El cine no se dio de baja..";
+                $message = "El cine no se dio de baja.";
+            }
+            return $message;
+        }
+        public function modify($id, $cinemaName, $address){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET cinemaName = '$cinemaName', address = '$address'  WHERE id = '$id';";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                $message = "El cine se modifico correctamente.";
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                $message = "El cine no se pudo modificar";
             }
             return $message;
         }

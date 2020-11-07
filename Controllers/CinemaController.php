@@ -53,6 +53,19 @@
             require_once VIEWS_PATH . "cine-add.php";
         }
 
+        public function ShowModifyView()
+        {
+            $cinema = $this->cinemaDAO->GetCinema($_POST["btnModify"]);
+            if(isset($cinema)){
+               require_once VIEWS_PATH . "modifyCine.php";
+            } 
+            else{
+                $message = "El cine que se quiere modificar no existe.";
+                $this->ShowListView();
+            }
+     
+        }
+
         // Se redirecciona a la vista para agregar salas a un cine
         public function ShowAddRoomView($message = "", Cinema $cinemaAdd)
         {
@@ -98,7 +111,13 @@
                 $this->message = $this->cinemaDAO->delete($_POST["btnRemove"]);
                 $this->ShowListView();
             }
+        }
 
+        public function modify(){
+            if($_POST["btnModify"]){
+                $this->message = $this->cinemaDAO->modify($_POST["btnModify"], $_POST["name"], $_POST["address"] );
+                $this->ShowListView();
+            }
         }
     }
 ?>
