@@ -180,7 +180,22 @@
             {
                 throw $ex;
             }
+        }
 
+        public function delete($id){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET statusCinema = 0 WHERE id = $id;";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                $message = "El cine se dio de baja correctamente.";
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                $message = "El cine no se dio de baja..";
+            }
+            return $message;
         }
     }
 

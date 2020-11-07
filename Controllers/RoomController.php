@@ -20,28 +20,31 @@
         
         public function addRoom()
         {
-            $cinemaId = $_POST["comboBox"];
-            if ($this->validatedata()) {
-                $newRoom = new Room();
-                $newRoom->setNameCinema($this->cinemaDAO->GetCinema($cinemaId)->getName());
-                $newRoom->setName($_POST["name"]);
-                $newRoom->setRoom_price($_POST["room_price"]);
-                $newRoom->setCapacity($_POST["capacity"]);
-                $status = $this->roomDAO->add($newRoom, $cinemaId);
-          
-                if ($status <> 0) {
-                    if($status)
-                    {
-                        $this->ShowListCinemaView("Agregado correctamente.");
+            if($_POST["comboBox"]){
+                $cinemaId = $_POST["comboBox"];
+                if ($this->validatedata()) {
+                    $newRoom = new Room();
+                    $newRoom->setNameCinema($this->cinemaDAO->GetCinema($cinemaId)->getName());
+                    $newRoom->setName($_POST["name"]);
+                    $newRoom->setRoom_price($_POST["room_price"]);
+                    $newRoom->setCapacity($_POST["capacity"]);
+                    $status = $this->roomDAO->add($newRoom, $cinemaId);
+            
+                    if ($status <> 0) {
+                        if($status)
+                        {
+                            $this->ShowListCinemaView("Agregado correctamente.");
+                        }else{
+                            $this->ShowAddRoom("La Sala ya existe.");
+                        }
                     }else{
-                        $this->ShowAddRoom("La Sala ya existe.");
+                        $this->ShowAddRoom("Error de conexion. Pongase en contacto con su proveedor.");
                     }
-                }else{
-                    $this->ShowAddRoom("Error de conexion. Pongase en contacto con su proveedor.");
+                } else {
+                    $this->message = "Error en la carga de datos.";
+                    $this->ShowListCinemaView($this->message);
                 }
-            } else {
-                $this->message = "Error en la carga de datos.";
-                $this->ShowListCinemaView($this->message);
+            
             }
         }
     
@@ -63,10 +66,12 @@
             require_once  VIEWS_PATH . "Cinema-List.php";
         }
 
-        public function ShowListRoomView($id)
-        {
-            $roomList = $this->roomDAO->searchRoomsByIdCinema($id);
-            require_once VIEWS_PATH . "Room-List.php";
+        public function ShowListRoomView()
+        { 
+            if($_POST["btnSeeRoom"]){
+                $roomList = $this->roomDAO->searchRoomsByIdCinema($_POST["btnSeeRoom"]);
+                require_once VIEWS_PATH . "Room-List.php";
+            } 
         }
 
         public function ShowRoomListView_User($id)
@@ -87,6 +92,9 @@
             require_once VIEWS_PATH . "room-add-admin.php";
         }
 
+        public function cancelRoom(){
+            echo "'BORRAR CINE";
+        }
 
         public function DeleteRoom($name)
         {

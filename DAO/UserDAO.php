@@ -56,22 +56,30 @@
 
         public function esAdmin($id)
         {
-            $query = "SELECT esAdmin FROM " . $this->tableName . " WHERE id = '$id';";
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
-            if ($resultSet[0]["esAdmin"]) {
-                return true;
-            } else {
-                return false;
+            try{
+                $query = "SELECT esAdmin FROM " . $this->tableName . " WHERE id = '$id';";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                if ($resultSet[0]["esAdmin"]) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (Exception $ex) {
+                throw $ex;
             }
         }
 
         public function getUserName($id)
         {
-            $query = "SELECT userName FROM " . $this->tableName . " WHERE id = '$id';";
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query);
-            return $resultSet[0]["userName"];
+            try{
+                $query = "SELECT userName FROM " . $this->tableName . " WHERE id = '$id';";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                return $resultSet[0]["userName"];
+            } catch (Exception $ex) {
+            throw $ex;
+        }
         }
 
         /* Funciones para trabajar con JSON

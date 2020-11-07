@@ -7,22 +7,31 @@ require_once VIEWS_PATH."nav.php";
     <section id="listado" class="mb-5">
         <div class="container">
             <h2 class="mb-4">Listado de Cines</h2>
-                <table class="table bg-light-alpha">
+                <table class="table bg-light-alpha"> 
                     <thead>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>List Rooms</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th></th>
                     </thead>
                     <tbody>
                         <?php foreach($cinemaList as $cinema){ ?>
                            <tr> 
                                 <div>
-                                    <td><?php echo $cinema->getName();?></td>
+                                    <td ><?php echo $cinema->getName();?></td>
                                     <td><?php echo $cinema->getAddress(); ?></td>
                                     <td>
-                                        <!--<input type="checkbox" name="select" value="<?php// echo $cinema->getId()?>" required>No puede ser checkbox porque me pide que debo seleccionar todos-->
-                                        <form action="<?php echo FRONT_ROOT ?>Room/ShowRoomListView_User" method="POST">
-                                            <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Rooms </button>
+                                    <div class="form-group row justify-content-center">
+                                            <form action="<?php echo FRONT_ROOT ?>Room/ShowListRoomView" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Salas </button>
+                                            </form>
+
+                                            <form action="<?php echo FRONT_ROOT ?> Cinema/delete" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnRemove" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Eliminar </button>
+                                            </form>
+
+                                            <form action="<?php echo FRONT_ROOT ?>" method="POST">
+                                            <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Modificar </button>
+                                        <div>
                                         </form>
                                     </td>
                                 </div>

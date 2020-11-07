@@ -1,5 +1,5 @@
 <?php
-    require_once('nav.php');
+   // require_once('nav.php');
 ?>
 <main class="py-auto">
     <section id="listado" class="mb-5">
@@ -33,14 +33,21 @@
 
                 <br>
                 <button id="submit" type="submit" name="button" value = "<?php ?>" class="btn btn-dark ml-auto d-block">Agregar</button>
-
-            </div>
+               
+                </div>
+                </form>
+                <div>         
+                    <form id= "Cancelar" action="<?php echo FRONT_ROOT ?>Room/cancelRoom" method="post" class="bg-light-alpha p-5">
+                            
+                        <button id="submit" type="submit" name="return" value = "<?php $cinemaAdd->getId(); ?>" class="btn btn-dark ml-auto d-block">Cancelar</button>
+                    </form>
+                </div>
             <?php
             if(isset($message)){
                 echo "<script> alert('$message'); </script>";
             }
             ?>
-        </form>
+      
         </div>
     </section>
 

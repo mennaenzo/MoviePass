@@ -92,5 +92,13 @@
                 return false;
             }
         }
+
+        public function delete(){
+            if($_POST["btnRemove"]){
+                $this->message = $this->cinemaDAO->delete($_POST["btnRemove"]);
+                $this->ShowListView();
+            }
+
+        }
     }
 ?>
