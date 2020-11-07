@@ -28,6 +28,7 @@
                 $newRoom->setRoom_price($_POST["room_price"]);
                 $newRoom->setCapacity($_POST["capacity"]);
                 $status = $this->roomDAO->add($newRoom, $cinemaId);
+          
                 if ($status <> 0) {
                     if($status)
                     {
@@ -41,11 +42,9 @@
             } else {
                 $this->message = "Error en la carga de datos.";
                 $this->ShowListCinemaView($this->message);
-               
             }
         }
     
-       
 /*
         public function ShowListView($message = "")
         {
@@ -76,14 +75,15 @@
             require_once VIEWS_PATH . "room-list-user.php";
         }
 
-        public function ShowAddRoomView($option)
+       /*  public function ShowAddRoomView($option)
         {
             require_once VIEWS_PATH . "room-add.php";
-        }
+        } */
 
         public function ShowAddRoom($message = ''){
             $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
+            $cinemaAdd = new Cinema();
             require_once VIEWS_PATH . "room-add-admin.php";
         }
 

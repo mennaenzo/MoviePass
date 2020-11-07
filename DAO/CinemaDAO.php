@@ -89,9 +89,9 @@
             }
         }
 */
-        public function searchIdCinemaByName($name)
+        public function searchCinemaByName($name)
         {
-            $query = "SELECT id FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
+            $query = "SELECT id, cinemaName, address FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
             
@@ -99,8 +99,10 @@
                 foreach ($result as $value) {
                     $cinema = new Cinema();
                     $cinema->setId(($value["id"]));
+                    $cinema->setName(($value["cinemaName"]));
+                    $cinema->setAddress(($value["address"]));
                 }
-                return $cinema->getId();
+                return $cinema;
             } else {
                 return null;
             }
@@ -159,8 +161,6 @@
         public function GetCinema($id){
             try
             {
-
-
                 $query = "SELECT * FROM ".$this->tableName." where id=$id;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);

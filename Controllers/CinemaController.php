@@ -35,7 +35,8 @@
 
                 $this->message =$this->cinemaDAO->Add($cinema);
                 if ($this->message == "Los datos del cine fueron creados correctamente.") {
-                    $this->ShowAddRoomView($this->message);
+                    $cinemaAdd = $this->cinemaDAO->searchCinemaByName($cinema->getName()); //BUSCO EL ID DEL CINEMA AGREGADO PARA DESPUES PODER MOSTRAR SU NOMBRE 
+                    $this->ShowAddRoomView($this->message, $cinemaAdd);
                 } else {
                     $this->ShowAddView($this->message);
                 }
@@ -53,7 +54,7 @@
         }
 
         // Se redirecciona a la vista para agregar salas a un cine
-        public function ShowAddRoomView($message = "")
+        public function ShowAddRoomView($message = "", Cinema $cinemaAdd)
         {
             $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll(); 
