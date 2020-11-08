@@ -20,7 +20,6 @@
         // Se redirecciona a la vista donde se listan los cines
         public function ShowListView($message = "")
         {
-            $message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
             require_once VIEWS_PATH . "Cinema-List.php";
         }
@@ -108,15 +107,25 @@
 
         public function delete(){
             if($_POST["btnRemove"]){
-                $this->message = $this->cinemaDAO->delete($_POST["btnRemove"]);
-                $this->ShowListView();
+                if($this->cinemaDAO->delete($_POST["btnRemove"])){
+                    $message = "El cine se dio de baja correctamente.";
+                }
+                else{
+                    $message = "El cine no se dio de baja.";
+                } 
+                $this->ShowListView($message);
             }
         }
 
         public function modify(){
             if($_POST["btnModify"]){
-                $this->message = $this->cinemaDAO->modify($_POST["btnModify"], $_POST["name"], $_POST["address"] );
-                $this->ShowListView();
+               if($this->cinemaDAO->modify($_POST["btnModify"], $_POST["name"], $_POST["address"])){
+                    $message = "El cine se modifico correctamente.";
+               }
+               else{
+                    $message = "El cine no se pudo modificar";
+               }
+                $this->ShowListView($message);
             }
         }
     }

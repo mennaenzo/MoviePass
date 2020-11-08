@@ -3,25 +3,25 @@
 ?>
 <main class="py-auto">
      <section id="listado" class="mb-5">
-              <form id= "addRoom" action="<?php echo FRONT_ROOT ?>Room/addRoom" method="post" class="bg-light-alpha p-5">
+              <form id= "addRoom" action="<?php echo FRONT_ROOT ?>Room/modify" method="post" class="bg-light-alpha p-5">
                   <header class="header">
                       <br>
                       <br>
-                      <h2>Agregar Sala</h2>
+                      <h2>Modificar Sala</h2>
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">
                             <label for="nameRoom">Nombre de la Sala</label>
-                            <input type="text" name="name" value="" class="form-control" required>
+                            <input type="text" name="name" value="<?php echo $room->getName()?>" class="form-control" required>
                              
                             <label for="numberOfRoom">Precio de la Sala</label>
-                            <input type="number" name="room_price" value="" class="form-control" min="100" required>
+                            <input type="number" name="room_price" value="<?php echo $room->getRoom_price()?>" class="form-control" min="1" required>
                              
                             <label for="numberOfSeats">Cantidad de butacas</label>
-                            <input type="number" name="capacity" value="" class="form-control" min="50" max="500" required>
+                            <input type="number" name="capacity" value="<?php echo $room->getCapacity()?>" class="form-control" min="1" max="500" required>
                              
                             <br>
-                            <button id="submit" type="submit" name="button" value = "<?php ?>" class="btn btn-dark ml-auto d-block">Add</button>
+                            <button id="submit" type="submit" name="btnModify" value = "<?php echo $room->getId(); ?>" class="btn btn-dark ml-auto d-block">Modificar</button>
                             
                          </div>
                          <?php 

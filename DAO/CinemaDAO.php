@@ -61,34 +61,8 @@
             catch (Exception $ex){
                 throw $ex;
             }
-            /*
-            $this->RetrieveData();
-            return $this->cinemaList;
-            */
         }
-        /*
-        public function RetrieveData()
-        {
-            try {
-                $query = "SELECT * FROM " .  $this->tableName . ";";
-                $this->connection = Connection::GetInstance();
-             
-                $result = $this->connection->Execute($query);
-               
-                if ($result) {
-                    foreach ($result as $value) {
-                        $cinema = new Cinema();
-                        $cinema->setId($value["id"]);
-                        $cinema->setName($value["cinemaName"]);
-                        $cinema->setAddress($value["address"]);
-                        array_push($this->cinemaList, $cinema);
-                    }
-                }
-            } catch (Exception $ex) {
-                throw $ex;
-            }
-        }
-*/
+            
         public function searchCinemaByName($name)
         {
             $query = "SELECT id, cinemaName, address FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
@@ -168,13 +142,11 @@
                 $cinema = new Cinema();
 
                 foreach ($resultSet as $row){
-
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["cinemaName"]);
                     $cinema->setAddress($row["address"]);
                 }
                 return $cinema;
-
             }
             catch(Exception $ex)
             {
@@ -188,14 +160,13 @@
                 $query = "UPDATE " . $this->tableName . " SET statusCinema = 0 WHERE id = $id;";
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
-                $message = "El cine se dio de baja correctamente.";
+                return true;
             }
             catch(Exception $ex)
             {
                 throw $ex;
-                $message = "El cine no se dio de baja.";
+                return false;
             }
-            return $message;
         }
         public function modify($id, $cinemaName, $address){
             try
@@ -203,12 +174,12 @@
                 $query = "UPDATE " . $this->tableName . " SET cinemaName = '$cinemaName', address = '$address'  WHERE id = '$id';";
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
-                $message = "El cine se modifico correctamente.";
+                return true;
             }
             catch(Exception $ex)
             {
                 throw $ex;
-                $message = "El cine no se pudo modificar";
+                return false;
             }
             return $message;
         }
@@ -228,7 +199,34 @@
 
 
 
-
+/*
+            $this->RetrieveData();
+            return $this->cinemaList;
+            */
+        
+        /*
+        public function RetrieveData()
+        {
+            try {
+                $query = "SELECT * FROM " .  $this->tableName . ";";
+                $this->connection = Connection::GetInstance();
+             
+                $result = $this->connection->Execute($query);
+               
+                if ($result) {
+                    foreach ($result as $value) {
+                        $cinema = new Cinema();
+                        $cinema->setId($value["id"]);
+                        $cinema->setName($value["cinemaName"]);
+                        $cinema->setAddress($value["address"]);
+                        array_push($this->cinemaList, $cinema);
+                    }
+                }
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+        }
+*/
 
 
 

@@ -96,9 +96,34 @@
             echo "'BORRAR CINE";
         }
 
-        public function DeleteRoom($name)
+        public function delete($name)
         {
-            echo "delete : ". $name;
+            echo "'BORRAR Sala";
+        }
+
+        public function ShowModifyView()
+        {
+            $room = $this->roomDAO->GetRoom($_POST["btnModify"]);
+            if(isset($room)){
+               require_once VIEWS_PATH . "modifyRoom.php";
+            } 
+            else{
+                $message = "La sala que se quiere modificar no existe.";
+                $this->ShowListCinemaView($message);
+            }
+     
+        }
+
+        public function modify(){
+            if($_POST["btnModify"]){
+                if($this->roomDAO->modify($_POST["btnModify"], $_POST["name"],$_POST["capacity"], $_POST["room_price"])){
+                    $message = "La sala se pudo modificar";
+                }
+                else{
+                    $message = "La sala no se pudo modificar";
+                }
+                $this->ShowListCinemaView($message);
+            }
         }
 
         // Validacion de campos en general

@@ -3,11 +3,11 @@
 ?>
 <main class="py-auto">
      <section id="listado" class="mb-5">
-              <form id= "signup" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
+              <form id= "cineAdd" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
                   <header class="header">
                       <br>
                       <br>
-                      <h2>Add Cinema</h2>
+                      <h2>Agregar Cinema</h2>
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">

@@ -20,7 +20,7 @@ require_once VIEWS_PATH."nav.php";
                                     <td ><?php echo $cinema->getName();?></td>
                                     <td><?php echo $cinema->getAddress(); ?></td>
                                     <td>
-                                    <div class="form-group row justify-content-center">
+                                        <div class="form-group row justify-content-center">
                                             <form action="<?php echo FRONT_ROOT ?>Room/ShowListRoomView" method="POST">
                                                 <button style="margin: 10px" type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Salas </button>
                                             </form>
@@ -30,9 +30,9 @@ require_once VIEWS_PATH."nav.php";
                                             </form>
 
                                             <form action="<?php echo FRONT_ROOT ?>Cinema/ShowModifyView" method="POST">
-                                            <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Modificar </button>
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Modificar </button>
+                                            </form>
                                         <div>
-                                        </form>
                                     </td>
                                 </div>
                              </tr>
@@ -52,7 +52,7 @@ require_once VIEWS_PATH."nav.php";
              </div>             
                     <?php 
                         
-                        if(isset($message)){ 
+                        if($message <> ""){ 
                             echo "<script> alert('$message'); </script>";
                         }
                     ?> 

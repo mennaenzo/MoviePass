@@ -58,12 +58,12 @@ create table if not exists Shows(
     id int auto_increment not null,
     showTime time not null,
     showDay date not null,
-    idMovieApi int not null,
+    idMovie int not null,
     #id de la Movie de la Api
     idRoom int not null,
     statusShow bool default 1,
     constraint Pk_Id_Show primary key (id),
-    constraint Fk_Id_Movie foreign key (idMovieApi) references Movies(id),
+    constraint Fk_Id_Movie foreign key (idMovie references Movies(id),
     constraint Fk_Id_Room foreign key (idRoom) references Rooms(id)
 );
 create table if not exists ShowxUser(

@@ -66,7 +66,6 @@
 
         public function GetAll()
         {
-
             try{
                 $roomList = array();
                 $query = "SELECT * FROM ".$this->tableName . " WHERE statusRoom=1;";
@@ -88,6 +87,86 @@
                 throw $ex;
             }
         }
+
+        public function GetRoom($idRoom)
+            {
+                $room = null;
+                try{
+                    $query = "SELECT  roomName, capacity, idCinema, price FROM ". $this->tableName." WHERE id=$idRoom;";
+                    $this->connection = Connection::GetInstance();
+                    $resultSet = $this->connection->Execute($query);
+
+                    foreach ($resultSet as $row){
+                        $room = new Room();
+                        $room->setId($idRoom);
+                        $room->setName($row["roomName"]);
+                        $room->setCapacity($row["capacity"]);
+                        $room->setNameCinema($this->cinemaDAO->GetCinema($row["idCinema"])->getName());
+                        $room->setRoom_price($row["price"]);
+                    }
+                }
+                catch(Exception $ex)
+                {
+                    throw $ex;
+                }
+
+                return $room;
+        }
+
+        public function modify($idRoom, $roomName, $capacity, $price){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET roomName= '$roomName', capacity = '$capacity', price = '$price'  WHERE id = '$idRoom';";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+            return $message;
+        }
+
+       public function searchRoomsByIdCinema($idCinema)
+        {
+            $roomList = array();
+            try {
+                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
+        
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+          
+                if ($result) {
+                    foreach ($result as $value) {
+                        $room = new Room();
+                        $room->setId($value["id"]);
+                        $room->setName($value["roomName"]);
+                        $room->setRoom_price($value["price"]);
+                        $room->setCapacity($value["capacity"]);
+                        $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
+                        array_push($roomList, $room);
+                    }
+                }
+            } catch (Exceptio $ex) {
+                throw $ex;
+            }
+            return $roomList;
+        }
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
 /*
         public function RetrieveData()
         {
@@ -115,33 +194,7 @@
         */
  
     
-        public function searchRoomsByIdCinema($idCinema)
-        {
-            $roomList = array();
-            try {
-                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
-        
-                $this->connection = Connection::GetInstance();
-                $result = $this->connection->Execute($query);
-          
-
-                if ($result) {
-                    foreach ($result as $value) {
-                        $room = new Room();
-                        $room->setId($value["id"]);
-                        $room->setName($value["roomName"]);
-                        $room->setRoom_price($value["price"]);
-                        $room->setCapacity($value["capacity"]);
-                        $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
-                        array_push($roomList, $room);
-                    }
-                }
-            } catch (Exceptio $ex) {
-                throw $ex;
-            }
-            return $roomList;
-        }
-  
+       
 
         /* Para trabajar con JSON
             private $fileNameRoom = "Data/room.json";
@@ -205,5 +258,5 @@
             }
 
          */
-    }
+}
 ?>
