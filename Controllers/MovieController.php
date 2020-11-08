@@ -44,7 +44,6 @@
 
             foreach($arrayToDecode["results"] as $valuesArray)
             {
-
                 $movie = new Movie();
                 $movie->setAdult($valuesArray["adult"]);
                 $movie->setId($valuesArray["id"]);

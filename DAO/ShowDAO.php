@@ -65,6 +65,11 @@
 
             return $showList;
         }
+
+        
+
+       
+
         //Retorna las funciones de una sala en especial
         public function GetShow($idRoom){
             $showList = array();

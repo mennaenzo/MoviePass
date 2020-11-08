@@ -42,6 +42,7 @@
 
         }
 
+        //Ver implementacion de este metodo
         public function GetAll()
         {
             /*
@@ -150,10 +151,37 @@
             }
         }
 
+        public function getMovieAvailable(){
+            $movieList = array();
+            try{
+                $query = "SELECT * FROM " . $this->tableName . " WHERE playingNow = 0;";
+            
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+               
+                if($result != null){
+                    foreach ($result as $row) {
+                        $movie = new Movie();
+                        $movie->setId($row["id"]);
+                        $movie->setName($row["movieName"]);
+                        $movie->setSummary($row["summary"]);
+                        $movie->setLanguage($row["movieLanguage"]);
+                        $movie->setImage($row["dir_image"]);
+                        $movie->setReleaseDate($row["releaseDate"]);
+                        $movie->setPlayingNow($row["playingNow"]);
+                        array_push($movieList, $movie);
+                    }
+                }
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+            return $movieList;
+        }
+
         ///Funcion que retorna una movie buscandola por id
         public function GetMovie($id)
         {
-            try {
+            try {   
                 $query = "SELECT * FROM " . $this->tableName . " where id=$id;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
@@ -171,12 +199,10 @@
                     $movie->setGenres($this->GetGenres($row["id"]));
                     $movie->setPlayingNow($row["playingNow"]);
                 }
-                return $movie;
-
             } catch (Exception $ex) {
                 throw $ex;
-            }
-
+            }  
+            return $movie;
         }
     }
 

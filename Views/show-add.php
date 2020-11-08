@@ -11,23 +11,27 @@
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">
-
                             <label for="lbldate">Dia</label>
                             <input type="date" name="date" value="" class="form-control" required>
 
                             <label for="lbltime">Hora</label>
                             <select name="time">
-                                <option value="08:00">08:00</option>
                             </select>
-
                             <label for="lblmovie">Pelicula</label>
-                            <select name="mobie">
-                                <option value="08:00">08:00</option>
+                            <select name="SelectMovie">
+                                    <?php foreach($movieList as $movie){?>
+                                        <option><?php echo $movie->getName()?></option>
+                                    <?php } ?>
                             </select>
 
                             <label for="lblRoom">Sala</label>
-                            <select name="idRoom">
-                                <option value="08:00">08:00</option>
+                            <select name="SelectRoom">
+                                    <?php foreach($cinemaList as $cinema){
+                                        foreach(($this->roomDAO-> searchRoomsByIdCinema($cinema->getId())) as $room){ ?>
+                                               <option><?php echo $cinema->getName() . " -> " . $room->getName();?></option>
+                                        <?php } ?>
+                                <?php }  
+                            ?>
                             </select>
                             <br>
                             <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Agregar funcion</button>
