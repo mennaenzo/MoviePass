@@ -1,17 +1,16 @@
 <?php require_once "nav.php";
-//var_dump($genresList);?>
-<main class="py-5">
-    <section id="listado" class="mb-5">
-        <div class="container">
-             <div>
-                <h2>User Menu</h2>
-                <form action="<?php echo FRONT_ROOT . "Movie/DownloadMovies"?>" method="POST">
-                    <button type="submit" name="" class="btn btn-danger" value="">Cargar Peliculas </button>
-                </form>
-                <form action="<?php echo FRONT_ROOT . "Genres/getGenresFromApi"?>" method="POST">
-                    <button type="submit" name="" class="btn btn-danger" value="">Cargar Generos </button>
-                </form>
-
+?>
+                <h2>"BillBoard"</h2>
+                <label for="lblGenres">Peliculas por Generos</label>
+                <select name="SelectGenre">
+                    <option value="">Genero</option>
+                    <?php foreach($genresList as $genres){?>
+                            <option value="<?php echo $genres->getId(); ?>"> <?php echo $genres->getName(); ?></option>
+                    <?php }?>
+                </select>
+                <a href="<?php echo FRONT_ROOT . "Genres/getGenresFromApi"?>">
+                    <button type="button" name="" class="btn btn-danger" value="">Peliculas por Fechas </button></a>
+                </a>
                 <table class="table bg-light-alpha">
                     <thead>
                     <th>Poster</th>
@@ -33,10 +32,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
 
-
-
+</div>

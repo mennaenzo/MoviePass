@@ -3,14 +3,18 @@
 
     use DAO\MovieDAO as MovieDAO;
     use Models\Movie as Movie;
+    use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
 
     class MovieController
     {
         private $MovieDAO;
+        private $MoviesxGenresDAO;
 
         public function __construct()
         {
             $this->MovieDAO = new MovieDAO();
+            $this->MoviesxGenresDAO = new MoviesxGenresDAO();
+
         }
 
         public function ShowListView()
@@ -52,6 +56,8 @@
                 $movie->setImage($valuesArray["poster_path"]);
                 $movie->setSummary($valuesArray["overview"]);
                 $movie->setReleaseDate($valuesArray["release_date"]);
+                $movie->setGenres($valuesArray["genre_ids"]);
+
 
                 /* $arrayGenres=array();
 
@@ -64,6 +70,8 @@
 
                 ///var_dump($movie);
                 $this->MovieDAO->Add($movie);
+                $this->MoviesxGenresDAO->Add($movie->getGenres(), $movie->getId());
+
                 //$this->AddMovieXGenres($arrayGenres,$valuesArray["id"]);
 
             }

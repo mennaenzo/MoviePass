@@ -4,12 +4,14 @@
     use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use DAO\UserDAO as UserDAO;
+    use DAO\GenresDAO as GenresDAO;
     use Models\User as User;
 
 
     class UserController
     {
         private $userDAO;
+        private $genresDAO;
         private $cinemaDAO;
         private $movieDAO;
         private $message = null;
@@ -19,6 +21,7 @@
             $this->movieDAO = new MovieDAO();
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
+            $this->genresDAO = new GenresDAO();
         }
 
         public function ShowAddView($message = "")
@@ -50,6 +53,7 @@
                 $user->setLastName(trim($lastName));
                 $user->setEmail(trim($email));
                 $user->setUserPassword(trim($userPassword));
+                //$user->setEsAdmin();
                 $this->userDAO->Add($user);
                 $this->message = "Usuario agregado con exito.";
                 $this->ShowLoginView($this->message);
@@ -87,7 +91,8 @@
                     if ($userExists->getUserPassword() == $password) {
                         //guardar en session
                         $_SESSION['loggedUser'] = $userExists->getId();
-                    
+                        var_dump($userExists);
+
                         //cambiar ----------------------------
                         if ($userExists->getEsAdmin() == 1) {
                             $this->ShowMovieListAdmin();
@@ -98,13 +103,7 @@
                         $this->message = "Contraseña incorrecta.";
                         $this->ShowLoginView($this->message);
                     }
-                } else {
-                    $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
-                    $this->ShowLoginView($this->message);
                 }
-            } else {
-                $this->message = "Al validar los datos ingresados, se produjo un error. Por favor vuelva a ingresarlos.";
-                $this->ShowLoginView($this->message);
             }
         }
 
@@ -158,11 +157,15 @@
 
         public function ShowListView_user()
         {
-            $movieDAO = new MovieDAO();
-            $movieList = $movieDAO->GetAll();
+            $movieList = $this->movieDAO->getMovieAvailable();
+            $genresList = $this->genresDAO->GetAll();
             //var_dump($movieList);
-            require_once VIEWS_PATH . "user-menu.php";
+
+            require_once VIEWS_PATH . "billboard.php";
+
+
         }
+
 
         public function ShowListViewCinema_user()
         {

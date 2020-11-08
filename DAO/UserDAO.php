@@ -46,6 +46,7 @@
                         $user->setLastName("lastName");
                         $user->setEmail($row["email"]);
                         $user->setUserPassword($row["userPassword"]);
+                        $user->setEsAdmin($row["esAdmin"]);
                     }
                 }
             } catch (Exception $ex) {
