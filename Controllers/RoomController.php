@@ -29,25 +29,24 @@
                     $newRoom->setRoom_price($_POST["room_price"]);
                     $newRoom->setCapacity($_POST["capacity"]);
                     $status = $this->roomDAO->add($newRoom, $cinemaId);
-            
-                    if ($status <> 0) {
-                        if($status)
+                  
+                    if ($status >= 0) {
+                        if($status == 0)
                         {
-                            $message = "Agregado correctamente";
-                            $this->ShowListCinemaView($message);
-                        }else{
                             $message = "La sala ya existe";
                             $this->ShowAddRoom($message);
+                        }elseif($status == 1){
+                            $message = "Agregado correctamente";
+                            $this->ShowListCinemaView($message);
                         }
                     }else{
                         $message = "Error de conexion. Pongase en contacto con su proveedor.";
                         $this->ShowAddRoom($message);
-                    }
-                } else {
+                    } 
+                }else {
                     $message = "Error en la carga de datos.";
                     $this->ShowListCinemaView($message);
-                }
-            
+                } 
             }
         }
     

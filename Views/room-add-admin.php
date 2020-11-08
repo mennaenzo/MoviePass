@@ -43,7 +43,7 @@
                     </form>
                 </div>
             <?php
-            if(isset($message)){
+            if($message <> ""){
                 echo "<script> alert('$message'); </script>";
             }
             ?>

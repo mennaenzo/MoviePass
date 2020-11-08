@@ -22,21 +22,22 @@
         public function add(Room $room, $idCinema)
         {
             if ($this->validateRoomName($room->getName())) {
-                return false;
+                return 0;
             }else {
                 try {
-                    $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)";
+                    $query = "INSERT INTO " . $this->tableName . " (roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price);";
+                    
                     $parameters["roomName"] = $room->getName();
                     $parameters["capacity"] = $room->getCapacity();
                     $parameters["price"] = $room->getRoom_price();
                     $parameters["idCinema"] = $idCinema;
                     
                     $this->connection = Connection::GetInstance();
-                    $count = $this->connection->ExecuteNonQuery($query, $parameters);
-                    return true;
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                    return 1;
                 } catch (Exception $ex) {
                     throw $ex;
-                    return 0;
+                    return -1;
                 }
             }
         }

@@ -7,15 +7,15 @@
                   <header class="header">
                       <br>
                       <br>
-                      <h2>Agregar Cinema</h2>
+                      <h2>Agregar Cine</h2>
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">
 
-                            <label for="name">Name</label>
+                            <label for="name">Nombre</label>
                             <input type="text" name="cinema_name" value="" class="form-control" required>
 
-                            <label for="address">Address</label>
+                            <label for="address">Direccion</label>
                             <input type="text" name="cinema_address" value="" class="form-control" required>
                             <br>
                             <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Agregar Cine</button>
