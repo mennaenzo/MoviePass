@@ -138,10 +138,7 @@
             } catch (Exception $ex) {
                 throw $ex;
             }  
-            print_r($movie);
-                echo "<br>";
-                echo "--------------------------";
-                echo "<br>";
+
             return $movie;
         }
     }

@@ -24,16 +24,14 @@
 
         public function Add(Show $show){
             try{
-                $query = "INSERT INTO " . $this->tableName . "showTime, showDay, idMovie, idRoom VALUES (:showTime, :showDay, :idMovie, :idRoom);";
+                $query = "INSERT INTO " . $this->tableName . " (showTime, showDay, idMovie, idRoom) VALUES (:showTime, :showDay, :idMovie, :idRoom);";
                 $parameters["showTime"] = $show->getTime();
-                $parameters["dayTime"] = $show->getDay();
-                print_r($show);
-                print_r($show->Movie->getId());
-                print_r($show->Room->getId());
-                $parameters["idMovie"] = $show->Movie->getId();
-                $parameters["idRoom"] = $show->Room->getId();
+                $parameters["showDay"] = $show->getDay();
+                $parameters["idMovie"] = $show->getMovie()->getId();
+                $parameters["idRoom"] = $show->getRoom()->getId();
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query,$parameters);
+                return 1;
 
             }catch(Exception $ex){
                 throw $ex;

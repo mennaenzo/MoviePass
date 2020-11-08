@@ -42,7 +42,7 @@
 
         public function setMovie($movie)
         {
-            $this->Movie = $movie;
+            $this->movie = $movie;
         }
     
         public function getRoom()

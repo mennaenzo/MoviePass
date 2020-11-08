@@ -39,10 +39,10 @@
                             <br>
                             <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Agregar funcion</button>
                          </div>
-                         <?php
-                            if (isset($message)) {
-                                echo "<script> alert('$message'); </script>";
-                            }
-                        ?> 
               </form>
           </div>
+         <?php
+         if ($message <> "") {
+             echo "<script> alert('$message'); </script>";
+         }
+         ?>

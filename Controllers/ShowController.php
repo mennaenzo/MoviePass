@@ -29,7 +29,7 @@
         {
             if ($this->validateDataShow()) {
                 $show = new Show();
-                echo "HORA: " . $_POST["hour"];
+
                 if (strpos($_POST["hour"], "a.m.") || strpos($_POST["hour"], "p.m.")) {
                     $hour = substr_replace($_POST["hour"], "", -4);
                     $show->setTime($hour);
@@ -42,8 +42,15 @@
                 $show->setMovie($this->movieDAO->GetMovie($_POST["SelectMovie"]));
                 
                 $show->setRoom($this->roomDAO->GetRoom($_POST["SelectRoom"]));
-                
-                $this->showDAO->Add($show);
+
+                $result = $this->showDAO->Add($show);
+                if($result){
+                    $message = "La función se agrego correctamente";
+                }
+                else{
+                    $message = "Error en la carga de datos.";
+                }
+                $this->ShowAddView($message);
             }
         }
 
@@ -60,7 +67,7 @@
             return false;
         }
 
-        public function addShow()
+        public function ShowAddView($message = "")
         {
             $cinemaList = $this->cinemaDAO->GetAll();
             $movieList = $this->movieDAO->getMovieAvailable();

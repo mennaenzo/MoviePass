@@ -110,10 +110,7 @@
                 {
                     throw $ex;
                 }
-                print_r($room);
-                echo "<br>";
-                echo "--------------------------";
-                echo "<br>";
+
                 return $room;
         }
 

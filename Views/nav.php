@@ -48,7 +48,7 @@ if (isset($_SESSION['loggedUser'])) {
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Room/ShowAddRoom">Agregar Sala</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Show/addShow">Agregar Funciones</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Show/ShowAddView">Agregar Funciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Cinema/ShowListView">Listar Cine</a>
