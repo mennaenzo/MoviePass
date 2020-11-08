@@ -4,38 +4,42 @@
      <main class="py-5">
          <section id="listado" class="mb-5">
              <div class="container">
-                 <h2 class="mb-4">Listado de Salas</h2>
+                 <h2 class="mb-4">Listado de Salass</h2>
                  <table class="table bg-light-alpha">
                      <thead>
-                        <th>Sala</th>
+                        <th>Nombre</th>
                         <th>Precio</th>
                         <th>Capacidad</th>
                      </thead>
                      <tbody>
                          <tr>
-                             <?php foreach($roomList as $room) {
-                                
-                                        if($room->getNameCinema() == $option){?>
-                                            <tr>
-                                                <td><?php  echo $room->getName();?></td> 
-                                                <td><?php  echo $room->getRoom_price();?></td> 
-                                                <td><?php  echo $room->getCapacity();?></td> 
-                                            </tr>     
-                            <?php }} ?>
+                             <?php 
+                                foreach($roomList as $room) {?>
+                                    <tr>
+                                        <td><?php  echo $room->getName();?></td> 
+                                        <td><?php  echo $room->getRoom_price();?></td> 
+                                        <td><?php  echo $room->getCapacity();?></td> 
+                                        <td>
+                                            <div class="form-group row justify-content-center">
+                                                <form action="<?php echo FRONT_ROOT?> Show/ShowsList" method="POST">
+                                                    <button style="margin: 10px" type="submit" formmethod="POST" name="btnSeeShow" class="btn btn-danger" value="<?php echo $room->getId();?>"> Ver funciones </button>
+                                                </form>
+
+                                                <form action="<?php echo FRONT_ROOT ?> Room/delete" method="POST">
+                                                    <button style="margin: 10px" type="submit" formmethod="POST" name="btnRemove" class="btn btn-danger" value="<?php echo $room->getId();?>"> Eliminar </button>
+                                                </form>
+
+                                                <form action="<?php echo FRONT_ROOT ?>  Room/ShowModifyView" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $room->getId(); ?>"> Modificar </button>
+                                                </form>
+                                            <div>
+                                        </td>
+                                    </tr>     
+                            <?php } ?>
                         </tr>
                     </tbody>
                 </table>
-                <div>  
-                    <form action="<?php echo FRONT_ROOT ?>Room/DeleteRoom" method="POST">
-                        <select name="rooms">
-                            <?php foreach($roomList as $room){ ?>
-                            <option value="<?php echo $room->getName();?>"> <?php echo $room->getName();?> </option>    
-                            <?php } ?>
-                        </select>
-
-<!--                         <button type="submit" name="btnDelete" class="btn btn-danger" value=""> Eliminar </button>    
- -->                    </form>
-                </div>   
+                
                 
                 <?php 
                     if(isset($message)){ 
