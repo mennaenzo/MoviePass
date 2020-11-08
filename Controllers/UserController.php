@@ -91,7 +91,6 @@
                     if ($userExists->getUserPassword() == $password) {
                         //guardar en session
                         $_SESSION['loggedUser'] = $userExists->getId();
-                        var_dump($userExists);
 
                         //cambiar ----------------------------
                         if ($userExists->getEsAdmin() == 1) {

@@ -9,6 +9,9 @@
                     <?php }?>
                 </select>
                 <a href="<?php echo FRONT_ROOT . "Genres/getGenresFromApi"?>">
+                    <button type="button" name="" class="btn btn-danger" value="">Peliculas por Genero </button></a>
+                </a>
+                <a href="<?php echo FRONT_ROOT . "Genres/getGenresFromApi"?>">
                     <button type="button" name="" class="btn btn-danger" value="">Peliculas por Fechas </button></a>
                 </a>
                 <table class="table bg-light-alpha">
