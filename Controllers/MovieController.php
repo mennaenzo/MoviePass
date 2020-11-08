@@ -69,5 +69,23 @@
 
             }
         }
+
+        public function manageMovieView(){
+            if($_POST["button"]) {
+                $movie = $this->MovieDAO->GetMovie($_POST["button"]);
+                require_once(VIEWS_PATH . "movie-manage.php");
+            }
+        }
+        public function changePlayingNow($id,$name,$playingNow){
+            $movie= new Movie();
+            $movie->setId($id);
+            $movie->setName($name);
+            $movie->setPlayingNow($$playingNow);
+
+            $this->MovieDAO->changePlayingNow($movie);
+            $this->ShowListView();
+        }
+
+
     }
 ?>

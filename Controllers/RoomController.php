@@ -33,16 +33,19 @@
                     if ($status <> 0) {
                         if($status)
                         {
-                            $this->ShowListCinemaView("Agregado correctamente.");
+                            $message = "Agregado correctamente";
+                            $this->ShowListCinemaView($message);
                         }else{
-                            $this->ShowAddRoom("La Sala ya existe.");
+                            $message = "La sala ya existe";
+                            $this->ShowAddRoom($message);
                         }
                     }else{
-                        $this->ShowAddRoom("Error de conexion. Pongase en contacto con su proveedor.");
+                        $message = "Error de conexion. Pongase en contacto con su proveedor.";
+                        $this->ShowAddRoom($message);
                     }
                 } else {
-                    $this->message = "Error en la carga de datos.";
-                    $this->ShowListCinemaView($this->message);
+                    $message = "Error en la carga de datos.";
+                    $this->ShowListCinemaView($message);
                 }
             
             }
@@ -86,7 +89,7 @@
         } */
 
         public function ShowAddRoom($message = ''){
-            $message = $this->message;
+            ///$message = $this->message;
             $cinemaList = $this->cinemaDAO->GetAll();
             $cinemaAdd = new Cinema();
             require_once VIEWS_PATH . "room-add-admin.php";

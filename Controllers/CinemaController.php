@@ -106,7 +106,7 @@
         }
 
         public function delete(){
-            if($_POST["btnRemove"]){
+            if($_POST["btnRemove"] != null){
                 if($this->cinemaDAO->delete($_POST["btnRemove"])){
                     $message = "El cine se dio de baja correctamente.";
                 }

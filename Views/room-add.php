@@ -21,11 +21,11 @@
                             <input type="number" name="capacity" value="" class="form-control" min="50" max="500" required>
                              
                             <br>
-                            <button id="submit" type="submit" name="button" value = "<?php ?>" class="btn btn-dark ml-auto d-block">Add</button>
+                            <button id="submit" type="submit" name="button" value = "<?php ?>" class="btn btn-dark ml-auto d-block">Agregar</button>
                             
                          </div>
                          <?php 
-                            if(isset($message)){  
+                            if($message <> ""){
                                 echo "<script> alert('$message'); </script>";
                             }                      
                         ?> 
