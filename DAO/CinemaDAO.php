@@ -85,27 +85,20 @@
         public function validateNameCinema($name)
         {
             $flag = false;
-            $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."';";
+            $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."' and statusCinema = 1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
 
             if ($result) {
                 $flag = true;
             }
-            /*  $this->RetrieveData();
-             $flag = false;
-             foreach($this->cinemaList as $value){
-                 if($name == $value->getName()){
-                    $flag = true;
-                 }
-             } */
             return $flag;
         }
 
         public function validateAddressCinema($address)
         {
             $flag = false;
-            $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."';";
+            $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."' and statusCinema=1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
            
