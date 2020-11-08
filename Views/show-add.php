@@ -13,14 +13,15 @@
                          <div class="inputs">
                             <label for="lbldate">Dia</label>
                             <input type="date" name="date" value="" class="form-control" required>
-
                             <label for="lbltime">Hora</label>
-                            <select name="time">
-                            </select>
+                            <input type="time" name="hour" value="" class="form-control" required>
+
                             <label for="lblmovie">Pelicula</label>
                             <select name="SelectMovie">
                                     <?php foreach($movieList as $movie){?>
-                                        <option><?php echo $movie->getName()?></option>
+                                        <option value = "<?php echo $movie->getId();?>">
+                                            <?php echo $movie->getName();?>
+                                        </option>
                                     <?php } ?>
                             </select>
 
@@ -28,7 +29,9 @@
                             <select name="SelectRoom">
                                     <?php foreach($cinemaList as $cinema){
                                         foreach(($this->roomDAO-> searchRoomsByIdCinema($cinema->getId())) as $room){ ?>
-                                               <option><?php echo $cinema->getName() . " -> " . $room->getName();?></option>
+                                            <option value = "<?php echo $room->getId(); ?>">
+                                                <?php echo $cinema->getName() . " -> " . $room->getName();?>
+                                            </option>
                                         <?php } ?>
                                 <?php }  
                             ?>

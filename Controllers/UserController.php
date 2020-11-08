@@ -86,7 +86,7 @@
                 $trimPassword = trim($password);
 
                 $userExists = $this->userDAO->SearchUser($trimEmail);
-
+                
                 if ($userExists != null) {
                     if ($userExists->getUserPassword() == $password) {
                         //guardar en session
@@ -102,7 +102,13 @@
                         $this->message = "Contraseña incorrecta.";
                         $this->ShowLoginView($this->message);
                     }
+                }else{
+                    $this->message = "Usuario no registrado.";
+                    $this->ShowLoginView($this->message);
                 }
+            }else{
+                $this->message = "Error de datos.";
+                $this->ShowLoginView($this->message);
             }
         }
 
@@ -123,9 +129,8 @@
                 if ($this->validateField($_POST["email"]) && $this->validateField(["password"])) {
                     return true;
                 }
-            } else {
-                return false;
             }
+            return false;
         }
 
         public function validateFieldNumber($fieldNumber)

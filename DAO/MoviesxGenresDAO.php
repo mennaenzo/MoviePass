@@ -36,5 +36,13 @@ class MoviesxGenresDAO
         }
     }
 
+    public function GetGenresByMovieId($idMovie)
+    {
+        $query = "SELECT idGenre FROM " . $this->tableName . " WHERE idMovie = $idMovie;";
+            
+        $this->connection = Connection::GetInstance();
+        $result = $this->connection->Execute($query);
 
+        return $result;
+    }
 }

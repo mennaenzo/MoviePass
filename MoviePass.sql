@@ -63,7 +63,7 @@ create table if not exists Shows(
     idRoom int not null,
     statusShow bool default 1,
     constraint Pk_Id_Show primary key (id),
-    constraint Fk_Id_Movie foreign key (idMovie references Movies(id),
+    constraint Fk_Id_Movie foreign key (idMovie) references Movies(id),
     constraint Fk_Id_Room foreign key (idRoom) references Rooms(id)
 );
 create table if not exists ShowxUser(
