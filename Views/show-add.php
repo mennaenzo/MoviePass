@@ -12,7 +12,8 @@
                   <div class="sep"></div>
                          <div class="inputs">
                             <label style="color: black" for="lbldate">Dia</label>
-                            <input type="date" name="date" value="" class="form-control" required>
+                            <input type="date" name="date" value="<?php echo date("Y-m-d")?>" prefix="<?php date("Y-m-d")?>"
+                                   min="<?php echo date("Y-m-d")?>"class="form-control" prefix="<?php date("Y-m-d")?>required>
                             <label style="color: black" for="lbltime">Hora</label>
                             <input type="time" name="hour" value="" class="form-control" required>
 

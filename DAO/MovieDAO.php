@@ -134,7 +134,8 @@
                         array_push($aux, $genreId["idGenre"]);
                     }
                     $movie->setGenres($aux);
-                    $movie->setPlayingNow($row["playingNow"]);
+                    $movie->setRuntime($row["runtime"]);
+                   // $movie->setPlayingNow($row["playingNow"]);
                 }
                 
             } catch (Exception $ex) {

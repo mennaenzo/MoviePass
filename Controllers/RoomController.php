@@ -69,7 +69,7 @@
         }
 
         public function ShowListRoomView()
-        { 
+        {
             if($_POST["btnSeeRoom"]){
                 $roomList = $this->roomDAO->searchRoomsByIdCinema($_POST["btnSeeRoom"]);
                 require_once VIEWS_PATH . "Room-List.php";

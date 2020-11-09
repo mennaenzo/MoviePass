@@ -73,7 +73,7 @@
         public function ShowAddView($message = "")
         {
             $cinemaList = $this->cinemaDAO->GetAll();
-            $movieList = $this->movieDAO->getMovieAvailable();
+            $movieList = $this->movieDAO->GetAll();////ver si es el GetMovieAvailable
        
             require_once VIEWS_PATH . "show-add.php";
         }
