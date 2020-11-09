@@ -32,8 +32,10 @@
 
         public function ShowMovieListAdmin(){
             $movieList = $this->movieDAO->GetAll();
-            require_once(VIEWS_PATH . "user-menu.php");
+            $genresList = $this->genresDAO->GetAll();
+            require_once(VIEWS_PATH . "admin-menu.php");
         }
+
         public function ShowListView()
         {
             $userList = $this->userDAO->GetAll();
@@ -151,7 +153,6 @@
             }
         }
 
-
         public function Logout()
         {
             session_destroy();
@@ -161,13 +162,11 @@
 
         public function ShowListView_user()
         {
-            $movieList = $this->movieDAO->getMovieAvailable();
+            $movieList = $this->movieDAO->getMovieAvailable(false);
             $genresList = $this->genresDAO->GetAll();
             //var_dump($movieList);
 
             require_once VIEWS_PATH . "billboard.php";
-
-
         }
 
 

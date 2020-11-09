@@ -8,6 +8,7 @@
     use DAO\CinemaDAO as CinemaDAO;  //ver
     use DAO\MovieDAO as MovieDAO;  //ver
     use DAO\ShowDAO as ShowDAO;
+    use DAO\GenresDAO as GenresDAO;
 
     class ShowController
     {
@@ -16,6 +17,7 @@
         private $showDAO;
         private $movieDAO;
         private $message;
+        private $genresDAO;
 
         public function __construct()
         {
@@ -23,6 +25,7 @@
             $this->cinemaDAO = new CinemaDAO();
             $this->showDAO = new ShowDAO();
             $this->movieDAO = new MovieDAO();
+            $this->genresDAO = new GenresDAO();
         }
         
         public function Add()
@@ -91,5 +94,29 @@
             $roomList = $this->roomDAO->GetAll();
             echo "nada";
             // require_once VIEWS_PATH . "Room-List.php";
+        }
+
+        public function Filter()
+        {
+            if($_POST)
+            {
+                $date = 0;
+                if($_POST["SelectGenre"] <> 0)
+                {
+                    //filtro por genero
+                }
+
+                if (isset($_POST["time"])) {
+                    $date = $_POST["time"];
+                }
+                $this->ShowListView($date);
+            }
+        }
+
+        public function ShowListView($date)
+        {
+            $movieList= $this->movieDAO->getMovieAvailable($date);
+            $genresList = $this->genresDAO->GetAll();
+            require_once(VIEWS_PATH . "billboard.php");
         }
     }

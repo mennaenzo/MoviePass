@@ -12,6 +12,7 @@
         private $moviesList = array();
         private $tableName = "Movies";
         private $tableName2 = "genres";
+        private $tb_Shows = "shows";
         private $MoviesxGenresDAO;
 
         public function __construct(){
@@ -23,8 +24,7 @@
             /* array_push($this->moviesList, $movie);*/
 
             try {
-
-                $query = "INSERT INTO " . $this->tableName . " (id, adult, movieName, summary, movieLanguage, dir_image, playingNow, releaseDate) VALUES (:id, :adult, :movieName, :summary, :movieLanguage, :dir_image, :playingNow, :releaseDate)
+                $query = "INSERT INTO " . $this->tableName . " (id, adult, movieName, summary, movieLanguage, dir_image, runtime, releaseDate) VALUES (:id, :adult, :movieName, :summary, :movieLanguage, :dir_image, :runtime, :releaseDate)
                 on duplicate key update id=id , adult=adult, movieName=movieName , summary=summary , movieLanguage=movieLanguage , dir_image=dir_image , releaseDate=releaseDate;";
                 //echo $query;
 
@@ -34,7 +34,7 @@
                 $parameters["summary"] = $movie->getSummary();
                 $parameters["movieLanguage"] = $movie->getLanguage();
                 $parameters["dir_image"] = $movie->getImage();
-                $parameters["playingNow"] = $movie->getPlayingNow();
+                $parameters["runtime"] = $movie->getRuntime();
                 $parameters["releaseDate"] = $movie->getReleaseDate();
 
                 $this->connection = Connection::GetInstance();
@@ -49,14 +49,9 @@
         //Ver implementacion de este metodo
         public function GetAll()
         {
-            /*
-            $this->getNowPlaying();
-            return $this->moviesList;
-            */
-
             try {
                 $movieList = array();
-                $query = "SELECT * FROM " . $this->tableName;
+                $query = "SELECT * FROM " . $this->tableName . ";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
@@ -69,7 +64,7 @@
                     $movie->setImage($row["dir_image"]);
                     $movie->setReleaseDate($row["releaseDate"]);
                     //$movie->setGenres($this->GetGenres($row["id_movie_api"]));
-                    $movie->setPlayingNow($row["playingNow"]);
+                    $movie->setRuntime($row["runtime"]);
                     array_push($movieList, $movie);
                 }
                 return $movieList;
@@ -79,10 +74,17 @@
             }
         }
 
-        public function getMovieAvailable(){
+        public function getMovieAvailable($date = 0){
             $movieList = array();
             try{
-                $query = "SELECT * FROM " . $this->tableName . " WHERE playingNow = 0;";
+                if($date = 0)
+                {
+                    $now = date("Y-m-d");
+                }else{
+                    $now = $date;
+                }
+
+                $query = "SELECT m.id FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE showDay = ". $now . ";";
             
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);

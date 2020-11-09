@@ -8,7 +8,7 @@
         private $summary;
         private $language;
         private $image;
-        private $playingNow;
+        private $runtime;
         private $genres = array();
         private $releaseDate;
 
@@ -23,12 +23,12 @@
             $this->releaseDate = $releaseDate;
         }
 
-        public function setPlayingNow($playingNow){
-            $this->playingNow=$playingNow;
+        public function setRuntime($runtime){
+            $this->runtime=$runtime;
         }
 
-        public function getPlayingNow(){
-            return $this->playingNow;
+        public function getRuntime(){
+            return $this->runtime;
         }
 /*
         function __construct($id, $adult, $name, $summary, $language,$image,$genres){

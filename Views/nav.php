@@ -54,7 +54,7 @@ if (isset($_SESSION['loggedUser'])) {
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Cinema/ShowListView">Listar Cine</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Movie/ShowListView">Listar Pelicula</a>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Movie/ShowListAdmin">Listar Pelicula</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>

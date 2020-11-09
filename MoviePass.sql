@@ -24,7 +24,7 @@ create table if not exists Movies (
     summary varchar(2000) not null,
     movieLanguage varchar(10) not null,
     dir_image varchar(80),
-    playingNow bool default 0,
+    runtime int not null,
     releaseDate date not null,
     constraint Pk_Movie primary key (id)
 );
