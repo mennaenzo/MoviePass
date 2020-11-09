@@ -5,7 +5,7 @@
          <section id="listado" class="mb-5">
              <div class="container">
                  <h2 class="mb-4">Listado de Funciones</h2>
-                 <table class="table bg-light-alpha">
+                 <table class="table table-dark">
                      <thead>
                         <th>Dia</th>
                         <th>Hora</th>

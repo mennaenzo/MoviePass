@@ -3,9 +3,9 @@
 <main class="py-auto">
      <section id="listado" class="mb-5">
         <div>
-            <h2>"Cartelera"</h2>
+            <h2 class="mb-4"style="color: #4e555b">"Cartelera"</h2>
             <form id= "billboard" action="<?php echo FRONT_ROOT ?>Show/Filter" method="post" class="bg-light-alpha p-5">
-            <label for="lblGenres">Peliculas por Generos</label>
+            <label style="color: black" for="lblGenres">Peliculas por Generos</label>
             <select name="SelectGenre">
                 <option value="0">Genero</option>
                 <?php foreach($genresList as $genres){?>
@@ -17,7 +17,7 @@
                 <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
             </a>
             </form>
-            <table class="table bg-light-alpha">
+            <table class="table table-dark">
                 <thead>
                 <th>Poster</th>
                 <th>Title</th>

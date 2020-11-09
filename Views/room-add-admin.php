@@ -5,11 +5,11 @@
     <section id="listado" class="mb-5">
         <form id= "addRoom" action="<?php echo FRONT_ROOT ?>Room/addRoom" method="post" class="bg-light-alpha p-5">
             <header class="header">
-                <h2>Agregar Sala</h2>
+                <h2 style="color: black">Agregar Sala</h2>
             </header>
             <div class="sep"></div>
             <div class="inputs">
-                <label for="">Seleccione el cine</label>
+                <label style="color: black" for="">Seleccione el cine</label>
                     <select name="comboBox" class="">
                         <?php 
                         if(($cinemaAdd->getName()) != null){ ?>
@@ -22,13 +22,13 @@
                         } ?>
                     </select>
                  <br>
-                <label for="nameRoom">Nombre de la Sala</label>
+                <label style="color: black" for="nameRoom">Nombre de la Sala</label>
                 <input type="text" name="name" value="" class="form-control" required>
 
-                <label for="numberOfRoom">Precio de la Sala</label>
+                <label style="color: black" for="numberOfRoom">Precio de la Sala</label>
                 <input type="number" name="room_price" value="" class="form-control" required>
 
-                <label for="numberOfSeats">Cantidad de butacas</label>
+                <label style="color: black" for="numberOfSeats">Cantidad de butacas</label>
                 <input type="number" name="capacity" value="" class="form-control" min="1" max="500" required>
 
                 <br>

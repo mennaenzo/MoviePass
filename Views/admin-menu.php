@@ -12,7 +12,7 @@
                     <button type="submit" name="" class="btn btn-danger" value="">Cargar Generos </button>
                 </form> -->
 
-                <table class="table bg-light-alpha">
+                <table class="table table-dark">
                     <thead>
                     <th>Poster</th>
                     <th>Title</th>

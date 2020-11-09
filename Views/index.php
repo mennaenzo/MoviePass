@@ -10,7 +10,7 @@ if(isset($message)){
 <main class="">
     <section id="" class="">
         <div class="">
-            <h2 class="">LOGIN</h2>
+            <h2 class="" style="color: #4e555b">LOGIN</h2>
             <form action="<?php echo FRONT_ROOT ?>User/Login" method="post" class="">
                 <div class="">
                     <div class="">
