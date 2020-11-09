@@ -38,12 +38,4 @@ class GenresController
         require_once(VIEWS_PATH . "user-menu.php");
     }
 
-    public function ShowFilterGenres(){
-        require_once (VIEWS_PATH . "billboard.php");
-    }
-
-
-
-
-
 }

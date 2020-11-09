@@ -1,6 +1,6 @@
 <?php
      require_once('nav.php');
-     ?>
+?>
      <main class="py-5">
          <section id="listado" class="mb-5">
              <div class="container">
@@ -17,9 +17,10 @@
                              <?php 
                                 foreach($showList as $show) {?>
                                     <tr>
-                                        <td><?php  echo $show->getTime();?></td> 
-                                        <td><?php  echo $room->getDay();?></td> 
-                                        <td><?php  echo $room->getIdMovie();?></td> 
+                                        <td><?php echo $show->getDay();?></td> 
+                                        <td><?php echo $show->getTime();?></td> 
+                                        <td><?php echo $show->getMovie()->getName();?></td>
+                                        <td><?php echo $show->getRoom()->getName();?></td>  
                                         <td>
                                             <div class="form-group row justify-content-center">
                                                     <form action="<?php echo FRONT_ROOT ?> " method="POST">

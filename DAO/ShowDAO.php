@@ -70,17 +70,17 @@
         public function GetShow($idRoom){
             $showList = array();
            try{
-               $query = "SELECT showTime, showDay, idMovie,  idRoom FROM " . $this->tableName . " WHERE idRoom = $idRoom;";
+               $query = "SELECT id, showTime, showDay, idMovie, idRoom FROM " . $this->tableName . " WHERE idRoom = $idRoom;";
                $this->connection = Connection::GetInstance();
                $result = $this->connection->Execute($query);
                if($result){
                    foreach($result as $value){
                        $newShow = new Show();
                        $newShow->setId($value["id"]);
-                       $newShow->setTime($value["showTime"]);
+                       $newShow->setTime(substr_replace($value["showTime"], "", -3));
                        $newShow->setDay($value["showDay"]);
-                       $newShow->setIdMovie($value["idMovie"]);
-                       $newShow->setIdRoom($idRoom);
+                       $newShow->setMovie($this->movieDAO->GetMovie($value["idMovie"]));
+                       $newShow->setRoom($this->roomDAO->GetRoom($idRoom));
                        array_push($showList, $newShow);
                    }
                }

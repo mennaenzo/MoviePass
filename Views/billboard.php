@@ -12,7 +12,7 @@
                         <option value="<?php echo $genres->getId(); ?>"> <?php echo $genres->getName(); ?></option>
                 <?php }?>
             </select>
-            <input type="time" name="time" value="" class="form-control">
+            <input type="date" name="date" value="" class="form-control">
             <a href="<?php echo FRONT_ROOT . "Shows/ShowListView"?>">
                 <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
             </a>

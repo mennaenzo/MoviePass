@@ -6,6 +6,7 @@ namespace DAO;
 use DAO\Connection as Connection;
 use Models\Genres as Genres;
 use Models\Movie as Movie;
+use DAO\MovieDAO as MovieDAO;
 use \Exception as Exception;
 
 
@@ -13,6 +14,7 @@ class MoviesxGenresDAO
 {
     private $connection;
     private $tableName = "Movie_Genres";
+    private $movieDAO;
 
     public function Add($arrayGenre, $idMovie)
     {
@@ -62,15 +64,17 @@ class MoviesxGenresDAO
             inner join movie_genres mxg on mxg.idMovie = m.id
             where mxg.idGenre = $idGenre
             group by m.id;";
-                
+               
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
+
+            $movieDAO = new MovieDAO();
             foreach ($result as $row) {
-                $movie= new Movie();
-                $movie->setId($row["id"]);
-                
-                array_push($movieList, $row);
+                $movie = new Movie();
+                $movie = $movieDAO->GetMovie($row["id"]);
+                array_push($movieList, $movie);
             }
+            return $movieList;
         }
         catch(Exception $ex)
         {

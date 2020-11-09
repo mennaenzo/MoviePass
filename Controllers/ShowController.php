@@ -9,6 +9,7 @@
     use DAO\MovieDAO as MovieDAO;  //ver
     use DAO\ShowDAO as ShowDAO;
     use DAO\GenresDAO as GenresDAO;
+    use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
 
     class ShowController
     {
@@ -18,6 +19,7 @@
         private $movieDAO;
         private $message;
         private $genresDAO;
+        private $moviexgenresDAO;
 
         public function __construct()
         {
@@ -26,6 +28,7 @@
             $this->showDAO = new ShowDAO();
             $this->movieDAO = new MovieDAO();
             $this->genresDAO = new GenresDAO();
+            $this->moviexgenresDAO = new MoviesxGenresDAO();
         }
         
         public function Add()
@@ -102,11 +105,11 @@
                 $date = 0;
                 if($_POST["SelectGenre"] <> 0)
                 {
-                   
+                   $this->ShowFilterGenres();
                 }
 
-                if (isset($_POST["time"])) {
-                    $date = $_POST["time"];
+                if ($_POST["date"] <> "") {
+                    $date = $_POST["date"];
                 }
                 $this->ShowListView($date);
             }
@@ -115,8 +118,14 @@
         public function ShowListView($date)
         {
             $movieList= $this->movieDAO->getMovieAvailable($date);
-            $genresList = $this->genresDAO->GetAll();
+            $genresList = $this->moviexgenresDAO->GetGenresByShows();
         
             require_once(VIEWS_PATH . "billboard.php");
+        }
+
+        public function ShowFilterGenres(){
+            $movieList = $this->moviexgenresDAO->GetMoviesByGenreId($_POST["SelectGenre"]);
+            $genresList = $this->moviexgenresDAO->GetGenresByShows();
+            require_once (VIEWS_PATH . "billboard.php");
         }
     }

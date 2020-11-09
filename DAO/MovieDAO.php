@@ -78,7 +78,7 @@
             $movieList = array();
             try{
                 $query = "SELECT * FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
-            
+                
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                
@@ -92,7 +92,6 @@
                         $movie->setImage($row["dir_image"]);
                         $movie->setReleaseDate($row["releaseDate"]);
                         array_push($movieList, $movie);
-                        
                     }
                 }
             } catch (Exception $ex) {
@@ -104,27 +103,23 @@
         public function getMovieAvailable($date = 0){
             $movieList = array();
             try{
-                if($date = 0)
+                date_default_timezone_set("America/Argentina/Buenos_Aires");
+                if($date == 0)
                 {
                     $now = date("Y-m-d");
                 }else{
                     $now = $date;
                 }
 
-                $query = "SELECT m.id FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE showDay = ". $now . ";";
-            
+                $query = "SELECT m.id FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE showDay = '". $now . "';";
+                
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                
                 if($result != null){
                     foreach ($result as $row) {
                         $movie = new Movie();
-                        $movie->setId($row["id"]);
-                        $movie->setName($row["movieName"]);
-                        $movie->setSummary($row["summary"]);
-                        $movie->setLanguage($row["movieLanguage"]);
-                        $movie->setImage($row["dir_image"]);
-                        $movie->setReleaseDate($row["releaseDate"]);
+                        $movie = $this->GetMovie($row["id"]);
                         array_push($movieList, $movie);
                     }
                 }
