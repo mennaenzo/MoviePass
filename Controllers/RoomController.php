@@ -98,14 +98,9 @@
             echo "'BORRAR CINE";
         }
 
-        /*public function delete($name)
-        {
-            echo "'BORRAR Sala";
-        }*/
         public function delete(){
             $result = $this->roomDAO->checkIfShows($_POST["btnRemove"]);
             ///var_dump($result);
-
             if(!empty($result)) {
                 $message = "La sala tiene funciones y no se puede eliminar.";
             }

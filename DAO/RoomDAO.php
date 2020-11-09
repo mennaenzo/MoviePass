@@ -46,7 +46,7 @@
         public function validateRoomName($name)
         {
             $flag = false;
-            $query = "SELECT roomName FROM ". $this->tableName. " WHERE roomName= '".$name."';";
+            $query = "SELECT roomName FROM ". $this->tableName. " WHERE roomName= '".$name."' and statusRoom=1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
 
@@ -183,6 +183,20 @@
             catch(Exception $ex){
                 throw $ex;
 
+            }
+        }
+
+        public function checkIfRooms($idCinema){
+            try{
+
+                $query="Select * from rooms r where idCinema=$idCinema;";
+
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                return $resultSet;
+            }
+            catch(Exception $ex){
+                throw $ex;
             }
         }
   

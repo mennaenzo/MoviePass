@@ -104,7 +104,7 @@
                 return false;
             }
         }
-
+        /*
         public function delete(){
             if($_POST["btnRemove"] != null){
                 if($this->cinemaDAO->delete($_POST["btnRemove"])){
@@ -115,6 +115,24 @@
                 } 
                 $this->ShowListView($message);
             }
+        }
+        */
+        public function delete(){
+            $result = $this->roomDAO->checkIfRooms($_POST["btnRemove"]);
+            //var_dump($result);
+            if($_POST["btnRemove"] != null){
+                if(!empty($result)){
+                    $message = "El cine contiene salas. Elimine primero las salas de ese cine";
+                    $this->ShowListView($message);
+                }
+                elseif ($this->cinemaDAO->delete($_POST["btnRemove"])) {
+                        $message = "El cine se dio de baja correctamente.";
+                }
+                else {
+                        $message = "El cine no se dio de baja.";
+                    }
+                }
+            $this->ShowListView($message);
         }
 
         public function modify(){
