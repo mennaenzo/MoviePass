@@ -45,29 +45,29 @@
 
         public static function setMoviesNowPlaying()
         {
-            // $movieDAO = new MovieDAO();
-            // $moviesxGenresDAO = new MoviesxGenresDAO();
+             $movieDAO = new MovieDAO();
+             $moviesxGenresDAO = new MoviesxGenresDAO();
 
-            // $jsonContent = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1");
+             $jsonContent = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1");
 
-            // $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
+             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
-            // foreach($arrayToDecode["results"] as $valuesArray)
-            // {
-            //     $movie = new Movie();
-            //     $movie->setAdult($valuesArray["adult"]);
-            //     $movie->setId($valuesArray["id"]);
-            //     $movie->setName($valuesArray["original_title"]);
-            //     $movie->setLanguage($valuesArray["original_language"]);
-            //     $movie->setImage($valuesArray["poster_path"]);
-            //     $movie->setSummary($valuesArray["overview"]);
-            //     $movie->setReleaseDate($valuesArray["release_date"]);
-            //     $movie->setGenres($valuesArray["genre_ids"]);
-            //     $movie->setRuntime(UtilitiesController::getRuntimeApi($valuesArray["id"]));
+             foreach($arrayToDecode["results"] as $valuesArray)
+             {
+                 $movie = new Movie();
+                 $movie->setAdult($valuesArray["adult"]);
+                 $movie->setId($valuesArray["id"]);
+                 $movie->setName($valuesArray["original_title"]);
+                 $movie->setLanguage($valuesArray["original_language"]);
+                 $movie->setImage($valuesArray["poster_path"]);
+                 $movie->setSummary($valuesArray["overview"]);
+                 $movie->setReleaseDate($valuesArray["release_date"]);
+                 $movie->setGenres($valuesArray["genre_ids"]);
+                 $movie->setRuntime(UtilitiesController::getRuntimeApi($valuesArray["id"]));
 
-            //     $movieDAO->Add($movie);
-            //     $moviesxGenresDAO->Add($movie->getGenres(), $movie->getId());
-            // }
+                 $movieDAO->Add($movie);
+                 $moviesxGenresDAO->Add($movie->getGenres(), $movie->getId());
+             }
         }
 
         public static function getRuntimeApi($idMovie){

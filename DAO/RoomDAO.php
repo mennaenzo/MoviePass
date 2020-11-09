@@ -189,7 +189,7 @@
         public function checkIfRooms($idCinema){
             try{
 
-                $query="Select * from rooms r where idCinema=$idCinema;";
+                $query="Select * from rooms r where idCinema=$idCinema and statusRoom=1";
 
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);

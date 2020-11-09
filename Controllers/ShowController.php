@@ -92,8 +92,7 @@
         public function ShowRoomView($message = "")
         {
             $roomList = $this->roomDAO->GetAll();
-            echo "nada";
-            // require_once VIEWS_PATH . "Room-List.php";
+            require_once VIEWS_PATH . "Room-List.php";
         }
 
         public function Filter()

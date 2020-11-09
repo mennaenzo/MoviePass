@@ -23,11 +23,11 @@
                 <label style="color: #4e555b" for="password">Contraseña</label>
                 <input type="password" id="password" name="password" value="" class="form-control form-control-lg" placeholder="Ingresar contraseña" required>
             </div>
-            <div class="form-group">
+
                 <button class="btn btn-dark btn-block btn-lg" type="submit" name="button" class="">Registrarse</button>
-            </div>
+
         </form>
-        <div>
+        <div class="login-form bg-dark-alpha p-5 text-white">
             <a href="<?php echo FRONT_ROOT ?>User/ShowLoginView"><button class="btn btn-dark btn-block btn-lg">Cancelar</button></a>
         </div>
             <?php  if(isset($message)){ echo "<script> alert('$message'); </script>"; }

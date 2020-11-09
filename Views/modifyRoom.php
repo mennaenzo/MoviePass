@@ -11,10 +11,10 @@
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">
-                            <label style="color: black" for="nameRoom">Nombre de la Sala</label>
+                            <label style="color: black" for="nameRoom"><strong>Nombre de la Sala</strong></label>
                             <input type="text" name="name" value="<?php echo $room->getName()?>" class="form-control" required>
                              
-                            <label style="color: black" for="numberOfRoom">Precio de la Sala</label>
+                            <label style="color: black" for="numberOfRoom"><strong>Precio de la Sala<strong></strong></label>
                             <input type="number" name="room_price" value="<?php echo $room->getRoom_price()?>" class="form-control" min="1" required>
                              
                             <label style="color: black" for="numberOfSeats">Cantidad de butacas</label>

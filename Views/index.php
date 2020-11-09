@@ -55,7 +55,7 @@ if(isset($message)){
                     <button class="btn btn-dark btn-block btn-lg" type="submit">Iniciar Sesión</button>
                     </div>
                </form>
-              <div class="form-group">
+              <div class="login-form bg-dark-alpha p-5 text-white">
                   <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView"><button class="btn btn-dark btn-block btn-lg">Registrarse</button></a>
               </div>
           </div>
