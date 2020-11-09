@@ -5,6 +5,7 @@
     use DAO\MovieDAO as MovieDAO;
     use DAO\UserDAO as UserDAO;
     use DAO\GenresDAO as GenresDAO;
+    use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
     use Models\User as User;
 
 
@@ -14,6 +15,7 @@
         private $genresDAO;
         private $cinemaDAO;
         private $movieDAO;
+        private $moviexGenresDAO;
         private $message = null;
 
         public function __construct()
@@ -22,6 +24,7 @@
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
             $this->genresDAO = new GenresDAO();
+            $this->moviesxGenresDAO = new MoviesxGenresDAO();
         }
 
         public function ShowAddView($message = "")
@@ -163,9 +166,8 @@
         public function ShowListView_user()
         {
             $movieList = $this->movieDAO->getMovieAvailable(false);
-            $genresList = $this->genresDAO->GetAll();
+            $genresList = $this->moviesxGenresDAO->GetGenresByShows();
             //var_dump($movieList);
-
             require_once VIEWS_PATH . "billboard.php";
         }
 

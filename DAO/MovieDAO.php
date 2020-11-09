@@ -74,6 +74,33 @@
             }
         }
 
+        public function getMoviesFromShows(){
+            $movieList = array();
+            try{
+                $query = "SELECT * FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
+            
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+               
+                if($result != null){
+                    foreach ($result as $row) {
+                        $movie = new Movie();
+                        $movie->setId($row["id"]);
+                        $movie->setName($row["movieName"]);
+                        $movie->setSummary($row["summary"]);
+                        $movie->setLanguage($row["movieLanguage"]);
+                        $movie->setImage($row["dir_image"]);
+                        $movie->setReleaseDate($row["releaseDate"]);
+                        array_push($movieList, $movie);
+                        
+                    }
+                }
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+            return $movieList;
+        }
+
         public function getMovieAvailable($date = 0){
             $movieList = array();
             try{
@@ -98,7 +125,6 @@
                         $movie->setLanguage($row["movieLanguage"]);
                         $movie->setImage($row["dir_image"]);
                         $movie->setReleaseDate($row["releaseDate"]);
-                        $movie->setPlayingNow($row["playingNow"]);
                         array_push($movieList, $movie);
                     }
                 }

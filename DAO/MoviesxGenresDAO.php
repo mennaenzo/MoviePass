@@ -38,11 +38,44 @@ class MoviesxGenresDAO
 
     public function GetGenresByMovieId($idMovie)
     {
-        $query = "SELECT idGenre FROM " . $this->tableName . " WHERE idMovie = $idMovie;";
-            
-        $this->connection = Connection::GetInstance();
-        $result = $this->connection->Execute($query);
-
+        try{
+            $query = "SELECT idGenre FROM " . $this->tableName . " WHERE idMovie = $idMovie;";
+                
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);
+            //SIN TERNINAR, FALTA RECORRER RESULT
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
         return $result;
     }
+
+    public function GetGenresByShows()
+    {
+        $genresList = array();
+        try
+        {
+            $query = "SELECT g.id, g.genreName, s.idMovie FROM " . $this->tableName . " mxg 
+            INNER JOIN Genres g ON mxg.idGenre=g.id
+            INNER JOIN Shows s ON mxg.idMovie=s.idMovie
+            group by mxg.idGenre;";
+            //echo $query;
+            $this->connection = Connection::GetInstance();
+            $result = $this->connection->Execute($query);
+
+            foreach ($result as $row) {
+                $genre= new Genres();
+                $genre->setName($row["genreName"]);
+                $genre->setId($row["id"]);
+                array_push($genresList, $genre);
+            }
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+        return $genresList;
+    }  
 }

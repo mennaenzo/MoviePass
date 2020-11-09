@@ -116,6 +116,7 @@
         {
             $movieList= $this->movieDAO->getMovieAvailable($date);
             $genresList = $this->genresDAO->GetAll();
+        
             require_once(VIEWS_PATH . "billboard.php");
         }
     }

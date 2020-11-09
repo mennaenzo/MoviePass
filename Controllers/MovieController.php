@@ -19,7 +19,8 @@
 
         public function ShowListView()
         {
-            $movieList= $this->MovieDAO->getMovieAvailable();
+            $movieList= $this->MovieDAO->getMoviesFromShows();
+            $genresList = $this->MoviesxGenresDAO->GetGenresByShows();
             require_once(VIEWS_PATH . "billboard.php");
         }
 
