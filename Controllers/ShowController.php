@@ -102,7 +102,7 @@
                 $date = 0;
                 if($_POST["SelectGenre"] <> 0)
                 {
-                    //filtro por genero
+                   
                 }
 
                 if (isset($_POST["time"])) {
