@@ -6,24 +6,33 @@ require_once VIEWS_PATH."nav.php";
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Cines</h2>
-                <table class="table bg-light-alpha">
+            <h2 class="mb-4"style="color: #4e555b">Listado de Cines</h2>
+                <table class="table table-dark">
                     <thead>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>List Rooms</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th></th>
                     </thead>
                     <tbody>
                         <?php foreach($cinemaList as $cinema){ ?>
                            <tr> 
                                 <div>
-                                    <td><?php echo $cinema->getName();?></td>
+                                    <td ><?php echo $cinema->getName();?></td>
                                     <td><?php echo $cinema->getAddress(); ?></td>
                                     <td>
-                                        <!--<input type="checkbox" name="select" value="<?php// echo $cinema->getId()?>" required>No puede ser checkbox porque me pide que debo seleccionar todos-->
-                                        <form action="<?php echo FRONT_ROOT ?>Room/ShowRoomListView_User" method="POST">
-                                            <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Rooms </button>
-                                        </form>
+                                        <div class="form-group row justify-content-center">
+                                            <form action="<?php echo FRONT_ROOT ?>Room/ShowListRoomView" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Salas </button>
+                                            </form>
+
+                                            <form action="<?php echo FRONT_ROOT ?> Cinema/delete" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnRemove" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Eliminar </button>
+                                            </form>
+
+                                            <form action="<?php echo FRONT_ROOT ?>Cinema/ShowModifyView" method="POST">
+                                                <button style="margin: 10px" type="submit" formmethod="POST" name="btnModify" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Modificar </button>
+                                            </form>
+                                        <div>
                                     </td>
                                 </div>
                              </tr>
@@ -43,7 +52,7 @@ require_once VIEWS_PATH."nav.php";
              </div>             
                     <?php 
                         
-                        if(isset($message)){ 
+                        if($message <> ""){ 
                             echo "<script> alert('$message'); </script>";
                         }
                     ?> 

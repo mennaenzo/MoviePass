@@ -2,26 +2,41 @@
     namespace Controllers;
 
     use DAO\CinemaDAO as CinemaDAO;
-    use DAO\MovieDAO;
+    use DAO\MovieDAO as MovieDAO;
     use DAO\UserDAO as UserDAO;
+    use DAO\GenresDAO as GenresDAO;
+    use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
     use Models\User as User;
+
 
     class UserController
     {
         private $userDAO;
+        private $genresDAO;
         private $cinemaDAO;
+        private $movieDAO;
+        private $moviexGenresDAO;
         private $message = null;
 
         public function __construct()
         {
+            $this->movieDAO = new MovieDAO();
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
+            $this->genresDAO = new GenresDAO();
+            $this->moviesxGenresDAO = new MoviesxGenresDAO();
         }
 
         public function ShowAddView($message = "")
         {
             $message = $this->message;
             require_once(VIEWS_PATH . "user-add.php");
+        }
+
+        public function ShowMovieListAdmin(){
+            $movieList = $this->movieDAO->GetAll();
+            $genresList = $this->genresDAO->GetAll();
+            require_once(VIEWS_PATH . "admin-menu.php");
         }
 
         public function ShowListView()
@@ -43,6 +58,7 @@
                 $user->setLastName(trim($lastName));
                 $user->setEmail(trim($email));
                 $user->setUserPassword(trim($userPassword));
+                //$user->setEsAdmin();
                 $this->userDAO->Add($user);
                 $this->message = "Usuario agregado con exito.";
                 $this->ShowLoginView($this->message);
@@ -75,15 +91,15 @@
                 $trimPassword = trim($password);
 
                 $userExists = $this->userDAO->SearchUser($trimEmail);
-
+                
                 if ($userExists != null) {
                     if ($userExists->getUserPassword() == $password) {
                         //guardar en session
                         $_SESSION['loggedUser'] = $userExists->getId();
-                    
+
                         //cambiar ----------------------------
-                        if ($userExists->getId() == 1 || $userExists->getId() == 2 || $userExists->getId() == 3 || $userExists->getId() == 4) {
-                            require_once(VIEWS_PATH . "Cinema-List.php");
+                        if ($userExists->getEsAdmin() == 1) {
+                            $this->ShowMovieListAdmin();
                         } else {
                             $this->ShowListView_user();
                         }
@@ -91,12 +107,12 @@
                         $this->message = "Contraseña incorrecta.";
                         $this->ShowLoginView($this->message);
                     }
-                } else {
-                    $this->message = "Usuario no registrado. Registre el Usuario antes de intentar loguearse.";
+                }else{
+                    $this->message = "Usuario no registrado.";
                     $this->ShowLoginView($this->message);
                 }
-            } else {
-                $this->message = "Al validar los datos ingresados, se produjo un error. Por favor vuelva a ingresarlos.";
+            }else{
+                $this->message = "Error de datos.";
                 $this->ShowLoginView($this->message);
             }
         }
@@ -118,9 +134,8 @@
                 if ($this->validateField($_POST["email"]) && $this->validateField(["password"])) {
                     return true;
                 }
-            } else {
-                return false;
             }
+            return false;
         }
 
         public function validateFieldNumber($fieldNumber)
@@ -141,7 +156,6 @@
             }
         }
 
-
         public function Logout()
         {
             session_destroy();
@@ -151,11 +165,12 @@
 
         public function ShowListView_user()
         {
-            $movieDAO = new MovieDAO();
-            $movieList = $movieDAO->GetAll();
+            $movieList = $this->movieDAO->getMoviesFromShows();
+            $genresList = $this->moviesxGenresDAO->GetGenresByShows();
             //var_dump($movieList);
-            require_once VIEWS_PATH . "user-menu.php";
+            require_once VIEWS_PATH . "billboard.php";
         }
+
 
         public function ShowListViewCinema_user()
         {

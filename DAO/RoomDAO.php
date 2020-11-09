@@ -22,21 +22,22 @@
         public function add(Room $room, $idCinema)
         {
             if ($this->validateRoomName($room->getName())) {
-                return false;
+                return 0;
             }else {
                 try {
-                    $query = "INSERT INTO " . $this->tableName . "(roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price)";
+                    $query = "INSERT INTO " . $this->tableName . " (roomName, capacity, idCinema, price) VALUES (:roomName, :capacity, :idCinema, :price);";
+                    
                     $parameters["roomName"] = $room->getName();
                     $parameters["capacity"] = $room->getCapacity();
                     $parameters["price"] = $room->getRoom_price();
                     $parameters["idCinema"] = $idCinema;
                     
                     $this->connection = Connection::GetInstance();
-                    $count = $this->connection->ExecuteNonQuery($query, $parameters);
-                    return true;
+                    $this->connection->ExecuteNonQuery($query, $parameters);
+                    return 1;
                 } catch (Exception $ex) {
                     throw $ex;
-                    return 0;
+                    return -1;
                 }
             }
         }
@@ -45,7 +46,7 @@
         public function validateRoomName($name)
         {
             $flag = false;
-            $query = "SELECT roomName FROM ". $this->tableName. " WHERE roomName= '".$name."';";
+            $query = "SELECT roomName FROM ". $this->tableName. " WHERE roomName= '".$name."' and statusRoom=1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
 
@@ -66,10 +67,9 @@
 
         public function GetAll()
         {
-
             try{
                 $roomList = array();
-                $query = "SELECT * FROM ".$this->tableName . " WHERE statusRoom=1;";
+                $query = "SELECT * FROM " .$this->tableName . " WHERE statusRoom = 1;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
 
@@ -88,6 +88,130 @@
                 throw $ex;
             }
         }
+
+        public function GetRoom($idRoom)
+            {
+                $room = null;
+                try{
+                    $query = "SELECT  roomName, capacity, idCinema, price FROM ". $this->tableName." WHERE id=$idRoom;";
+                    $this->connection = Connection::GetInstance();
+                    $resultSet = $this->connection->Execute($query);
+
+                    foreach ($resultSet as $row){
+                        $room = new Room();
+                        $room->setId($idRoom);
+                        $room->setName($row["roomName"]);
+                        $room->setCapacity($row["capacity"]);
+                        $room->setNameCinema($this->cinemaDAO->GetCinema($row["idCinema"])->getName());
+                        $room->setRoom_price($row["price"]);
+                    }
+                }
+                catch(Exception $ex)
+                {
+                    throw $ex;
+                }
+
+                return $room;
+        }
+
+        public function modify($idRoom, $roomName, $capacity, $price){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET roomName= '$roomName', capacity = '$capacity', price = '$price'  WHERE id = '$idRoom';";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+            return $message;
+        }
+
+       public function searchRoomsByIdCinema($idCinema)
+        {
+            $roomList = array();
+            try {
+                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."' and statusRoom = 1;";
+        
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+          
+                if ($result) {
+                    foreach ($result as $value) {
+                        $room = new Room();
+                        $room->setId($value["id"]);
+                        $room->setName($value["roomName"]);
+                        $room->setRoom_price($value["price"]);
+                        $room->setCapacity($value["capacity"]);
+                        $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
+                        array_push($roomList, $room);
+                    }
+                }
+            } catch (Exceptio $ex) {
+                throw $ex;
+            }
+            return $roomList;
+        }
+
+        public function delete($id){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET statusRoom = 0 WHERE id = $id;";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+        }
+
+        public function checkIfShows($id){
+            try{
+
+                $query="Select * from shows s join rooms r on s.idRoom=r.id where r.id=$id;";
+
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                return $resultSet;
+            }
+            catch(Exception $ex){
+                throw $ex;
+
+            }
+        }
+
+        public function checkIfRooms($idCinema){
+            try{
+
+                $query="Select * from rooms r where idCinema=$idCinema and statusRoom=1";
+
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                return $resultSet;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
 /*
         public function RetrieveData()
         {
@@ -115,33 +239,7 @@
         */
  
     
-        public function searchRoomsByIdCinema($idCinema)
-        {
-            $roomList = array();
-            try {
-                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
-        
-                $this->connection = Connection::GetInstance();
-                $result = $this->connection->Execute($query);
-          
-
-                if ($result) {
-                    foreach ($result as $value) {
-                        $room = new Room();
-                        $room->setId($value["id"]);
-                        $room->setName($value["roomName"]);
-                        $room->setRoom_price($value["price"]);
-                        $room->setCapacity($value["capacity"]);
-                        $room->setNameCinema($value["idCinema"]); // falta buscar el nombre segun id
-                        array_push($roomList, $room);
-                    }
-                }
-            } catch (Exceptio $ex) {
-                throw $ex;
-            }
-            return $roomList;
-        }
-  
+       
 
         /* Para trabajar con JSON
             private $fileNameRoom = "Data/room.json";
@@ -205,5 +303,5 @@
             }
 
          */
-    }
+}
 ?>

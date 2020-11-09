@@ -11,11 +11,22 @@ class User
     private $lastName;
     private $email;
     private $userPassword;
+    private $esAdmin;
     private $listMovie;
     private $listTicket;
 
     public function getEmail(){
         return $this->email;
+    }
+
+    public function getEsAdmin()
+    {
+        return $this->esAdmin;
+    }
+
+    public function setEsAdmin($esAdmin)
+    {
+        $this->esAdmin = $esAdmin;
     }
 
     public function setEmail($email){

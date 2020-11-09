@@ -13,7 +13,7 @@ create table if not exists Users (
     lastName varchar (50) not null,
     email varchar (50) unique not null,
     userPassword varchar (20) not null,
-    esAdmin boolean,
+    esAdmin boolean default 0,
     constraint Pk_Users primary key (id)
 );
 create table if not exists Movies (
@@ -23,10 +23,12 @@ create table if not exists Movies (
     movieName varchar(50) not null,
     summary varchar(2000) not null,
     movieLanguage varchar(10) not null,
-    playingNow bool default 0,
+    dir_image varchar(80),
+    runtime int not null,
     releaseDate date not null,
     constraint Pk_Movie primary key (id)
 );
+
 create table if not exists Genres (
     id int not null,
     genreName varchar (20) not null,
@@ -56,12 +58,12 @@ create table if not exists Shows(
     id int auto_increment not null,
     showTime time not null,
     showDay date not null,
-    idMovieApi int not null,
+    idMovie int not null,
     #id de la Movie de la Api
     idRoom int not null,
     statusShow bool default 1,
     constraint Pk_Id_Show primary key (id),
-    constraint Fk_Id_Movie foreign key (idMovieApi) references Movies(id),
+    constraint Fk_Id_Movie foreign key (idMovie) references Movies(id),
     constraint Fk_Id_Room foreign key (idRoom) references Rooms(id)
 );
 create table if not exists ShowxUser(

@@ -61,37 +61,11 @@
             catch (Exception $ex){
                 throw $ex;
             }
-            /*
-            $this->RetrieveData();
-            return $this->cinemaList;
-            */
         }
-        /*
-        public function RetrieveData()
+            
+        public function searchCinemaByName($name)
         {
-            try {
-                $query = "SELECT * FROM " .  $this->tableName . ";";
-                $this->connection = Connection::GetInstance();
-             
-                $result = $this->connection->Execute($query);
-               
-                if ($result) {
-                    foreach ($result as $value) {
-                        $cinema = new Cinema();
-                        $cinema->setId($value["id"]);
-                        $cinema->setName($value["cinemaName"]);
-                        $cinema->setAddress($value["address"]);
-                        array_push($this->cinemaList, $cinema);
-                    }
-                }
-            } catch (Exception $ex) {
-                throw $ex;
-            }
-        }
-*/
-        public function searchIdCinemaByName($name)
-        {
-            $query = "SELECT id FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
+            $query = "SELECT id, cinemaName, address FROM " . $this->tableName . " WHERE cinemaName = '".$name."';";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
             
@@ -99,8 +73,10 @@
                 foreach ($result as $value) {
                     $cinema = new Cinema();
                     $cinema->setId(($value["id"]));
+                    $cinema->setName(($value["cinemaName"]));
+                    $cinema->setAddress(($value["address"]));
                 }
-                return $cinema->getId();
+                return $cinema;
             } else {
                 return null;
             }
@@ -109,27 +85,20 @@
         public function validateNameCinema($name)
         {
             $flag = false;
-            $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."';";
+            $query = "SELECT cinemaName FROM ". $this->tableName. " WHERE cinemaName= '".$name."' and statusCinema = 1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
 
             if ($result) {
                 $flag = true;
             }
-            /*  $this->RetrieveData();
-             $flag = false;
-             foreach($this->cinemaList as $value){
-                 if($name == $value->getName()){
-                    $flag = true;
-                 }
-             } */
             return $flag;
         }
 
         public function validateAddressCinema($address)
         {
             $flag = false;
-            $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."';";
+            $query = "SELECT address FROM ". $this->tableName. " WHERE address = '".$address."' and statusCinema=1;";
             $this->connection = Connection::GetInstance();
             $result = $this->connection->Execute($query);
            
@@ -159,8 +128,6 @@
         public function GetCinema($id){
             try
             {
-
-
                 $query = "SELECT * FROM ".$this->tableName." where id=$id;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
@@ -168,19 +135,46 @@
                 $cinema = new Cinema();
 
                 foreach ($resultSet as $row){
-
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["cinemaName"]);
                     $cinema->setAddress($row["address"]);
                 }
                 return $cinema;
-
             }
             catch(Exception $ex)
             {
                 throw $ex;
             }
+        }
 
+        public function delete($id){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET statusCinema = 0 WHERE id = $id;";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+        }
+        public function modify($id, $cinemaName, $address){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET cinemaName = '$cinemaName', address = '$address'  WHERE id = '$id';";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+            return $message;
         }
     }
 
@@ -198,7 +192,34 @@
 
 
 
-
+/*
+            $this->RetrieveData();
+            return $this->cinemaList;
+            */
+        
+        /*
+        public function RetrieveData()
+        {
+            try {
+                $query = "SELECT * FROM " .  $this->tableName . ";";
+                $this->connection = Connection::GetInstance();
+             
+                $result = $this->connection->Execute($query);
+               
+                if ($result) {
+                    foreach ($result as $value) {
+                        $cinema = new Cinema();
+                        $cinema->setId($value["id"]);
+                        $cinema->setName($value["cinemaName"]);
+                        $cinema->setAddress($value["address"]);
+                        array_push($this->cinemaList, $cinema);
+                    }
+                }
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+        }
+*/
 
 
 
