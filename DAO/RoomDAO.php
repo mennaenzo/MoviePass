@@ -69,7 +69,7 @@
         {
             try{
                 $roomList = array();
-                $query = "SELECT * FROM ".$this->tableName . " WHERE statusRoom=1;";
+                $query = "SELECT * FROM " .$this->tableName . " WHERE statusRoom = 1;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
 
@@ -134,7 +134,7 @@
         {
             $roomList = array();
             try {
-                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."';";
+                $query = "SELECT id, roomName, price, capacity, idCinema FROM " . $this->tableName . " WHERE idCinema ='".$idCinema."' and statusRoom = 1;";
         
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
@@ -154,6 +154,36 @@
                 throw $ex;
             }
             return $roomList;
+        }
+
+        public function delete($id){
+            try
+            {
+                $query = "UPDATE " . $this->tableName . " SET statusRoom = 0 WHERE id = $id;";
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query);
+                return true;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+        }
+
+        public function checkIfShows($id){
+            try{
+
+                $query="Select * from shows s join rooms r on s.idRoom=r.id where r.id=$id;";
+
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                return $resultSet;
+            }
+            catch(Exception $ex){
+                throw $ex;
+
+            }
         }
   
  
