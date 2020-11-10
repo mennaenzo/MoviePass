@@ -19,10 +19,6 @@ if (isset($_SESSION['loggedUser'])) {
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Lista de funciones</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
             </li>

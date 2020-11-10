@@ -22,17 +22,38 @@
                 <th>Description</th>
                 <th>Language</th>
                 <th>Adult</th>
+                <th>Funciones</th>
                 </thead>
                 <tbody>
                 <tr>
-                    <?php foreach($movieList as $movie){ ?>
-                    <td><img src= <?php echo "https://image.tmdb.org/t/p/w154" .$movie->getImage();?>> </td>
-                    <td><?php echo $movie->getName() ?></td>
-                    <td><?php echo $movie->getSummary() ?></td>
-                    <td><?php echo $movie->getLanguage() ?></td>
-                    <td><?php echo $movie->getAdult() ? "Si" : "No"; ?></td>
+                    <form id= "shows" action="<?php echo FRONT_ROOT ?>Show/ShowsView" method="post" class="bg-light-alpha p-5">
+                        <?php foreach($movieList as $movie){ ?>
+                            <tr>
+                            <td><img src= <?php echo "https://image.tmdb.org/t/p/w154" .$movie->getImage();?>> </td>
+                            <td><?php echo $movie->getName() ?></td>
+                            <td><?php echo $movie->getSummary() ?></td>
+                            <td>
+                                <?php if($movie->getLanguage() == "en"){
+                                        echo "Ingles";
+                                        }elseif($movie->getLanguage() == "fr"){
+                                            echo "Frances";
+                                        }elseif($movie->getLanguage() == "ja"){
+                                            echo "Japones";
+                                        }elseif($movie->getLanguage() == "es"){
+                                            echo "Español";
+                                        }elseif($movie->getLanguage() == "ko"){
+                                            echo "Koreano";
+                                        }
+                            ?></td>
+                            <td><?php echo $movie->getAdult() ? "Si" : "No"; ?></td>
+                            <td> 
+                                <button type="submit" name="btnShows" class="btn btn-danger" value="<?php echo $movie->getId();?>">Ver funciones</button>
+                            </td>
+                            </tr>
+                        <?php }?>
+                    </form>
                 </tr>
-                <?php }?>
+                
                 </tbody>
             </table>
         </div>

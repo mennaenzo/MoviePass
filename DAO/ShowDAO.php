@@ -3,6 +3,7 @@
 
     use DAO\IShowDAO as IShowDAO;
     use DAO\CinemaDAO as CinemaDAO;
+    use DAO\MovieDAO as MovieDAO;
     use Models\Cinema as Cinema;
     use Models\Room as Room;
     use Models\Show as Show;
