@@ -138,4 +138,30 @@
                 return 0;
             }
         }
+
+        public function GetShowByMovie($idMovie){
+            $showList = array();
+           try{
+               $query = "SELECT id, showTime, showDay, idRoom FROM " . $this->tableName . " WHERE idMovie = $idMovie;";
+               $this->connection = Connection::GetInstance();
+               $result = $this->connection->Execute($query);
+               if($result){
+                   foreach($result as $value){
+                       $newShow = new Show();
+                       $newShow->setId($value["id"]);
+                       $newShow->setTime(substr_replace($value["showTime"], "", -3));
+                       $newShow->setDay($value["showDay"]);
+                       $newShow->setMovie($this->movieDAO->GetMovie($idMovie));
+                       $newShow->setRoom($this->roomDAO->GetRoom($value["idRoom"]));
+                       array_push($showList, $newShow);
+                   }
+               }
+    
+           }catch(Exception $ex){
+               throw $ex;
+               return 0;
+           }
+    
+           return $showList;
+       }
     }

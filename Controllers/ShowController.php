@@ -157,6 +157,13 @@
             require_once(VIEWS_PATH . "billboard.php");
         }
 
+        public function ShowsView(){
+            if($_POST["btnShows"]){
+                $showList = $this->showDAO->GetShowByMovie($_POST["btnShows"]);
+                require_once (VIEWS_PATH . "ShowListUser.php");
+            }
+        }
+
         // public function ShowFilter($date, $genre){
         //         $movieList = $this->moviexgenresDAO->GetMoviesByGenreId($_POST["SelectGenre"]);
         //         $genresList = $this->moviexgenresDAO->GetGenresByShows();

@@ -120,7 +120,7 @@
                     where mxg.idGenre = $genre and showDay = '$date'
                     group by m.id;";
                 }
-                
+
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                
