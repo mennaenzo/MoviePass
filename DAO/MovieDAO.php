@@ -77,8 +77,7 @@
         public function getMoviesFromShows(){
             $movieList = array();
             try{
-                $query = "SELECT * FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
-                
+                $query = "SELECT m.id, movieName, summary, movieLanguage, dir_image, releaseDate  FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                
