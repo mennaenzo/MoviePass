@@ -98,7 +98,7 @@
         $showList = array();
        try{
            $query = "SELECT id, showTime, showDay, idRoom FROM " . $this->tableName . " WHERE idMovie = $idMovie;";
-          echo $query;
+        
            $this->connection = Connection::GetInstance();
            $result = $this->connection->Execute($query);
            if($result){
