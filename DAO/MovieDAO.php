@@ -100,18 +100,27 @@
             return $movieList;
         }
 
-        public function getMovieAvailable($date = 0){
+        public function getMovieAvailable($date = 0, $genre = 0){
             $movieList = array();
             try{
+
                 date_default_timezone_set("America/Argentina/Buenos_Aires");
+
                 if($date == 0)
                 {
-                    $now = date("Y-m-d");
-                }else{
-                    $now = $date;
+                    $date = date("Y-m-d");
                 }
 
-                $query = "SELECT m.id FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE showDay = '". $now . "';";
+                if($genre == 0)
+                {
+                    $query = "SELECT m.id FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE showDay = '". $date . "';";
+                }else{
+                    $query = "select m.id from movies m 
+                    inner join Shows s on s.idMovie = m.id
+                    inner join movie_genres mxg on mxg.idMovie = m.id
+                    where mxg.idGenre = $genre and showDay = '$date'
+                    group by m.id;";
+                }
                 
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);

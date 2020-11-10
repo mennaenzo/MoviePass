@@ -54,34 +54,34 @@ class MoviesxGenresDAO
         return $result;
     }
 
-    public function GetMoviesByGenreId($idGenre)
-    {
+    // public function GetMoviesByGenreId($idGenre, $date)
+    // {
 
-        $movieList = array();
-        try{
-            $query = "select m.id from movies m 
-            inner join Shows s on s.idMovie = m.id
-            inner join movie_genres mxg on mxg.idMovie = m.id
-            where mxg.idGenre = $idGenre
-            group by m.id;";
+    //     $movieList = array();
+    //     try{
+    //         $query = "select m.id from movies m 
+    //         inner join Shows s on s.idMovie = m.id
+    //         inner join movie_genres mxg on mxg.idMovie = m.id
+    //         where mxg.idGenre = $idGenre and showDay = $date
+    //         group by m.id;";
                
-            $this->connection = Connection::GetInstance();
-            $result = $this->connection->Execute($query);
+    //         $this->connection = Connection::GetInstance();
+    //         $result = $this->connection->Execute($query);
 
-            $movieDAO = new MovieDAO();
-            foreach ($result as $row) {
-                $movie = new Movie();
-                $movie = $movieDAO->GetMovie($row["id"]);
-                array_push($movieList, $movie);
-            }
-            return $movieList;
-        }
-        catch(Exception $ex)
-        {
-            throw $ex;
-        }
-        return $result;
-    }
+    //         $movieDAO = new MovieDAO();
+    //         foreach ($result as $row) {
+    //             $movie = new Movie();
+    //             $movie = $movieDAO->GetMovie($row["id"]);
+    //             array_push($movieList, $movie);
+    //         }
+    //         return $movieList;
+    //     }
+    //     catch(Exception $ex)
+    //     {
+    //         throw $ex;
+    //     }
+    //     return $result;
+    // }
 
     public function GetGenresByShows()
     {

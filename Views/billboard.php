@@ -13,9 +13,7 @@
                 <?php }?>
             </select>
             <input type="date" name="date" value="" class="form-control">
-            <a href="<?php echo FRONT_ROOT . "Shows/ShowListView"?>">
-                <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
-            </a>
+            <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
             </form>
             <table class="table table-dark">
                 <thead>
