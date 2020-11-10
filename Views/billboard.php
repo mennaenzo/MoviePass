@@ -5,17 +5,15 @@
         <div>
             <h2 class="mb-4"style="color: #4e555b">"Cartelera"</h2>
             <form id= "billboard" action="<?php echo FRONT_ROOT ?>Show/Filter" method="post" class="bg-light-alpha p-5">
-            <label style="color: black" for="lblGenres">Peliculas por Generos</label>
-            <select name="SelectGenre">
-                <option value="0">Genero</option>
-                <?php foreach($genresList as $genres){?>
-                        <option value="<?php echo $genres->getId(); ?>"> <?php echo $genres->getName(); ?></option>
-                <?php }?>
-            </select>
-            <input type="date" name="date" value="" class="form-control">
-            <a href="<?php echo FRONT_ROOT . "Shows/ShowListView"?>">
-                <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
-            </a>
+                <label style="color: black" for="lblGenres">Peliculas por Generos</label>
+                <select name="SelectGenre">
+                    <option value="0">Genero</option>
+                    <?php foreach($genresList as $genres){?>
+                            <option value="<?php echo $genres->getId(); ?>"> <?php echo $genres->getName(); ?></option>
+                    <?php }?>
+                </select>
+                <input type="date" name="date" value="" class="form-control">
+                <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button>
             </form>
             <table class="table table-dark">
                 <thead>
@@ -24,17 +22,38 @@
                 <th>Description</th>
                 <th>Language</th>
                 <th>Adult</th>
+                <th>Funciones</th>
                 </thead>
                 <tbody>
                 <tr>
-                    <?php foreach($movieList as $movie){ ?>
-                    <td><img src= <?php echo "https://image.tmdb.org/t/p/w154" .$movie->getImage();?>> </td>
-                    <td><?php echo $movie->getName() ?></td>
-                    <td><?php echo $movie->getSummary() ?></td>
-                    <td><?php echo $movie->getLanguage() ?></td>
-                    <td><?php echo $movie->getAdult() ? "Si" : "No"; ?></td>
+                    <form id= "shows" action="<?php echo FRONT_ROOT ?>Show/ShowsView" method="post" class="bg-light-alpha p-5">
+                        <?php foreach($movieList as $movie){ ?>
+                            <tr>
+                            <td><img src= <?php echo "https://image.tmdb.org/t/p/w154" .$movie->getImage();?>> </td>
+                            <td><?php echo $movie->getName() ?></td>
+                            <td><?php echo $movie->getSummary() ?></td>
+                            <td>
+                                <?php if($movie->getLanguage() == "en"){
+                                        echo "Ingles";
+                                        }elseif($movie->getLanguage() == "fr"){
+                                            echo "Frances";
+                                        }elseif($movie->getLanguage() == "ja"){
+                                            echo "Japones";
+                                        }elseif($movie->getLanguage() == "es"){
+                                            echo "Español";
+                                        }elseif($movie->getLanguage() == "ko"){
+                                            echo "Koreano";
+                                        }
+                            ?></td>
+                            <td><?php echo $movie->getAdult() ? "Si" : "No"; ?></td>
+                            <td> 
+                                <button type="submit" name="btnShows" class="btn btn-danger" value="<?php echo $movie->getId();?>">Ver funciones</button>
+                            </td>
+                            </tr>
+                        <?php }?>
+                    </form>
                 </tr>
-                <?php }?>
+                
                 </tbody>
             </table>
         </div>

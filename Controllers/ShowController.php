@@ -103,7 +103,11 @@
             if($_POST)
             {
                 $date = 0;
-                if($_POST["SelectGenre"] <> 0)
+                if($_POST["SelectGenre"] <> 0 && $_POST["date"] <> ""){
+
+                }
+                
+                elseif($_POST["SelectGenre"] <> 0)
                 {
                    $this->ShowFilterGenres();
                 }
@@ -112,6 +116,14 @@
                     $date = $_POST["date"];
                 }
                 $this->ShowListView($date);
+            }
+        }
+
+        public function ShowsView(){
+            echo "asdas" . $_POST["btnShows"];
+            if($_POST["btnShows"]){
+                $showList = $this->showDAO->GetShowByMovie($_POST["btnShows"]);
+                require_once (VIEWS_PATH . "ShowListUser.php");
             }
         }
 
