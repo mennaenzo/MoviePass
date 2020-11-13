@@ -165,10 +165,14 @@
 
         public function ShowListView_user()
         {
-            $movieList = $this->movieDAO->getMoviesFromShows();
+            // $movieList = $this->movieDAO->getMoviesFromShows();
+            // $genresList = $this->moviesxGenresDAO->GetGenresByShows();
+            // //var_dump($movieList);
+            // require_once VIEWS_PATH . "billboard.php";
+
+            $movieList= $this->movieDAO->getMovieAvailable();
             $genresList = $this->moviesxGenresDAO->GetGenresByShows();
-            //var_dump($movieList);
-            require_once VIEWS_PATH . "billboard.php";
+            require_once(VIEWS_PATH . "billboard.php");
         }
 
 

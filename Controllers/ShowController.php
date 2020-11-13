@@ -34,29 +34,69 @@
         public function Add()
         {
             if ($this->validateDataShow()) {
-                $show = new Show();
+                if($this->validateDayShow($_POST["date"], $_POST["SelectMovie"]))
+                {
+                    // if(validateTimeShow($_POST["date"], $_POST["hour"]))
+                    // {
 
-                if (strpos($_POST["hour"], "a.m.") || strpos($_POST["hour"], "p.m.")) {
-                    $hour = substr_replace($_POST["hour"], "", -4);
-                    $show->setTime($hour);
-                } else {
-                    $show->setTime($_POST["hour"]);
-                }
+                    // }
+                    $show = new Show();
 
-                $show->setDay($_POST["date"]);
+                    if (strpos($_POST["hour"], "a.m.") || strpos($_POST["hour"], "p.m.")) {
+                        $hour = substr_replace($_POST["hour"], "", -4);
+                        $show->setTime($hour);
+                    } else {
+                        $show->setTime($_POST["hour"]);
+                    }
+    
+                    $show->setDay($_POST["date"]);
+    
+                    $show->setMovie($this->movieDAO->GetMovie($_POST["SelectMovie"]));
+                    
+                    $show->setRoom($this->roomDAO->GetRoom($_POST["SelectRoom"]));
+    
+                    $result = $this->showDAO->Add($show);
+                    if($result){
+                        $message = "La función se agrego correctamente";
+                    }
+                    else{
+                        $message = "Error en la carga de datos.";
+                    }
+                    $this->ShowAddView($message);
+                }else{
+                    $date = $_POST["date"];
+                    $message = "La función ya existe el dia $date";
+                    $this->ShowAddView($message);
+                } 
+            }
+        }
 
-                $show->setMovie($this->movieDAO->GetMovie($_POST["SelectMovie"]));
-                
-                $show->setRoom($this->roomDAO->GetRoom($_POST["SelectRoom"]));
+        public function validateTimeShow($date, $time)
+        {
+            // $shows = $this->showDAO->GetShowsByDay($date);
+            // echo $time;
+            // $hour = substr($time, 0, -3);
+            // $minutes = substr($time, 3);
+            // echo "<br> $hour <br> $minutes";
+            // if($shows <> null)
+            // {
+            //     foreach($shows as $show)
+            //     {
+                    
+            //     }
+            // }else{
+            //     return true;
+            // }
+        }
 
-                $result = $this->showDAO->Add($show);
-                if($result){
-                    $message = "La función se agrego correctamente";
-                }
-                else{
-                    $message = "Error en la carga de datos.";
-                }
-                $this->ShowAddView($message);
+        public function validateDayShow($date, $idMovie)
+        {
+            $idShow = $this->showDAO->ExistShowByDay($date, $idMovie);
+            if ($idShow == 0)
+            {
+                return true;
+            }else{
+                return false;
             }
         }
 
@@ -103,41 +143,30 @@
             if($_POST)
             {
                 $date = 0;
-                if($_POST["SelectGenre"] <> 0 && $_POST["date"] <> ""){
-
-                }
-                
-                elseif($_POST["SelectGenre"] <> 0)
-                {
-                   $this->ShowFilterGenres();
-                }
-
                 if ($_POST["date"] <> "") {
                     $date = $_POST["date"];
                 }
-                $this->ShowListView($date);
+                $this->ShowListView($date, $_POST["SelectGenre"]);
             }
         }
 
+        public function ShowListView($date, $genre)
+        {
+            $movieList= $this->movieDAO->getMovieAvailable($date, $genre);
+            $genresList = $this->moviexgenresDAO->GetGenresByShows();
+            require_once(VIEWS_PATH . "billboard.php");
+        }
+
         public function ShowsView(){
-            echo "asdas" . $_POST["btnShows"];
             if($_POST["btnShows"]){
                 $showList = $this->showDAO->GetShowByMovie($_POST["btnShows"]);
                 require_once (VIEWS_PATH . "ShowListUser.php");
             }
         }
 
-        public function ShowListView($date)
-        {
-            $movieList= $this->movieDAO->getMovieAvailable($date);
-            $genresList = $this->moviexgenresDAO->GetGenresByShows();
-        
-            require_once(VIEWS_PATH . "billboard.php");
-        }
-
-        public function ShowFilterGenres(){
-            $movieList = $this->moviexgenresDAO->GetMoviesByGenreId($_POST["SelectGenre"]);
-            $genresList = $this->moviexgenresDAO->GetGenresByShows();
-            require_once (VIEWS_PATH . "billboard.php");
-        }
+        // public function ShowFilter($date, $genre){
+        //         $movieList = $this->moviexgenresDAO->GetMoviesByGenreId($_POST["SelectGenre"]);
+        //         $genresList = $this->moviexgenresDAO->GetGenresByShows();
+        //         require_once (VIEWS_PATH . "billboard.php");
+        // }
     }
