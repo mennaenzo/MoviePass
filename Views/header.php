@@ -8,9 +8,11 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>estilos.css">
+     <link rel="stylesheet" type="text/css" href="<?php echo STATICS_PATH ?>timepicker/jquery.timepicker.min.css">
 
      <title>Movie Pass</title>
 </head>
+
 <body background="<?php echo VIEWS_PATH ?>/img/foto3.jpg" style = "background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; background-attachment: fixed;" >
 
 
