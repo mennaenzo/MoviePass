@@ -6,8 +6,8 @@
     {
         public function Index($message = "")
         {
-            Utilities::setGenresDAO();
-            UtilitiesController::setMoviesNowPlaying();
+           // Utilities::setGenresDAO();
+            //UtilitiesController::setMoviesNowPlaying();
             require_once(VIEWS_PATH."index.php");
         }
     }

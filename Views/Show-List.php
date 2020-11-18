@@ -35,3 +35,7 @@
                             <?php } ?>
                         </tr>
                     </tbody>
+                 </table>
+             </div>
+         </section>
+     </main>

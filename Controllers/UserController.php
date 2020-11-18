@@ -181,4 +181,15 @@
             $cinemaList = $this->cinemaDAO->GetAll();
             require_once(VIEWS_PATH."cinema-list-user.php");
         }
+
+
+        public function InviteUser(){
+            if($_POST){
+                $inviteUser = $_POST["inviteButton"];
+                $_SESSION['inviteUser'] = $inviteUser;
+                $this->ShowListView_user();
+            }
+
+        }
+
     }

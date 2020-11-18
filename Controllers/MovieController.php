@@ -30,38 +30,48 @@
             require_once(VIEWS_PATH . "admin-menu.php");
         }
 
-        // public function DownloadMovies(){
-        //     $this->GetNowPlaying();
-        //     $this->ShowListView();
-        // }
+         public function DownloadMovies(){
+             $this->GetNowPlaying();
+             $this->ShowListView();
+         }
 
-        // public function GetNowPlaying()
-        // {
-        //     $jsonContent = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1");
+         public function GetNowPlaying()
+         {
+             $jsonContent = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?api_key=" . KEY . "&language=es&page=1");
 
-        //     $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
+             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
-        //     foreach($arrayToDecode["results"] as $valuesArray)
-        //     {
-        //         $movie = new Movie();
-        //         $movie->setAdult($valuesArray["adult"]);
-        //         $movie->setId($valuesArray["id"]);
-        //         $movie->setName($valuesArray["original_title"]);
-        //         $movie->setLanguage($valuesArray["original_language"]);
-        //         $movie->setImage($valuesArray["poster_path"]);
-        //         $movie->setSummary($valuesArray["overview"]);
-        //         $movie->setReleaseDate($valuesArray["release_date"]);
-        //         $movie->setGenres($valuesArray["genre_ids"]);
-        //         $movie->setRuntime($this->getRuntimeApi($valuesArray["id"]));
+             foreach($arrayToDecode["results"] as $valuesArray)
+             {
+                 $movie = new Movie();
+                 $movie->setAdult($valuesArray["adult"]);
+                 $movie->setId($valuesArray["id"]);
+                 $movie->setName($valuesArray["original_title"]);
+                 $movie->setLanguage($valuesArray["original_language"]);
+                 $movie->setImage($valuesArray["poster_path"]);
+                 $movie->setSummary($valuesArray["overview"]);
+                 $movie->setReleaseDate($valuesArray["release_date"]);
+                 $movie->setGenres($valuesArray["genre_ids"]);
+                 $movie->setRuntime($this->getRuntimeApi($valuesArray["id"]));
 
-        //         ///var_dump($movie);
-        //         $this->MovieDAO->Add($movie);
-        //         $this->MoviesxGenresDAO->Add($movie->getGenres(), $movie->getId());
+                 ///var_dump($movie);
+                 $this->MovieDAO->Add($movie);
+                 $this->MoviesxGenresDAO->Add($movie->getGenres(), $movie->getId());
 
-        //         //$this->AddMovieXGenres($arrayGenres,$valuesArray["id"]);
+                 $this->ShowListAdmin();
+                /// $this->AddMovieXGenres($arrayGenres,$valuesArray["id"]);
 
-        //     }
-        // }
+             }
+         }
+
+        public function getRuntimeApi($idMovie){
+
+            $jsonDetail = file_get_contents("https://api.themoviedb.org/3/movie/$idMovie?api_key=" . KEY . "&language=es&page=1");
+            $arrayToDecode = ($jsonDetail) ? json_decode($jsonDetail, true) : array();
+
+            return $arrayToDecode["runtime"];
+
+        }
 
         public function manageMovieView(){
             if($_POST["button"]) {
