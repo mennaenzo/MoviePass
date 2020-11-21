@@ -22,7 +22,7 @@
                                         <td><?php echo $show->getMovie()->getName();?></td>
                                         <td><?php echo $show->getRoom()->getName();?></td>
                                         <td>
-                                             <form action="<?php echo FRONT_ROOT ?>Ticket/ShowTicketView" method="POST">
+                                             <form action="<?php echo FRONT_ROOT ?>Ticket/TicketToBuy" method="POST">
                                                  <button style="margin: 10px" type="submit" formmethod="POST" name="button" class="btn btn-danger" value="<?php echo $show->getId()?>"> Comprar Entrada </button>
                                              </form>
                                         </td>

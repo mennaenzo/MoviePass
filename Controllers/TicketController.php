@@ -2,7 +2,7 @@
 
 
 namespace Controllers;
-use Models\Ticket as Ticket;
+use Models\Tickets as Tickets;
 use DAO\ShowDAO as ShowDAO;
 use DAO\TicketDAO as TicketDAO;
 
@@ -19,15 +19,16 @@ class TicketController
 
     }
 
-    public function TicketToBuy($id_show)
+    public function TicketToBuy($idShow)
     {
-        $ticket = new Ticket();
-        $price = $this->showDAO->GetShow($id_show)->getRoom()->getRoom_price();
+        $ticket = new Tickets();
+        $price = $this->showDAO->GetShowById($idShow)->getRoom()->getRoom_price();
+   
+        $ticket->setShow($this->showDAO->GetShowById($idShow));
 
-        $ticket->setShow($this->showDAO->GetShow($id_show));
-
+        $repo = new TicketDAO();
         $ticket->setPrice($price);
-
+        $limit = $repo->GetTotalCapacity($idShow) - $repo->GetReservedAmount($idShow);
         require_once(VIEWS_PATH."ticket-view.php");
 
     }
@@ -40,10 +41,10 @@ class TicketController
         $ticket->setUser($_SESSION['usuarioLogueado']);
 
 
-        $show = $this->showDAODB->GetShow($id_show);
-        $ticket->setShow($show);
+        //$show = $this->showDAODB->GetShow($id_show);
+        $ticket->setShow($id_show);
 
-        $this->ticketDAODB->Add($ticket);
+        $this->ticketDAO->Add($ticket);
 
        // $this->ShowPrintView();
     }

@@ -164,4 +164,29 @@
     
            return $showList;
        }
+
+       public function GetShowById($idShow)
+        {
+            try {
+                $query = "SELECT id, showTime, showDay, idMovie, idRoom FROM " . $this->tableName . " WHERE id= $idShow;";
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+                if ($result) {
+                    foreach ($result as $value) {
+                        $newShow = new Show();
+                        $newShow->setId($value["id"]);
+                        $newShow->setTime(substr_replace($value["showTime"], "", -3));
+                        $newShow->setDay($value["showDay"]);
+                        $newShow->setMovie($this->movieDAO->GetMovie($value["idMovie"]));
+                        $newShow->setRoom($this->roomDAO->GetRoom($value["idRoom"]));
+                    }
+                }
+            } catch (Exception $ex) {
+                throw $ex;
+                return 0;
+            }
+
+            return $newShow;
+        }
+
     }
