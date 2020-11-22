@@ -29,29 +29,33 @@ class TicketController
         $repo = new TicketDAO();
         $ticket->setPrice($price);
         $limit = $repo->GetTotalCapacity($idShow) - $repo->GetReservedAmount($idShow);
-        require_once(VIEWS_PATH."ticket-view.php");
+        require_once(VIEWS_PATH."add-ticket.php");
 
     }
-    public function Add($price, $quantity, $subtotal, $id_show){
+    public function Add($price, $quantity, $total, $id_show, $idUser){
 
-        $ticket = new Ticket();
+        $ticket = new Tickets();
         $ticket->setPrice($price);
         $ticket->setQuantity($quantity);
-        $ticket->setSubtotal($subtotal);
-        $ticket->setUser($_SESSION['usuarioLogueado']);
-
-
-        //$show = $this->showDAODB->GetShow($id_show);
+        $ticket->setTotal($total);
+        $ticket->setUser($idUser);
         $ticket->setShow($id_show);
+        $rta = $this->ticketDAO->Add($ticket);
+       if($rta == 1) {
+           $message = "La compra se realizo con exito.";
+       }else{
 
-        $this->ticketDAO->Add($ticket);
+           }
+       }
 
        // $this->ShowPrintView();
-    }
+
 
     public function ShowTicketView(){
-        require_once (VIEWS_PATH . "ticket-view.php");
+
+        require_once (VIEWS_PATH . "add-ticket.php");
     }
+
 /*
     PUBLIC function ShowPrintView(){
 
