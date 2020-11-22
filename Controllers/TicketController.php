@@ -3,8 +3,12 @@
 
 namespace Controllers;
 use Models\Tickets as Tickets;
-use DAO\ShowDAO as ShowDAO;
+
 use DAO\TicketDAO as TicketDAO;
+use DAO\CinemaDAO as CinemaDAO;
+use DAO\MovieDAO as MovieDAO;
+use DAO\RoomDAO as RoomDAO;
+use DAO\ShowDAO as ShowDAO;
 
 class TicketController
 {
@@ -16,6 +20,8 @@ class TicketController
     {
         $this->showDAO = new ShowDAO();
         $this->ticketDAO = new TicketDAO();
+        $this->roomDAO=new RoomDAO();
+        $this->cinemaDAO=new CinemaDAO();
 
     }
 
@@ -29,6 +35,9 @@ class TicketController
         $repo = new TicketDAO();
         $ticket->setPrice($price);
         $limit = $repo->GetTotalCapacity($idShow) - $repo->GetReservedAmount($idShow);
+        if($limit < 0){
+            $limit = 0;
+        }
         require_once(VIEWS_PATH."add-ticket.php");
 
     }
@@ -42,18 +51,20 @@ class TicketController
         $ticket->setShow($id_show);
         $rta = $this->ticketDAO->Add($ticket);
        if($rta == 1) {
-           $message = "La compra se realizo con exito.";
+           $message = "La compra se realizo con èxito.";
        }else{
-
+            $message = "Se produjo un error, intente màs tarde..";
            }
-       }
+       
+        
+       $this->ShowTicketsView($message, $idUser);
+    }
 
-       // $this->ShowPrintView();
+    public function ShowTicketsView($message = "", $idUser){
 
+        $ticketList = $this->ticketDAO->GetAllFromUser($idUser);
 
-    public function ShowTicketView(){
-
-        require_once (VIEWS_PATH . "add-ticket.php");
+        require_once (VIEWS_PATH . "ticket-list.php");
     }
 
 /*

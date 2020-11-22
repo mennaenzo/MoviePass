@@ -5,6 +5,7 @@
     use DAO\MovieDAO as MovieDAO;
     use DAO\UserDAO as UserDAO;
     use DAO\GenresDAO as GenresDAO;
+    use DAO\TicketDAO as TicketDAO;
     use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
     use Models\User as User;
 
@@ -15,6 +16,7 @@
         private $genresDAO;
         private $cinemaDAO;
         private $movieDAO;
+        private $ticketDAO;
         private $moviexGenresDAO;
         private $message = null;
 
@@ -24,7 +26,7 @@
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
             $this->genresDAO = new GenresDAO();
-            $this->moviesxGenresDAO = new MoviesxGenresDAO();
+            $this->ticketDAO = new ticketDAO();
         }
 
         public function ShowAddView($message = "")
@@ -190,6 +192,13 @@
                 $this->ShowListView_user();
             }
 
+        }
+
+        public function ShowTicketsFromUser()
+        {
+            $ticketList = $this->ticketDAO->GetAllFromUser($_SESSION['loggedUser']);
+            require_once (VIEWS_PATH . "ticket-list.php");
+            
         }
 
     }

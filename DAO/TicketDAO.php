@@ -4,6 +4,9 @@
     use \Exception as Exception;
     use DAO\Connection as Connection;
     use Models\Tickets as Tickets;
+    use DAO\CinemaDAO as CinemaDAO;
+    use DAO\MovieDAO as MovieDAO;
+    use DAO\RoomDAO as RoomDAO;
     
 
     class TicketDAO
@@ -11,11 +14,11 @@
         private $ticketList;
         private $connection;
         private $tableName = "Tickets";
-        private $roomDAO;
+    
 
             public function __construct()
             {
-                $this->roomDAO=new RoomDAO();
+                $this->showDAO=new ShowDAO();
             }
 
 
@@ -39,8 +42,10 @@
         }
 
         public function GetAllFromUser($idUser){
+            $ticketList = array();
                 try{
-                    $query = "SELECT * FROM tickets where id = $idUser;";
+                    $query = "SELECT id, price, idShow, idUser, quantity, total FROM " . $this->tableName . " where idUser = $idUser;";
+                   
                     $this->connection = Connection::GetInstance();
                     $result = $this->connection->Execute($query);
 
@@ -49,33 +54,21 @@
                             $ticket = new Tickets();
                             $ticket->setId($value["id"]);
                             $ticket->setPrice($value["price"]);
-                            $ticket->setIdShow($value["idShow"]);
+                            $ticket->setShow($this->showDAO->GetShowById($value["idShow"]));
                             $ticket->setUser($value["idUser"]);
                             $ticket->setQuantity($value["quantity"]);
                             $ticket->setTotal($value["total"]);
-                            array_push($this->ticketList, $ticket);
+                            array_push($ticketList, $ticket);
                         }
                     }
                     else{
-                        $this->ticketList = null;
+                        $ticketList = null;
                     }
                 }catch (Exception $ex){
                     throw $ex;
                 }
-                return $this->ticketList;
+                return $ticketList;
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         public function GetReservedAmount($idShow){
             $quantity = 0;
