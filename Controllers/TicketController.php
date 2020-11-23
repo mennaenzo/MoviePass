@@ -27,7 +27,14 @@ class TicketController
 
     public function TicketToBuy($idShow)
     {
+    
         $ticket = new Tickets();
+        $date = $this->showDAO->GetShowById($idShow)->getDay();
+        $discount = 0;
+        if($this->validateDiscount($date)){
+            $discount = ($this->showDAO->GetShowById($idShow)->getRoom()->getRoom_price()) * 0.25;
+        }
+      
         $price = $this->showDAO->GetShowById($idShow)->getRoom()->getRoom_price();
    
         $ticket->setShow($this->showDAO->GetShowById($idShow));
@@ -38,7 +45,8 @@ class TicketController
         if($limit < 0){
             $limit = 0;
         }
-        require_once(VIEWS_PATH."add-ticket.php");
+     
+       require_once (VIEWS_PATH."add-ticket.php");
 
     }
     public function Add($price, $quantity, $total, $id_show, $idUser){
@@ -67,6 +75,27 @@ class TicketController
         require_once (VIEWS_PATH . "ticket-list.php");
     }
 
+    public function validateDiscount ($date){
+        $day = strtotime($date);
+        $newDay = date("l", $day);
+        if($newDay == "Tuesday" || $newDay == "Wednesday"){
+               return true;
+            }
+        return false;
+    } 
+        
+  /*   public function validateDiscount ($date, $quantity){
+        $day = strtotime($date);
+        $newDay = date("l", $day);
+        if($newDay == "Tuesday" || $newDay == "Wednesday"){
+           if($quantity >= 2){
+               return true;
+           }
+        }
+        return false;
+    } */
+
+  
 /*
     PUBLIC function ShowPrintView(){
 

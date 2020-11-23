@@ -13,7 +13,11 @@ require_once VIEWS_PATH . "nav.php";
                     function multi(){
                         m1 = document.getElementById("quantity").value;
                         m2 = document.getElementById("ticket_price").value;
-                        r = m1*m2;
+                        d = document.getElementById("price2").value;
+                         if(m1 >= 2){
+                           m2 = (document.getElementById("ticket_price").value) - d;
+                        } 
+                         r = m1*m2;
                         document.getElementById("subtotal").value = r;
                     }
                 </script>
@@ -25,7 +29,7 @@ require_once VIEWS_PATH . "nav.php";
                     
                     <label style="color: black" for="name"><strong>Cantidad </strong></label>
                     <input type = "number" name= "quantity" id= "quantity" class="form-control" placeholder ="<?php echo "Cantidad de entradas disponibles: ". $limit;?>"  min ="0" max ="<?php echo $limit;?>" onChange="multi();">
-                    
+                    <input type="hidden" name="price2" id="price2" value="<?php echo $discount; ?>">
                     <label style="color: black" for="">Subtotal</label>
                     <input type="number" name = "subtotal" id ="subtotal" value="" class="form-control" readonly="readonly">
                     <input type="hidden" name="id_show" value="<?php echo  $ticket->getShow()->getId(); ?>">
