@@ -1,24 +1,22 @@
 <?php
-
-require_once "nav.php";
-
+    require_once "nav.php";
 ?>
 <main class="py-5">
-    <section id="listadoo" class="mb-5">
+    <section id="listado" class="mb-5">
 
             <div class="container">
-                <h2 class="mb-4"style="color: #4e555b">Mis Entradas</h2>
+                <h2 class="mb-4"style="color: whitesmoke">Mis Entradas</h2>
                 <div>
                     <form id= "ticketList" action="<?php echo FRONT_ROOT ?>Ticket/filter" method="post" class="bg-light-alpha p-5">
-                        <label style="color: black" for="lblGenres">Tickets por Pelicula</label>
+                        <label style="color: whitesmoke" for="lblGenres">Tickets por Pelicula</label>
                         <select name ="selectMovie">
                             <option value="0">Pelicula</option>
                             <?php foreach($ticketFilter as $movieName){ ?>
                                 <option value="<?php echo $movieName; ?>"> <?php echo $movieName ?> </option>
                             <?php }?>
                         </select>
-
-                        <input type="date" name="date" value="" class="form-control">
+                        <br>
+                        <input type="date" name="date" value="" class="form-control-xlg">
                         <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>
                     </form>
                 </div>
