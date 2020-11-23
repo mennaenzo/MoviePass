@@ -44,7 +44,7 @@
         public function GetAllFromUser($idUser){
             $ticketList = array();
                 try{
-                    $query = "SELECT id, price, idShow, idUser, quantity, total FROM " . $this->tableName . " where idUser = $idUser;";
+                    $query = "SELECT id, price, idShow, idUser, quantity, total FROM " . $this->tableName . " t where t.idUser = $idUser;";
                    
                     $this->connection = Connection::GetInstance();
                     $result = $this->connection->Execute($query);
@@ -110,6 +110,31 @@
                 throw $ex;
             }
             return $quantity;
-
         }
+
+        public function GetAllFromUser($idUser){
+            $movieNameList = array();
+                try{
+                    $query = "SELECT  m.movieName FROM " . $this->tableName . " t
+                    inner join shows s on s.id = t.idShow
+                    inner join movies m on m.id = s.idMovie
+                    where t.idUser = 2
+                    group by m.movieName;";
+                    $this->connection = Connection::GetInstance();
+                    $result = $this->connection->Execute($query);
+
+                    if($result) {
+                        foreach ($result as $value) {
+                            array_push($movieNameList, $value["movieName"]);
+                        }
+                    }
+                    else{
+                        $movieNameList = null;
+                    }
+                }catch (Exception $ex){
+                    throw $ex;
+                }
+                return $movieNameList;
+        }
+     
     }

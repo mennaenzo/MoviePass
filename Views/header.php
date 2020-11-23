@@ -13,6 +13,5 @@
      <title>Movie Pass</title>
 </head>
 
-<body background="<?php echo VIEWS_PATH ?>/img/foto3.jpg" style = "background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; background-attachment: fixed;" >
-
+<body background="<?php echo VIEWS_PATH ?>/img/foto4.jpg" style = "background-repeat: no-repeat; background-position: center center; background-size: 100% 100%; background-attachment: fixed;" >
 

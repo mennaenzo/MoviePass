@@ -50,6 +50,7 @@ class TicketController
 
     }
     public function Add(){
+        if($_POST){
         $ticket = new Tickets();
         $ticket->setPrice($_POST["price"]);
         $ticket->setQuantity($_POST["quantity"]);
@@ -63,15 +64,20 @@ class TicketController
             $message = "Se produjo un error. Intente màs tarde.";
         }
       
-       $this->ShowTicketsView($message, $_POST["idUser"]);   
+       $this->ShowTicketsView($message, $_POST["idUser"]);  
+     }
+     else{
+         require_once VIEWS_PATH . "index.php";
+     }
     }
 
     public function ShowTicketsView($message = "", $idUser){
 
         $ticketList = $this->ticketDAO->GetAllFromUser($idUser);
-
+        $ticketFilter = 
         require_once (VIEWS_PATH . "ticket-list.php");
     }
+    
 
     public function validateDiscount ($date){
         $day = strtotime($date);

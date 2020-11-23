@@ -1,12 +1,31 @@
 <?php
 
-require_once VIEWS_PATH."nav.php";
+require_once "nav.php";
 
 ?>
 <main class="py-5">
-    <section id="listado" class="mb-5">
-        <div class="container">
-            <h2 class="mb-4"style="color: #4e555b">Mis Entradas</h2>
+    <section id="listadoo" class="mb-5">
+
+            <div class="container">
+                <h2 class="mb-4"style="color: #4e555b">Mis Entradas</h2>
+                <div>
+                    <form id= "ticketList" action="<?php echo FRONT_ROOT ?>Ticket/Filter" method="post" class="bg-light-alpha p-5">
+                        <label style="color: black" for="lblGenres">Tickets por Pelicula</label>
+                        <select name ="selectMovie">
+                            <option value="0">Pelicula</option>
+                            <?php foreach($ticketList as $ticket){ ?>
+                                <option value="<?php echo $ticket->getShow()->getMovie()->getName(); ?>"> <?php echo $ticket->getShow()->getMovie()->getName(); ?> </option>
+                            <?php }?>
+                        </select>
+
+
+
+
+                        <input type="date" name="date" value="" class="form-control">
+                        <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>
+                    </form>
+                </div>
+         
                 <table class="table table-dark">
                     <thead>
                         <th>Fecha</th>
@@ -34,7 +53,7 @@ require_once VIEWS_PATH."nav.php";
                                 </div>
                             </tr>
                         <?php } ?>
-                    <tbody>
+                    </tbody>
                     <br>
                 </table>
                 <?php
@@ -42,7 +61,6 @@ require_once VIEWS_PATH."nav.php";
                     echo "<script> alert('$message'); </script>";
                 }
                 ?>
-            </div>
-        </form>
-    </section>
+            </div>  
+    </section>       
 </main>
