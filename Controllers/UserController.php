@@ -198,7 +198,9 @@
         public function ShowTicketsFromUser()
         {
             $ticketList = $this->ticketDAO->GetAllFromUser($_SESSION['loggedUser']);
-            require_once (VIEWS_PATH . "ticket-list.php");
+            $ticketFilter = $this->ticketDAO->GetMovieNameList($_SESSION['loggedUser']);
+            
+           require_once (VIEWS_PATH . "ticket-list.php");
             
         }
 

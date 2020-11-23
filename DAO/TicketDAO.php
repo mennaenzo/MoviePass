@@ -112,13 +112,13 @@
             return $quantity;
         }
 
-        public function GetAllFromUser($idUser){
+        public function GetMovieNameList($idUser){
             $movieNameList = array();
                 try{
                     $query = "SELECT  m.movieName FROM " . $this->tableName . " t
                     inner join shows s on s.id = t.idShow
                     inner join movies m on m.id = s.idMovie
-                    where t.idUser = 2
+                    where t.idUser = $idUser
                     group by m.movieName;";
                     $this->connection = Connection::GetInstance();
                     $result = $this->connection->Execute($query);

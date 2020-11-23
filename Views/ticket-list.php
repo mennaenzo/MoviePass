@@ -9,17 +9,14 @@ require_once "nav.php";
             <div class="container">
                 <h2 class="mb-4"style="color: #4e555b">Mis Entradas</h2>
                 <div>
-                    <form id= "ticketList" action="<?php echo FRONT_ROOT ?>Ticket/Filter" method="post" class="bg-light-alpha p-5">
+                    <form id= "ticketList" action="<?php echo FRONT_ROOT ?>Ticket/filter" method="post" class="bg-light-alpha p-5">
                         <label style="color: black" for="lblGenres">Tickets por Pelicula</label>
                         <select name ="selectMovie">
                             <option value="0">Pelicula</option>
-                            <?php foreach($ticketList as $ticket){ ?>
-                                <option value="<?php echo $ticket->getShow()->getMovie()->getName(); ?>"> <?php echo $ticket->getShow()->getMovie()->getName(); ?> </option>
+                            <?php foreach($ticketFilter as $movieName){ ?>
+                                <option value="<?php echo $movieName; ?>"> <?php echo $movieName ?> </option>
                             <?php }?>
                         </select>
-
-
-
 
                         <input type="date" name="date" value="" class="form-control">
                         <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>

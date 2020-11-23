@@ -74,8 +74,9 @@ class TicketController
     public function ShowTicketsView($message = "", $idUser){
 
         $ticketList = $this->ticketDAO->GetAllFromUser($idUser);
-        $ticketFilter = 
-        require_once (VIEWS_PATH . "ticket-list.php");
+        $ticketFilter = $this->ticketDAO->GetMovieNameList($idUser);
+        
+        //require_once (VIEWS_PATH . "ticket-list.php");
     }
     
 
@@ -87,28 +88,8 @@ class TicketController
             }
         return false;
     } 
-        
-  /*   public function validateDiscount ($date, $quantity){
-        $day = strtotime($date);
-        $newDay = date("l", $day);
-        if($newDay == "Tuesday" || $newDay == "Wednesday"){
-           if($quantity >= 2){
-               return true;
-           }
-        }
-        return false;
-    } */
-
-  
-/*
-    PUBLIC function ShowPrintView(){
-
-        $id = $this->ticketDAODB->GetLastId();
-
-        $ticket = new Ticket();
-        $ticket=$this->ticketDAODB->GetTicket($id);
-        require_once(VIEWS_PATH."ticket-final.php");
-    }*/
+    
+   
 
 
 }
