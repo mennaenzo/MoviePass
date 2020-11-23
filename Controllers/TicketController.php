@@ -49,23 +49,21 @@ class TicketController
        require_once (VIEWS_PATH."add-ticket.php");
 
     }
-    public function Add($price, $quantity, $total, $id_show, $idUser){
-
+    public function Add(){
         $ticket = new Tickets();
-        $ticket->setPrice($price);
-        $ticket->setQuantity($quantity);
-        $ticket->setTotal($total);
-        $ticket->setUser($idUser);
-        $ticket->setShow($id_show);
+        $ticket->setPrice($_POST["price"]);
+        $ticket->setQuantity($_POST["quantity"]);
+        $ticket->setTotal($_POST["total"]);
+        $ticket->setUser($_POST["idUser"]);
+        $ticket->setShow($_POST["id_show"]);
         $rta = $this->ticketDAO->Add($ticket);
        if($rta == 1) {
            $message = "La compra se realizo con èxito.";
        }else{
-            $message = "Se produjo un error, intente màs tarde..";
-           }
-       
-        
-       $this->ShowTicketsView($message, $idUser);
+            $message = "Se produjo un error. Intente màs tarde.";
+        }
+      
+       $this->ShowTicketsView($message, $_POST["idUser"]);   
     }
 
     public function ShowTicketsView($message = "", $idUser){

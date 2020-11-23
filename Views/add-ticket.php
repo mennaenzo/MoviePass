@@ -8,9 +8,18 @@ require_once VIEWS_PATH . "nav.php";
                 <br>
                 <br>
                 <h2 style="color: black"><strong>Comprar Entrada</strong></h2>
-                 <!--Método para calcular el subtotal -->
-                <script>
+           
+                <script>    
+                    //Método para calcular el subtotal 
                     function multi(){
+                        m1 = document.getElementById("quantity").value;
+                        m2 = document.getElementById("ticket_price").value;
+                        r = m1*m2;
+                        document.getElementById("subtotal").value = r;
+                    }
+
+                    //Método para calcular el total
+                     function discount(){
                         m1 = document.getElementById("quantity").value;
                         m2 = document.getElementById("ticket_price").value;
                         d = document.getElementById("price2").value;
@@ -18,25 +27,33 @@ require_once VIEWS_PATH . "nav.php";
                            m2 = (document.getElementById("ticket_price").value) - d;
                         } 
                          r = m1*m2;
-                        document.getElementById("subtotal").value = r;
+                        document.getElementById("total").value = r;
                     }
                 </script>
             </header>
             <div class="sep">
                 <div class="inputs">
                     <label style="color: black" for="name"><strong>Precio Ticket</strong></label>
-                    <input type="number" name="price" id ="ticket_price" value="<?php echo $ticket->getPrice();?>" class="form-control" readonly = "readonly" onChange="multi();">
+                    <input type="number" name="price" id ="ticket_price" value="<?php echo $ticket->getPrice();?>" class="form-control" readonly = "readonly" onChange="multi(); discount();">
                     
                     <label style="color: black" for="name"><strong>Cantidad </strong></label>
-                    <input type = "number" name= "quantity" id= "quantity" class="form-control" placeholder ="<?php echo "Cantidad de entradas disponibles: ". $limit;?>"  min ="0" max ="<?php echo $limit;?>" onChange="multi();">
-                    <input type="hidden" name="price2" id="price2" value="<?php echo $discount; ?>">
+                    <input type = "number" name= "quantity" id= "quantity" class="form-control" placeholder ="<?php echo "Cantidad de entradas disponibles: ". $limit;?>"  min ="0" max ="<?php echo $limit;?>" onChange="multi(); discount();">
+                    
                     <label style="color: black" for="">Subtotal</label>
                     <input type="number" name = "subtotal" id ="subtotal" value="" class="form-control" readonly="readonly">
                     <input type="hidden" name="id_show" value="<?php echo  $ticket->getShow()->getId(); ?>">
+                    
+                    <input type="text" name="price2" id="price2" value="<?php echo $discount;?>" readonly = "readonly">
+                    <label style="color: black" for="">Total</label>
+                    <input type="number" name = "total" id ="total" value="" class="form-control" readonly="readonly">
+                    
                     <input type="hidden" name="idUser" value="<?php echo $user; ?>">
-                    <label style="color: black" for="">Tarjeta de Credito</label>
-                    <input type="text" name="credit_card" value="" class="form-control">
-
+                    
+                    <label style="color: black" for="lblCreditCard">Tarjeta de Credito</label>
+                    <select name="creditCard">
+                        <option value="Visa">Visa</option>
+                        <option value="Mastercard">MasterCard</option>
+                    </select>
                     <br>
                     <button id="submit" type="submit" value = "" name="Button" class="btn btn-dark ml-auto d-block">Comprar</button>
                 </div>

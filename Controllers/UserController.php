@@ -23,6 +23,7 @@
         public function __construct()
         {
             $this->movieDAO = new MovieDAO();
+            $this->moviexGenresDAO = new MoviesxGenresDAO();
             $this->userDAO = new UserDAO();
             $this->cinemaDAO = new CinemaDAO();
             $this->genresDAO = new GenresDAO();
@@ -173,7 +174,7 @@
             // require_once VIEWS_PATH . "billboard.php";
 
             $movieList= $this->movieDAO->getMovieAvailable();
-            $genresList = $this->moviesxGenresDAO->GetGenresByShows();
+            $genresList = $this->moviexGenresDAO->GetGenresByShows();
             require_once(VIEWS_PATH . "billboard.php");
         }
 
