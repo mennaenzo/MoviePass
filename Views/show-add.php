@@ -7,11 +7,11 @@
                   <header class="header">
                       <br>
                       <br>
-                      <h2 style="color: black">Agregar funcion</h2>
+                      <h2 style="color: whitesmoke">Agregar funcion</h2>
                   </header>
                   <div class="sep"></div>
-                         <div class="inputs">
-                            <label style="color: black" for="lbldate">Dia</label>
+                         <div class="form-control-lg">
+                            <label style="color: whitesmoke" for="lbldate">Dia</label>
                             <input type="date" name="lbldate" value="<?php echo date("Y-m-d")?>"
                             min="<?php 
                                     $date = date("Y-m-d"); 
@@ -19,11 +19,13 @@
                                     $nextDay = date("Y-m-d", $mod_date);
                                     echo $nextDay;
                                 ?>" 
-                            class="form-control" required>
-                            <label style="color: #000000" for="lbltime">Hora</label>
+                            class="form-control-xlg" required>
+                             <br>
+                            <label style="color: whitesmoke" for="lbltime">Hora</label>
                             <!-- <input type="time" name="hour" value="" class="form-control" required> -->
-                            <input class="timepicker" name="hour">
-                            <label style="color: black" for="lblmovie">Pelicula</label>
+                            <input class="timepicker" name="hour" readonly>
+                             <br>
+                            <label style="color: whitesmoke" for="lblmovie">Pelicula</label>
                             <select name="SelectMovie">
                                     <?php foreach($movieList as $movie){?>
                                         <option value = "<?php echo $movie->getId();?>">
@@ -31,8 +33,8 @@
                                         </option>
                                     <?php } ?>
                             </select>
-
-                            <label style="color: black" for="lblRoom">Sala</label>
+                            <br>
+                            <label style="color: whitesmoke" for="lblRoom">Sala</label>
                             <select name="SelectRoom" id="selRoom">
                                     <?php foreach($cinemaList as $cinema){
                                         foreach(($this->roomDAO-> searchRoomsByIdCinema($cinema->getId())) as $room){ ?>
@@ -44,7 +46,7 @@
                             ?>
                             </select>
                             <br>
-                            <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto d-block">Agregar funcion</button>
+                            <button id="submit" type="submit" name="button" value ="" class="btn btn-dark ml-auto">Agregar funcion</button>
                          </div>
               </form>
           </section>

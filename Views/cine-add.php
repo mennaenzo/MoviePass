@@ -1,9 +1,9 @@
 <?php
-    require_once VIEWS_PATH . "nav.php";
+    require_once "nav.php";
 ?>
 <main class="">
      <section id="listado" class="mb-5">
-              <form style="" id= "cineAdd" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
+              <form style="" id= "cineAdd" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="align-content-center bg-light-alpha p-5">
                   <header class="header">
                       <br>
                       <br>
