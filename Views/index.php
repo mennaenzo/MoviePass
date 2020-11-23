@@ -50,7 +50,6 @@ if(isset($message)){
                     <div class="form-group">
                          <label style="color: #4e555b" for="">Contraseña</label>
                          <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar constraseña" required>
-                         <input class="timepicker" >
                     </div>
                     <div class="form-group">
                     <button class="btn btn-dark btn-block btn-lg" type="submit">Iniciar Sesión</button>

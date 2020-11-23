@@ -77,7 +77,7 @@
         public function getMoviesFromShows(){
             $movieList = array();
             try{
-                $query = "SELECT m.id, movieName, summary, movieLanguage, dir_image, releaseDate  FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
+                $query = "SELECT m.id, movieName, summary, movieLanguage, dir_image, runtime,releaseDate FROM " . $this->tableName . " m inner join Shows s on s.idMovie = m.id WHERE  s.statusShow = 1;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                
@@ -89,6 +89,7 @@
                         $movie->setSummary($row["summary"]);
                         $movie->setLanguage($row["movieLanguage"]);
                         $movie->setImage($row["dir_image"]);
+                        $movie->setRuntime($row["runtime"]);
                         $movie->setReleaseDate($row["releaseDate"]);
                         array_push($movieList, $movie);
                     }

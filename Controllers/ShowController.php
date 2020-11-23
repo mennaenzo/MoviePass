@@ -4,9 +4,9 @@
     use Models\Cinema as Cinema;
     use Models\Room as Room;
     use Models\Show as Show;
-    use DAO\RoomDAO as RoomDAO; //ver
-    use DAO\CinemaDAO as CinemaDAO;  //ver
-    use DAO\MovieDAO as MovieDAO;  //ver
+    use DAO\RoomDAO as RoomDAO;
+    use DAO\CinemaDAO as CinemaDAO;
+    use DAO\MovieDAO as MovieDAO;
     use DAO\ShowDAO as ShowDAO;
     use DAO\GenresDAO as GenresDAO;
     use DAO\MoviesxGenresDAO as MoviesxGenresDAO;
@@ -34,68 +34,50 @@
         public function Add()
         {
             if ($this->validateDataShow()) {
-                if($this->validateDayShow($_POST["date"], $_POST["SelectMovie"]))
-                {
-                    // if(validateTimeShow($_POST["date"], $_POST["hour"]))
-                    // {
+                $date = $_POST["date"];
+                if ($this->validateDayShow($_POST["date"], $_POST["SelectMovie"], $_POST["SelectRoom"])) {
+                    if ($this->validateAddShow($_POST["SelectRoom"], $_POST["SelectMovie"], $_POST["date"], $_POST["hour"])) {
+                        $show = new Show();
 
-                    // }
-                    $show = new Show();
-
-                    if (strpos($_POST["hour"], "a.m.") || strpos($_POST["hour"], "p.m.")) {
-                        $hour = substr_replace($_POST["hour"], "", -4);
-                        $show->setTime($hour);
+                        if (strpos($_POST["hour"], "a.m.") || strpos($_POST["hour"], "p.m.")) {
+                            $hour = substr_replace($_POST["hour"], "", -4);
+                            $show->setTime($hour);
+                        } else {
+                            $show->setTime($_POST["hour"]);
+                        }
+        
+                        $show->setDay($_POST["date"]);
+        
+                        $show->setMovie($this->movieDAO->GetMovie($_POST["SelectMovie"]));
+                        
+                        $show->setRoom($this->roomDAO->GetRoom($_POST["SelectRoom"]));
+        
+                        $result = $this->showDAO->Add($show);
+                        if ($result) {
+                            $message = "La función se agrego correctamente";
+                        } else {
+                            $message = "Error en la carga de datos.";
+                        }
+                        $this->ShowAddView($message);
                     } else {
-                        $show->setTime($_POST["hour"]);
+                        $message = "La funcion no puede agregarse el dia $date a la hora " . $_POST["hour"];
+                        $this->ShowAddView($message);
                     }
-    
-                    $show->setDay($_POST["date"]);
-    
-                    $show->setMovie($this->movieDAO->GetMovie($_POST["SelectMovie"]));
-                    
-                    $show->setRoom($this->roomDAO->GetRoom($_POST["SelectRoom"]));
-    
-                    $result = $this->showDAO->Add($show);
-                    if($result){
-                        $message = "La función se agrego correctamente";
-                    }
-                    else{
-                        $message = "Error en la carga de datos.";
-                    }
-                    $this->ShowAddView($message);
                 }else{
-                    $date = $_POST["date"];
-                    $message = "La función ya existe el dia $date";
-                    $this->ShowAddView($message);
-                } 
+                    $message = "La función ya existe el dia $date en otro cine.";
+                    $this->ShowAddView($message); 
+                }
             }
         }
 
-        public function validateTimeShow($date, $time)
+        public function validateDayShow($date, $idMovie, $idRoom)
         {
-            // $shows = $this->showDAO->GetShowsByDay($date);
-            // echo $time;
-            // $hour = substr($time, 0, -3);
-            // $minutes = substr($time, 3);
-            // echo "<br> $hour <br> $minutes";
-            // if($shows <> null)
-            // {
-            //     foreach($shows as $show)
-            //     {
-                    
-            //     }
-            // }else{
-            //     return true;
-            // }
-        }
+            $cinema = $this->roomDAO->getCinemaByRoom($idRoom);
+            $idShow = $this->showDAO->ExistShowByDay($date, $idMovie, $cinema->getId());
 
-        public function validateDayShow($date, $idMovie)
-        {
-            $idShow = $this->showDAO->ExistShowByDay($date, $idMovie);
-            if ($idShow == 0)
-            {
+            if ($idShow == 0) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -140,8 +122,7 @@
 
         public function Filter()
         {
-            if($_POST)
-            {
+            if ($_POST) {
                 $date = 0;
                 if ($_POST["date"] <> "") {
                     $date = $_POST["date"];
@@ -157,16 +138,65 @@
             require_once(VIEWS_PATH . "billboard.php");
         }
 
-        public function ShowsView(){
-            if($_POST["btnShows"]){
+        public function ShowsView()
+        {
+            if ($_POST["btnShows"]) {
                 $showList = $this->showDAO->GetShowByMovie($_POST["btnShows"]);
-                require_once (VIEWS_PATH . "ShowListUser.php");
+                require_once(VIEWS_PATH . "ShowListUser.php");
             }
         }
 
-        // public function ShowFilter($date, $genre){
-        //         $movieList = $this->moviexgenresDAO->GetMoviesByGenreId($_POST["SelectGenre"]);
-        //         $genresList = $this->moviexgenresDAO->GetGenresByShows();
-        //         require_once (VIEWS_PATH . "billboard.php");
-        // }
+        private function validateAddShow($idRoom, $idMovie, $date, $startNewMovie)
+        {
+            $idCinema = $this->roomDAO->getCinemaByRoom($idRoom);
+
+            $showList = $this->showDAO->GetShowsByDay($date);
+
+            $runtime = ($this->movieDAO->GetMovie($idMovie)->getRuntime());
+            $format = '+' . ($runtime + 15) . ' minute'; 
+            $finishNewMovie = strtotime($format, strtotime($startNewMovie));
+
+            if ($showList != null) {
+                $i = 0;
+                foreach ($showList as $value) {
+
+                    $format = '+' . ($value["runtime"] + 15) . ' minute'; 
+                    $hourAvailable = strtotime($format, strtotime($value["showTime"]));
+
+                    if($hourAvailable <= strtotime($startNewMovie)){ // Hora disp. es menor o igual al comienzo de new movie?
+                        if($i+1 > count($showList) - 1) // Es la ultima pelicula?
+                        {   
+                            //Agrego al final
+                            $mod_date = strtotime('+1 day', strtotime($date));
+                            $nextDay = date("Y-m-d", $mod_date);
+                            return $this->validateAddShow($idRoom, $idMovie, $nextDay, $startNewMovie);
+                        }else{
+                            // Agrego al medio
+                            if($finishNewMovie < strtotime($showList[$i+1]["showTime"])){ // Entra en rango horario?
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }
+                    }else{ 
+                        // Agrego al principio
+                        if($finishNewMovie < strtotime($value["showTime"])){ // Entra en rango horario?
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }
+                    $i++;
+                }
+            } else {
+                return true;
+            }
+        }
+
+        function convertMinsToHours($minutes) 
+        {
+            return date('H:i', mktime(0,$minutes));
+        }
+
+
     }

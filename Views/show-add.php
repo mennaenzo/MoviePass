@@ -12,11 +12,17 @@
                   <div class="sep"></div>
                          <div class="inputs">
                             <label style="color: black" for="lbldate">Dia</label>
-                            <input type="date" name="date" value="<?php echo date("Y-m-d")?>" prefix="<?php date("Y-m-d")?>"
-                                   min="<?php echo date("Y-m-d")?>"class="form-control" prefix="<?php date("Y-m-d")?>required>"
+                            <input type="date" name="date" value="<?php echo date("Y-m-d")?>" 
+                            min="<?php 
+                                    $date = date("Y-m-d"); 
+                                    $mod_date = strtotime('+1 day', strtotime($date)); 
+                                    $nextDay = date("Y-m-d", $mod_date);
+                                    echo $nextDay;
+                                ?>" 
+                            class="form-control" required>
                             <label style="color: #000000" for="lbltime">Hora</label>
-                            <input type="time" name="hour" value="" class="form-control" required>
-
+                            <!-- <input type="time" name="hour" value="" class="form-control" required> -->
+                            <input class="timepicker" name="hour" class="form-control">
                             <label style="color: black" for="lblmovie">Pelicula</label>
                             <select name="SelectMovie">
                                     <?php foreach($movieList as $movie){?>
@@ -27,7 +33,7 @@
                             </select>
 
                             <label style="color: black" for="lblRoom">Sala</label>
-                            <select name="SelectRoom">
+                            <select name="SelectRoom" id="selRoom">
                                     <?php foreach($cinemaList as $cinema){
                                         foreach(($this->roomDAO-> searchRoomsByIdCinema($cinema->getId())) as $room){ ?>
                                             <option value = "<?php echo $room->getId(); ?>">
@@ -43,12 +49,7 @@
               </form>
           </div>
          <?php
-         if ($message <> "") { 
-             echo "<script> alert('$message'); </script>"; 
-         ?>
-            <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong><?php $message;}?></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div> -->
+         if ($message <> "") {
+             echo "<script> alert('$message'); </script>";
+         }
+        ?>

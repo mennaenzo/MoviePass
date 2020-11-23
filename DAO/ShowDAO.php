@@ -95,10 +95,13 @@
             return $showList;
         }
 
-        public function ExistShowByDay($date, $idMovie)
+        public function ExistShowByDay($date, $idMovie, $idCinema)
         {
             try {
-                $query = "SELECT id FROM " . $this->tableName . " WHERE idMovie = $idMovie and showDay = '$date';";
+                $query = "SELECT * FROM shows s
+                inner join rooms r on r.id = s.idRoom 
+                inner join cinemas c on c.id = r.idCinema
+                WHERE s.idMovie = '$idMovie' and s.showDay = '$date' and c.id <> '$idCinema';";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
                 if ($result <> null) {
@@ -115,24 +118,15 @@
         public function GetShowsByDay($date)
         {
             try {
-                $query = "SELECT * FROM " . $this->tableName . " showDay = '$date';";
+                $query = "select s.id 'idShow', s.showTime, s.idRoom, c.id 'idCinema', s.idMovie, m.runtime from " . $this->tableName . " s 
+                inner join movies m on m.id = s.idMovie
+                inner join rooms r on r.id = s.idRoom
+                inner join cinemas c on c.id = r.idCinema
+                where showDay = '$date'
+                order by showTime;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
-                if ($result <> null) {
-                    $showsArray = array();
-                    foreach ($result as $shows) {
-                        $newShow = new Show();
-                        $newShow->setId($value["id"]);
-                        $newShow->setTime(substr_replace($value["showTime"], "", -3));
-                        $newShow->setDay($value["showDay"]);
-                        $newShow->setMovie($this->movieDAO->GetMovie($value["idMovie"]));
-                        $newShow->setRoom($this->roomDAO->GetRoom($idRoom));
-                        array_push($showsArray, $newShow);
-                    }
-                    return $showsArray;
-                }else{
-                    return null;
-                }
+                return $result;
             } catch (Exception $ex) {
                 throw $ex;
                 return 0;

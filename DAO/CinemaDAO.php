@@ -13,7 +13,7 @@
     {
         ///private $cinemaList = array();  Comento esta lista para hacer solo las consultas sobre los objetos a la base de datos
         private $connection;
-        private $tableName = "Cinemas";  
+        private $tableName = "Cinemas";
    
         public function Add(Cinema $cinema)
         {
@@ -43,13 +43,13 @@
         
         public function GetAll()
         {
-            try{
+            try {
                 $cinemasList = array();
                 $query = "SELECT * FROM ".$this->tableName . " WHERE statusCinema=1 order by id desc;";
                 $this->connection = Connection::GetInstance();
                 $result = $this->connection->Execute($query);
 
-                foreach ($result as $row){
+                foreach ($result as $row) {
                     $cinema = new Cinema();
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["cinemaName"]);
@@ -57,8 +57,7 @@
                     array_push($cinemasList, $cinema);
                 }
                 return $cinemasList;
-            }
-            catch (Exception $ex){
+            } catch (Exception $ex) {
                 throw $ex;
             }
         }
@@ -125,191 +124,48 @@
             return $cinema->getname();
         }
 
-        public function GetCinema($id){
-            try
-            {
+        public function GetCinema($id)
+        {
+            try {
                 $query = "SELECT * FROM ".$this->tableName." where id=$id;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
-                //var_dump($resultSet);
                 $cinema = new Cinema();
 
-                foreach ($resultSet as $row){
+                foreach ($resultSet as $row) {
                     $cinema->setId($row["id"]);
                     $cinema->setName($row["cinemaName"]);
                     $cinema->setAddress($row["address"]);
                 }
                 return $cinema;
-            }
-            catch(Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
             }
         }
 
-        public function delete($id){
-            try
-            {
+        public function delete($id)
+        {
+            try {
                 $query = "UPDATE " . $this->tableName . " SET statusCinema = 0 WHERE id = $id;";
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
                 return true;
-            }
-            catch(Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
                 return false;
             }
         }
-        public function modify($id, $cinemaName, $address){
-            try
-            {
+        public function modify($id, $cinemaName, $address)
+        {
+            try {
                 $query = "UPDATE " . $this->tableName . " SET cinemaName = '$cinemaName', address = '$address'  WHERE id = '$id';";
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
                 return true;
-            }
-            catch(Exception $ex)
-            {
+            } catch (Exception $ex) {
                 throw $ex;
                 return false;
             }
             return $message;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-            $this->RetrieveData();
-            return $this->cinemaList;
-            */
-        
-        /*
-        public function RetrieveData()
-        {
-            try {
-                $query = "SELECT * FROM " .  $this->tableName . ";";
-                $this->connection = Connection::GetInstance();
-             
-                $result = $this->connection->Execute($query);
-               
-                if ($result) {
-                    foreach ($result as $value) {
-                        $cinema = new Cinema();
-                        $cinema->setId($value["id"]);
-                        $cinema->setName($value["cinemaName"]);
-                        $cinema->setAddress($value["address"]);
-                        array_push($this->cinemaList, $cinema);
-                    }
-                }
-            } catch (Exception $ex) {
-                throw $ex;
-            }
-        }
-*/
-
-
-
-        //PARA TRABAJAR CON JSON
-        /*
-        private $cinemaList = array();
-        private $fileName = "Data/cinema.json";
-
-        public function Add(Cinema $cinema) //sin terminar
-        {
-            $this->RetrieveData();
-            if(!$this->validateNameCinema($cinema->getName())){
-                array_push($this->cinemaList, $cinema);
-                $this->SaveData();
-            }
-        }
-
-        public function validateNameCinema($name){
-                $this->RetrieveData();
-                foreach($this->cinemaList as $value){
-                    if($name == $value->getName()){
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }
-        }
-        public function GetAll()
-        {
-            $this->RetrieveData();
-            return $this->cinemaList;
-        }
-
-        private function SaveData()
-        {
-            $arrayToEncode = array();
-            foreach($this->cinemaList as $cinema)
-            {
-                $valuesArray=array();
-                $valuesArray["id"] = $cinema->getId();
-                $valuesArray["name"] = $cinema->getName();
-                $valuesArray["address"] = $cinema->getAddress();
-               // $valuesArray["room"] = $cinema->getRoom();
-
-                array_push($arrayToEncode, $valuesArray);
-            }
-            $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-            file_put_contents($this->fileName, $jsonContent);
-        }
-
-        public function Delete($name){
-            $this->RetrieveData();
-            $newList = array();
-            foreach ($this->cinemaList as $cinema) {
-                if($cinema->getName() != $name){
-                    array_push($newList, $cinema);
-                }
-            }
-
-            $this->cinemaList = $newList;
-            $this->saveData();
-        }
-
-        private function RetrieveData()
-        {
-            $this->cinemaList = array();
-            if(file_exists($this->fileName))
-            {
-                $jsonContent = file_get_contents($this->fileName);
-                $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
-                foreach($arrayToDecode as $valuesArray)
-                {
-                    $cinema = new Cinema();
-                    $cinema->setId($valuesArray["id"]);
-                    $cinema->setName($valuesArray["name"]);
-                    $cinema->setAddress($valuesArray["address"]);
-                   // $cinema->setTicketPrice($valuesArray["ticket_price"]);
-                    array_push($this->cinemaList, $cinema);
-                }
-            }
-        }
-
-        public function lastLoadedCinema(){
-            $cinema = new Cinema();
-            $this->RetrieveData();
-          //var_dump ($this->cinemaList);
-           $cinema =( end($this->cinemaList));
-           return $cinema->getname();
-        }
-    } */
-?>
