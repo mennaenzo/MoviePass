@@ -37,11 +37,11 @@ if(isset($message)){
         </div>
     </section>
 -->
-  <main class="d-flex align-items-center justify-content-center height-100">
+  <main class=" justify-content-center margin-55px">
           <div class="content">
                <form action="<?php echo FRONT_ROOT ?>User/Login" method="post" class="login-form bg-dark-alpha p-5 text-white">
                    <header class="text-center">
-                       <h2 style="color: #4e555b">Iniciar Sesión</h2>
+                       <h2 style="color: whitesmoke">Iniciar Sesión</h2>
                    </header>
                     <div class="form-group">
                          <label style="color: #4e555b" for="">Email</label>
