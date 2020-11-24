@@ -12,7 +12,7 @@
                   <div class="sep"></div>
                          <div class="form-control-lg">
                             <label style="color: whitesmoke" for="lbldate">Dia</label>
-                            <input type="date" name="lbldate" value="<?php echo date("Y-m-d")?>"
+                            <input type="date" name="date" value="<?php echo date("Y-m-d")?>"
                             min="<?php 
                                     $date = date("Y-m-d"); 
                                     $mod_date = strtotime('+1 day', strtotime($date)); 
