@@ -155,6 +155,8 @@
             $runtime = ($this->movieDAO->GetMovie($idMovie)->getRuntime());
             $format = '+' . ($runtime + 15) . ' minute'; 
             $finishNewMovie = strtotime($format, strtotime($startNewMovie));
+            
+            // var_dump($showList);
 
             if ($showList != null) {
                 $i = 0;
@@ -162,7 +164,7 @@
 
                     $format = '+' . ($value["runtime"] + 15) . ' minute'; 
                     $hourAvailable = strtotime($format, strtotime($value["showTime"]));
-
+                
                     if($hourAvailable <= strtotime($startNewMovie)){ // Hora disp. es menor o igual al comienzo de new movie?
                         if($i+1 > count($showList) - 1) // Es la ultima pelicula?
                         {   
@@ -175,7 +177,9 @@
                             if($finishNewMovie < strtotime($showList[$i+1]["showTime"])){ // Entra en rango horario?
                                 return true;
                             }else{
-                                return false;
+                                if($i+1 > count($showList) - 1){
+                                    return false;
+                                }
                             }
                         }
                     }else{ 
