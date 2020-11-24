@@ -183,4 +183,37 @@
             return $newShow;
         }
 
+        public function GetTicketSales($idCine, $idMovie)
+        {
+            $ticketSales = array();
+            try{
+                $query = "select s.id 'idShow', s.showTime, s.idRoom, c.id 'idCinema', s.idMovie, sum(t.quantity)'sold', r.capacity - sum(t.quantity)'unsold' from shows s 
+                inner join movies m on m.id = s.idMovie
+                inner join rooms r on r.id = s.idRoom
+                inner join cinemas c on c.id = r.idCinema
+                inner join tickets t on t.idShow = s.id
+                where statusShow = 1
+                group by idMovie
+                order by showTime;";
+                $this->connection = Connection::GetInstance();
+                $result = $this->connection->Execute($query);
+                if($result){
+                    foreach($result as $value){
+                        $newShow = new Show();
+                        $newShow->setId($value["id"]);
+                        $newShow->setTime(substr_replace($value["showTime"], "", -3));
+                        $newShow->setMovie($this->movieDAO->GetMovie($value["idMovie"]));
+                        $newShow->setRoom($this->roomDAO->GetRoom($value["idRoom"]));
+                        array_push($ticketSales, $newShow);
+                    }
+                }
+     
+            }catch(Exception $ex){
+                throw $ex;
+                return 0;
+            }
+     
+            return $ticketSales;
+        }
+
     }

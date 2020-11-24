@@ -193,10 +193,30 @@
             }
         }
 
-        function convertMinsToHours($minutes) 
+        // function convertMinsToHours($minutes) 
+        // {
+        //     return date('H:i', mktime(0,$minutes));
+        // }
+
+        public function ShowTicketSales()
         {
-            return date('H:i', mktime(0,$minutes));
+            $idCine = 0;
+            $idMovie = 0;
+            $shift = 0;
+            
+            if($_POST)
+            {
+                $cine = $_POST["SelectCine"];
+                $movie = $_POST["SelectMovie"];
+                $shift = $_POST["rdBtnShift"];
+            }
+
+            $cineList = $this->cinemaDAO->GetAll();
+            $movieList= $this->movieDAO->GetAll();
+
+            $showList = $this->showDAO->GetTicketSales($idCine, $idMovie, $shift);
+
+
+            require_once VIEWS_PATH . "ticket-sales.php";
         }
-
-
     }
