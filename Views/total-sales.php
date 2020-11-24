@@ -6,10 +6,10 @@
     <section id="listado" class="mb-5">
 
             <div class="container">
-                <h2 class="mb-4"style="color: #4e555b">Total Ventas</h2>
+                <h2 class="mb-4"style="color: whitesmoke">Total Ventas</h2>
                 <div>
-                    <form id="movies" action="<?php echo FRONT_ROOT ?>Shows/ShowTotalSales" method="post" class="bg-light-alpha p-5">
-                        <label style="color: black" for="lblGenres">Cines</label>
+                    <form id="totals" action="<?php echo FRONT_ROOT ?>Show/ShowTotalSales" method="post" class="bg-light-alpha p-5">
+                        <label style="color: whitesmoke" for="lblGenres">Cines</label>
                         <select name="SelectCine">
                             <option value = "0">Seleccione el cine</option>
                             <?php foreach ($cineList as $cine) {?>
@@ -18,7 +18,7 @@
                                 </option>
                             <?php } ?>
                         </select>
-                        <label style="color: black" for="lblGenres">Peliculas</label>
+                        <label style="color: whitesmoke" for="lblGenres">Peliculas</label>
                         <select name="SelectMovie">
                             <option value = "0">Seleccione la pelicula</option>
                             <?php foreach ($movieList as $movie) {?>
@@ -27,10 +27,13 @@
                                 </option>
                             <?php } ?>
                         </select>
-                        <label style="color: whitesmoke" for="lbldate">Fecha</label>
-                        <input type="date" name="date" value="<?php echo date("Y-m-d")?>" class="form-control-xlg" required>
-
+                        <div>
+                            <label style="color: whitesmoke" for="lbldate1">Fecha Desde</label>
+                            <input type="date" name="dateSince" value="<?php echo date("2020-01-01");?>" class="form-control-xlg" required>
+                            <label style="color: whitesmoke" for="lbldate2">Fecha Hasta</label>
+                            <input type="date" name="dateUntil" value="<?php echo date("2025-01-01");?>" class="form-control-xlg" required>
                         <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button>
+                        </div>
                     </form>
                 </div>
          

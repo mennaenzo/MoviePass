@@ -227,18 +227,20 @@
         {
             $idCine = 0;
             $idMovie = 0;
-            $date = date("Y-m-d");
+            $dateSince = date("2020-01-01");
+            $dateUntil = date("2025-01-01");
             
             if($_POST)
             {
                 $idCine = $_POST["SelectCine"];
                 $idMovie = $_POST["SelectMovie"];
-                $date = $_POST["date"];
+                $dateSince = $_POST["dateSince"];
+                $dateUntil = $_POST["dateUntil"];
             }
             $cineList = $this->cinemaDAO->GetAll();
             $movieList= $this->movieDAO->GetAll();
 
-            $showList = $this->showDAO->GetTotalSales($idCine, $idMovie, $date);
+            $showList = $this->showDAO->GetTotalSales($idCine, $idMovie, $dateSince, $dateUntil);
             
             require_once VIEWS_PATH . "total-sales.php";
         }

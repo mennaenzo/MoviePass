@@ -295,12 +295,11 @@
             return $newTicketSales;
         }
 
-        public function GetTotalSales($idCine, $idMovie, $date)
+        public function GetTotalSales($idCine, $idMovie, $since, $until)
         {
             $ticketSales = array();
             $total = array();
             try{
-
                 if(($idCine == 0) && ($idMovie == 0))
                 {
                     $query = "select s.id 'idShow', s.showTime, s.showDay, s.idRoom, c.id 'idCinema', s.idMovie, sum(t.total)'total' from shows s 
@@ -308,7 +307,7 @@
                     inner join rooms r on r.id = s.idRoom
                     inner join cinemas c on c.id = r.idCinema
                     inner join tickets t on t.idShow = s.id
-                    where statusShow = 1
+                    where statusShow = 1 and (showDay between '$since' and '$until')
                     group by idMovie
                     order by showDay, showTime;";
                 }
@@ -319,7 +318,7 @@
                     inner join rooms r on r.id = s.idRoom
                     inner join cinemas c on c.id = r.idCinema
                     inner join tickets t on t.idShow = s.id
-                    where statusShow = 1 and c.id = $idCine
+                    where statusShow = 1 and c.id = $idCine and (showDay between '$since' and '$until')
                     group by idMovie
                     order by showDay, showTime;";
                 }
@@ -330,7 +329,7 @@
                     inner join rooms r on r.id = s.idRoom
                     inner join cinemas c on c.id = r.idCinema
                     inner join tickets t on t.idShow = s.id
-                    where statusShow = 1 and m.id = $idMovie
+                    where statusShow = 1 and m.id = $idMovie and (showDay between '$since' and '$until')
                     group by idMovie
                     order by showDay, showTime;";
                 }
@@ -341,7 +340,7 @@
                     inner join rooms r on r.id = s.idRoom
                     inner join cinemas c on c.id = r.idCinema
                     inner join tickets t on t.idShow = s.id
-                    where statusShow = 1 and m.id = $idMovie and c.id = $idCine
+                    where statusShow = 1 and m.id = $idMovie and c.id = $idCine and (showDay between '$since' and '$until')
                     group by idMovie
                     order by showDay, showTime;";
                 }
