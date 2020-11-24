@@ -222,4 +222,24 @@
             
             require_once VIEWS_PATH . "ticket-sales.php";
         }
+
+        public function ShowTotalSales()
+        {
+            $idCine = 0;
+            $idMovie = 0;
+            $date = date("Y-m-d");
+            
+            if($_POST)
+            {
+                $idCine = $_POST["SelectCine"];
+                $idMovie = $_POST["SelectMovie"];
+                $date = $_POST["date"];
+            }
+            $cineList = $this->cinemaDAO->GetAll();
+            $movieList= $this->movieDAO->GetAll();
+
+            $showList = $this->showDAO->GetTotalSales($idCine, $idMovie, $date);
+            
+            require_once VIEWS_PATH . "total-sales.php";
+        }
     }
