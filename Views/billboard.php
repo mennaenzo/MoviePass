@@ -15,7 +15,14 @@
                     <?php }?>
                 </select>
                     <br>
-                <input type="date" name="date" value="" class="form-control-xlg">
+                <input type="date" name="date" value="
+                <?php
+                    if(!isset($_POST["date"])){
+                        echo date("Y-m-d");
+                    }
+                    else{
+                        echo $_POST["date"];
+                    }?>" class="form-control-xlg">
                 <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
                 </form>
             </div>
