@@ -74,9 +74,8 @@ class TicketController
     public function ShowTicketsView($message = "", $idUser){
 
         $ticketList = $this->ticketDAO->GetAllFromUser($idUser);
-        $ticketFilter = $this->ticketDAO->GetMovieNameList($idUser);
-        
-        //require_once (VIEWS_PATH . "ticket-list.php");
+        $ticketFilter = $this->ticketDAO->GetMovie($idUser);
+        require_once (VIEWS_PATH . "ticket-list.php");
     }
     
 
@@ -89,7 +88,29 @@ class TicketController
         return false;
     } 
     
-   
+    public function filter()
+        {
+            if ($_POST) {
+                $date = 0;
+                $idMovie = 0;
+                if ($_POST["date"] <> "") {
+                    $date = $_POST["date"];
+                }
+                if($_POST["selectMovie"]){
+                    $idMovie = $_POST["selectMovie"];
+                }
+             $this->ShowTicketsFilter($date, $idMovie, $_POST["User"]);
+            }
+        }
 
+    public function ShowTicketsFilter($date, $idMovie, $idUser){ //retorna a la lista de tickects con los datos filtrados
 
+        $ticketList = $this->ticketDAO->GetFilteredTicket($date, $idMovie, $idUser);
+        $ticketFilter = $this->ticketDAO->GetMovie($idUser);
+       if($ticketList == null){
+           $message = "La bùsqueda no arrojo ninguna entrada para el dia de hoy.";
+            $this->ShowTicketsView($message, $idUser);
+       }
+        require_once (VIEWS_PATH . "ticket-list.php");
+    }
 }

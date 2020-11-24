@@ -11,12 +11,12 @@
                         <label style="color: whitesmoke" for="lblGenres">Tickets por Pelicula</label>
                         <select name ="selectMovie">
                             <option value="0">Pelicula</option>
-                            <?php foreach($ticketFilter as $movieName){ ?>
-                                <option value="<?php echo $movieName; ?>"> <?php echo $movieName ?> </option>
+                            <?php foreach($ticketFilter as $movie){ ?>
+                                <option value="<?php echo $movie->getId(); ?>"> <?php echo $movie->getName(); ?> </option>
                             <?php }?>
                         </select>
-                        <br>
-                        <input type="date" name="date" value="" class="form-control-xlg">
+                        <input type="hidden" name="User" value="<?php echo $user; ?>">
+                        <input type="date" name="date" value="" class="form-control">
                         <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>
                     </form>
                 </div>

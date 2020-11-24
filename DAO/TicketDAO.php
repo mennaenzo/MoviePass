@@ -4,6 +4,7 @@
     use \Exception as Exception;
     use DAO\Connection as Connection;
     use Models\Tickets as Tickets;
+    use Models\Movie as Movie;
     use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use DAO\RoomDAO as RoomDAO;
@@ -112,10 +113,10 @@
             return $quantity;
         }
 
-        public function GetMovieNameList($idUser){
+        public function GetMovie($idUser){
             $movieNameList = array();
                 try{
-                    $query = "SELECT  m.movieName FROM " . $this->tableName . " t
+                    $query = "SELECT  m.id, m.movieName FROM " . $this->tableName . " t
                     inner join shows s on s.id = t.idShow
                     inner join movies m on m.id = s.idMovie
                     where t.idUser = $idUser
@@ -125,7 +126,10 @@
 
                     if($result) {
                         foreach ($result as $value) {
-                            array_push($movieNameList, $value["movieName"]);
+                            $newMovie = new Movie();
+                            $newMovie->setId($value["id"]);
+                            $newMovie->setName($value["movieName"]);
+                            array_push($movieNameList, $newMovie);
                         }
                     }
                     else{
@@ -136,5 +140,50 @@
                 }
                 return $movieNameList;
         }
-     
+
+        public function GetFilteredTicket($date, $idMovie, $idUser){
+
+            $ticketList = array();
+                try{
+                    date_default_timezone_set("America/Argentina/Buenos_Aires");
+                    if($date == 0)
+                    {
+                        $date = date("Y-m-d");
+                    }
+                    
+                    if($idMovie == 0){ // trae todas las peliculas filtradas por fecha
+                        $query = "SELECT t.id, t.price, t.idShow, t.idUser, t.quantity, t.total FROM " . $this->tableName . " t
+                        inner join shows s on s.id = t.idShow
+                        inner join movies m on m.id = s.idMovie
+                        where t.idUser = '$idUser' and s.showDay = '$date';";
+                    }else{// trae todas las peliculas filtradas por fecha y por pelicula
+                        $query = "SELECT t.id, t.price, t.idShow, t.idUser, t.quantity, t.total FROM " . $this->tableName . " t
+                        inner join shows s on s.id = t.idShow
+                        inner join movies m on m.id = s.idMovie
+                        where t.idUser = $idUser and s.showDay = '$date' and m.id = '$idMovie';";
+                    }
+               
+                    $this->connection = Connection::GetInstance();
+                    $result = $this->connection->Execute($query);
+
+                    if($result) {
+                        foreach ($result as $value) {
+                            $ticket = new Tickets();
+                            $ticket->setId($value["id"]);
+                            $ticket->setPrice($value["price"]);
+                            $ticket->setShow($this->showDAO->GetShowById($value["idShow"]));
+                            $ticket->setUser($value["idUser"]);
+                            $ticket->setQuantity($value["quantity"]);
+                            $ticket->setTotal($value["total"]);
+                            array_push($ticketList, $ticket);
+                        }
+                    }
+                    else{
+                        $ticketList = null;
+                    }
+                }catch (Exception $ex){
+                    throw $ex;
+                }
+                return  $ticketList;
+        }
     }
