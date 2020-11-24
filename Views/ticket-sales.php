@@ -44,20 +44,24 @@
                         <th>Cine</th>
                         <th>Sala</th>
                         <th>Pelicula</th>
-                        <th>Turno</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
                         <th>Cant. Vendidas</th>
                         <th>Cant. Remanentes</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($showList as $show) { ?>
+                        <?php for($i = 0; $i < count($showList) ; $i++) { 
+                                $show = $showList[$i];
+                            ?>
                            <tr> 
                                 <div>
-                                    <td> <?php echo $show->getRoom()->getNameCinema();?> </td>
-                                    <td> <?php echo $show->getRoom()->getName();?> </td>
-                                    <td> <?php echo $show->getMovie()->getName()?> </td>
-                                    <td> <?php echo $ticket->getQuantity();?> </td>
-                                    <td> <?php echo $ticket->getQuantity();?> </td>
-                                    <td> <?php echo $ticket->getTotal();?> </td>
+                                    <td> <?php echo $show["show"]->getRoom()->getNameCinema();?> </td>
+                                    <td> <?php echo $show["show"]->getRoom()->getName();?> </td>
+                                    <td> <?php echo $show["show"]->getMovie()->getName();?> </td>
+                                    <td> <?php echo $show["show"]->getDay();?> </td>
+                                    <td> <?php echo $show["show"]->getTime();?> </td>
+                                    <td> <?php echo $show["cant"]["sold"];?> </td>
+                                    <td> <?php echo $show["cant"]["unsold"];?> </td>
                                 </div>
                             </tr>
                         <?php } ?>

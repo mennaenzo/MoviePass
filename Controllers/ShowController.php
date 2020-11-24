@@ -206,17 +206,16 @@
             
             if($_POST)
             {
-                $cine = $_POST["SelectCine"];
-                $movie = $_POST["SelectMovie"];
-                $shift = $_POST["rdBtnShift"];
+                $idCine = $_POST["SelectCine"];
+                $idMovie = $_POST["SelectMovie"];
+                $shift = isset($_POST["rdBtnShift"]) ? $_POST["rdBtnShift"] : 0;
             }
 
             $cineList = $this->cinemaDAO->GetAll();
             $movieList= $this->movieDAO->GetAll();
 
             $showList = $this->showDAO->GetTicketSales($idCine, $idMovie, $shift);
-
-
+            
             require_once VIEWS_PATH . "ticket-sales.php";
         }
     }
