@@ -5,12 +5,10 @@
      <section id="listado" class="mb-5">
               <form id= "addShow" action="<?php echo FRONT_ROOT ?>Show/Add" method="post" class="bg-light-alpha p-5">
                   <header class="header">
-                      <br>
-                      <br>
                       <h2 style="color: whitesmoke">Agregar funcion</h2>
                   </header>
                   <div class="sep"></div>
-                         <div class="form-control-lg">
+                         <div class="form-control-xlg">
                             <label style="color: whitesmoke" for="lbldate">Dia</label>
                             <input type="date" name="date" value="<?php echo date("Y-m-d")?>"
                             min="<?php 

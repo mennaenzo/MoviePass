@@ -5,8 +5,7 @@
      <section id="listado" class="mb-5">
               <form style="" id= "cineAdd" action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="align-content-center bg-light-alpha p-5">
                   <header class="header">
-                      <br>
-                      <br>
+
                       <h2 style="color: whitesmoke"><strong>Agregar Cine</strong></h2>
                   </header>
                   <div class="sep">

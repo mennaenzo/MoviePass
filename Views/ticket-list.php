@@ -37,7 +37,8 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <?php  foreach($ticketList as $ticket){ ?>
+                        <?php if ($ticketList != null) {
+                            foreach($ticketList as $ticket){ ?>
                            <tr> 
                                 <div>
                                     <td> <?phP echo $ticket->getShow()->getDay()?></td>
@@ -50,7 +51,7 @@
                                     <td> <?php echo $ticket->getTotal();?></td>
                                 </div>
                             </tr>
-                        <?php } ?>
+                        <?php } } ?>
                     </tbody>
                     <br>
                 </table>
