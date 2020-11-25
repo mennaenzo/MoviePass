@@ -7,7 +7,7 @@ require_once "nav.php";
             <header class="header">
                 <br>
                 <br>
-                <h2 style="color: black"><strong>Comprar Entrada</strong></h2>
+                <h2 style="color: whitesmoke"><strong>Comprar Entrada</strong></h2>
            
                 <script>    
                     //Método para calcular el subtotal 
@@ -33,23 +33,23 @@ require_once "nav.php";
             </header>
             <div class="sep">
                 <div class="inputs">
-                    <label style="color: black" for="name"><strong>Precio Ticket</strong></label>
+                    <label style="color: whitesmoke" for="name"><strong>Precio Ticket</strong></label>
                     <input type="number" name="price" id ="ticket_price" value="<?php echo $ticket->getPrice();?>" class="form-control" readonly = "readonly" onChange="multi(); discount();">
                     
-                    <label style="color: black" for="name"><strong>Cantidad </strong></label>
+                    <label style="color: whitesmoke" for="name"><strong>Cantidad </strong></label>
                     <input type = "number" name= "quantity" id= "quantity" class="form-control" placeholder ="<?php echo "Cantidad de entradas disponibles: ". $limit;?>"  min ="1" max ="<?php echo $limit;?>" onChange="multi(); discount();">
                     
-                    <label style="color: black" for="">Subtotal</label>
+                    <label style="color: whitesmoke" for="">Subtotal</label>
                     <input type="number" name = "subtotal" id ="subtotal" value="" class="form-control" readonly="readonly">
                     <input type="hidden" name="id_show" value="<?php echo  $ticket->getShow()->getId(); ?>">
                     
                     <input type="hidden" name="price2" id="price2" value="<?php echo $discount;?>" readonly = "readonly">
-                    <label style="color: black" for="">Total </label>
+                    <label style="color: whitesmoke" for="">Total </label>
                     <input type="number" name = "total" id ="total" value="" class="form-control" readonly="readonly">
                     
                     <input type="hidden" name="idUser" value="<?php echo $user; ?>">
                     
-                    <label style="color: black" for="lblCreditCard">Tarjeta de Credito</label>
+                    <label style="color: whitesmoke" for="lblCreditCard">Tarjeta de Credito</label>
                     <select name="creditCard">
                         <option value="Visa">Visa</option>
                         <option value="Mastercard">MasterCard</option>

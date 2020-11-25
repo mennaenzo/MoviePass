@@ -6,7 +6,7 @@ require_once VIEWS_PATH."nav.php";
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4"style="color: #4e555b">Listado de Cines</h2>
+            <h2 class="mb-4" style="color: whitesmoke">Listado de Cines</h2>
                 <table class="table table-dark">
                     <thead>
                     <th>Nombre</th>

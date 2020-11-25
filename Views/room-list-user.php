@@ -5,7 +5,7 @@ require_once('nav.php');
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Room List</h2>
+            <h2 class="mb-4" style="color: whitesmoke">Lista de Salas</h2>
             <table class="table table-dark">
                 <thead>
                 <!--<th>Id</th>-->

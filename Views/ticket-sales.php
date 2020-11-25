@@ -6,10 +6,10 @@
     <section id="listadoo" class="mb-5">
 
             <div class="container">
-                <h2 class="mb-4"style="color: #4e555b">Tickets Ventas</h2>
+                <h2 class="mb-4" style="color: whitesmoke">Tickets Ventas</h2>
                 <div>
                     <form id="movies" action="<?php echo FRONT_ROOT ?>Show/ShowTicketSales" method="post" class="bg-light-alpha p-5">
-                        <label style="color: black" for="lblGenres">Cines</label>
+                        <label style="color: whitesmoke" for="lblGenres">Cines</label>
                         <select name="SelectCine">
                             <option value = "0">Seleccione el cine</option>
                             <?php foreach ($cineList as $cine) {?>
@@ -18,7 +18,7 @@
                                 </option>
                             <?php } ?>
                         </select>
-                        <label style="color: black" for="lblGenres">Peliculas</label>
+                        <label style="color: whitesmoke" for="lblGenres">Peliculas</label>
                         <select name="SelectMovie">
                             <option value = "0">Seleccione la pelicula</option>
                             <?php foreach ($movieList as $movie) {?>
@@ -27,15 +27,15 @@
                                 </option>
                             <?php } ?>
                         </select>
-                        <input type="radio" name="rdBtnShift"
-                            <?php if (isset($shift) && $shift=="1") {echo "checked";}?>
-                        value="1">Mañana
+                            <input type="radio" name="rdBtnShift"
+                                <?php if (isset($shift) && $shift=="1") {echo "checked";}?>
+                            value="1"><label style="color: whitesmoke" for="lblTurnoM">Mañana</label>
 
-                        <input type="radio" name="rdBtnShift"
-                            <?php if (isset($shift) && $shift=="2") {echo "checked";}?>
-                        value="2">Noche
+                            <input type="radio" name="rdBtnShift"
+                                <?php if (isset($shift) && $shift=="2") {echo "checked";}?>
+                            value="2"><label style="color: whitesmoke" for="lblTurnoN">Noche</label>
 
-                        <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button>
+                            <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button>
                     </form>
                 </div>
          
