@@ -20,6 +20,9 @@ if (isset($_SESSION['loggedUser'])) {
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/ShowListView">Lista de peliculas</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/ShowTicketsFromUser">Mis entradas</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>
             </li>
         </ul>
@@ -48,6 +51,18 @@ if (isset($_SESSION['loggedUser'])) {
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?> Movie/ShowListAdmin">Listar Peliculas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Show/ShowTicketSales">Consultar Entradas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Show/ShowTotalSales">Consultar Ventas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Movie/GetNowPlaying">Cargar Peliculas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo FRONT_ROOT ?> Genres/getGenresFromApi">Cargar Generos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/Logout">Salir</a>

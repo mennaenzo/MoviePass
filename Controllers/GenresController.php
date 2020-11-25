@@ -35,7 +35,7 @@ class GenresController
     public function ShowListView()
     {
         $movieList = $this->movieDAO->GetAll();
-        require_once(VIEWS_PATH . "user-menu.php");
+        require_once(VIEWS_PATH . "admin-menu.php");
     }
 
 }

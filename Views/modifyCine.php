@@ -7,15 +7,15 @@
                   <header class="header">
                       <br>
                       <br>
-                      <h2 style="color: black" >Modificar cine</h2>
+                      <h2 style="color: whitesmoke">Modificar cine</h2>
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">
 
-                            <label style="color: black" for="name">Name</label>
+                            <label style="color: whitesmoke" for="name">Nombre</label>
                             <input type="text" name="name" value="<?php echo $cinema->getName();?>" class="form-control" required>
 
-                            <label style="color: black" for="address">Address</label>
+                            <label style="color: whitesmoke" for="address">Direccion</label>
                             <input type="text" name="address" value="<?php echo $cinema->getAddress()?>" class="form-control" required>
                             <br>
                             <button id="submit" type="submit" name="btnModify" value ="<?php echo $cinema->getId()?>" class="btn btn-dark ml-auto d-block"> Modificar</button>

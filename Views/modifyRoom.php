@@ -7,7 +7,7 @@
                   <header class="header">
                       <br>
                       <br>
-                      <h2>Modificar Sala</h2>
+                      <h2 style="color: whitesmoke">Modificar Sala</h2>
                   </header>
                   <div class="sep"></div>
                          <div class="inputs">

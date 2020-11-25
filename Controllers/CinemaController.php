@@ -34,7 +34,7 @@
 
                 $this->message =$this->cinemaDAO->Add($cinema);
                 if ($this->message == "Los datos del cine fueron creados correctamente.") {
-                    $cinemaAdd = $this->cinemaDAO->searchCinemaByName($cinema->getName()); //BUSCO EL ID DEL CINEMA AGREGADO PARA DESPUES PODER MOSTRAR SU NOMBRE 
+                    $cinemaAdd = $this->cinemaDAO->searchCinemaByName($cinema->getName()); //BUSCO EL ID DEL CINEMA AGREGADO PARA DESPUES PODER MOSTRAR SU NOMBRE
                     $this->ShowAddRoomView($this->message, $cinemaAdd);
                 } else {
                     $this->ShowAddView($this->message);
@@ -55,21 +55,19 @@
         public function ShowModifyView()
         {
             $cinema = $this->cinemaDAO->GetCinema($_POST["btnModify"]);
-            if(isset($cinema)){
-               require_once VIEWS_PATH . "modifyCine.php";
-            } 
-            else{
+            if (isset($cinema)) {
+                require_once VIEWS_PATH . "modifyCine.php";
+            } else {
                 $message = "El cine que se quiere modificar no existe.";
                 $this->ShowListView();
             }
-     
         }
 
         // Se redirecciona a la vista para agregar salas a un cine
         public function ShowAddRoomView($message = "", Cinema $cinemaAdd)
         {
             $message = $this->message;
-            $cinemaList = $this->cinemaDAO->GetAll(); 
+            $cinemaList = $this->cinemaDAO->GetAll();
             require_once VIEWS_PATH . "room-add-admin.php";
         }
 
@@ -104,47 +102,33 @@
                 return false;
             }
         }
-        /*
-        public function delete(){
-            if($_POST["btnRemove"] != null){
-                if($this->cinemaDAO->delete($_POST["btnRemove"])){
-                    $message = "El cine se dio de baja correctamente.";
-                }
-                else{
-                    $message = "El cine no se dio de baja.";
-                } 
-                $this->ShowListView($message);
-            }
-        }
-        */
-        public function delete(){
+        
+        public function delete()
+        {
             $result = $this->roomDAO->checkIfRooms($_POST["btnRemove"]);
-            //var_dump($result);
-            if($_POST["btnRemove"] != null){
-                if(!empty($result)){
+            
+            if ($_POST["btnRemove"] != null) {
+                if (!empty($result)) {
                     $message = "El cine contiene salas. Elimine primero las salas de ese cine";
                     $this->ShowListView($message);
+                } elseif ($this->cinemaDAO->delete($_POST["btnRemove"])) {
+                    $message = "El cine se dio de baja correctamente.";
+                } else {
+                    $message = "El cine no se dio de baja.";
                 }
-                elseif ($this->cinemaDAO->delete($_POST["btnRemove"])) {
-                        $message = "El cine se dio de baja correctamente.";
-                }
-                else {
-                        $message = "El cine no se dio de baja.";
-                    }
-                }
+            }
             $this->ShowListView($message);
         }
 
-        public function modify(){
-            if($_POST["btnModify"]){
-               if($this->cinemaDAO->modify($_POST["btnModify"], $_POST["name"], $_POST["address"])){
+        public function modify()
+        {
+            if ($_POST["btnModify"]) {
+                if ($this->cinemaDAO->modify($_POST["btnModify"], $_POST["name"], $_POST["address"])) {
                     $message = "El cine se modifico correctamente.";
-               }
-               else{
+                } else {
                     $message = "El cine no se pudo modificar";
-               }
+                }
                 $this->ShowListView($message);
             }
         }
     }
-?>

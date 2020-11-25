@@ -4,7 +4,7 @@
 <main class="py-5">
     <section id="listado" class="mb-5">
         <div class="container">
-            <h2 class="mb-4">Listado de Peliculas</h2>
+            <h2 style="color: whitesmoke" class="mb-4">Listado de Peliculas</h2>
             <table class="table table-dark">
                 <thead>
 

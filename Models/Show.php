@@ -53,5 +53,17 @@
         {
             $this->room = $room;
         }
+
+        public function getShift()
+        {
+            $shift = date('H:i', mktime(12));
+
+            if(strtotime($this->time) >= strtotime($shift))
+            {
+                return "Noche";
+            }else{
+                return "Mañana";
+            }
+        }
     }
 ?>

@@ -37,18 +37,24 @@ if(isset($message)){
         </div>
     </section>
 -->
-  <main class="d-flex align-items-center justify-content-center height-100">
-          <div class="content">
+  <main class="">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="d-flex justify-content-center">
                <form action="<?php echo FRONT_ROOT ?>User/Login" method="post" class="login-form bg-dark-alpha p-5 text-white">
                    <header class="text-center">
-                       <h2 style="color: #4e555b">Iniciar Sesión</h2>
+                       <h2 style="color: whitesmoke">Iniciar Sesión</h2>
                    </header>
                     <div class="form-group">
-                         <label style="color: #4e555b" for="">Email</label>
+                         <label style="color: whitesmoke" for="">Email</label>
                          <input type="email" name="email" class="form-control form-control-lg" placeholder="Ingresar email" required>
                     </div>
                     <div class="form-group">
-                         <label style="color: #4e555b" for="">Contraseña</label>
+                         <label style="color: whitesmoke" for="">Contraseña</label>
                          <input type="password" name="password" class="form-control form-control-lg" placeholder="Ingresar constraseña" required>
                     </div>
                     <div class="form-group">
@@ -60,4 +66,3 @@ if(isset($message)){
               </div>
           </div>
   </main>
-
