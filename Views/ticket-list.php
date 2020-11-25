@@ -16,7 +16,7 @@
                             <?php }?>
                         </select>
                         <input type="hidden" name="User" value="<?php echo $user; ?>">
-                        <input type="date" name="date" value="" class="form-control">
+                        <input type="date" name="date" value="" class="form-control-xlg">
                         <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>
                     </form>
                 </div>
@@ -34,7 +34,7 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        <?php foreach($ticketList as $ticket){ ?>
+                        <?php  foreach($ticketList as $ticket){ ?>
                            <tr> 
                                 <div>
                                     <td> <?phP echo $ticket->getShow()->getDay()?></td>

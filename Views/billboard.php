@@ -7,14 +7,15 @@
             <h2 class="mb-4" style="color: whitesmoke">Cartelera</h2>
             <div>
                 <form id= "billboard" action="<?php echo FRONT_ROOT ?>Show/Filter" method="post" class="bg-light-alpha p-5">
-                <label style="color: whitesmoke" for="lblGenres">Peliculas por Generos</label>
+                <label style="color: whitesmoke" for="lblGenres">Peliculas por Generos </label>
                 <select name="SelectGenre">
-                    <option value="0">Genero</option>
+                    <option value="0">Seleccionar Genero</option>
                     <?php foreach($genresList as $genres){?>
                             <option value="<?php echo $genres->getId(); ?>"> <?php echo $genres->getName(); ?></option>
                     <?php }?>
                 </select>
                     <br>
+                    <label style="color: whitesmoke" for="lblGenres">Fecha </label>
                 <input type="date" name="date" value="
                 <?php
                     if(!isset($_POST["date"])){
@@ -23,6 +24,7 @@
                     else{
                         echo $_POST["date"];
                     }?>" class="form-control-xlg">
+                    <br>
                 <button type="submit" name="btnFilter" class="btn btn-danger" value="">Filtrar</button></a>
                 </form>
             </div>
