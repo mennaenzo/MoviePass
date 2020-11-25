@@ -29,11 +29,11 @@
             <div>
             <table class="table table-dark">
                 <thead>
-                <th>Poster</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Language</th>
-                <th>Adult</th>
+                <th>Imagen</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Lenguaje</th>
+                <th>Adulto</th>
                 <th>Funciones</th>
                 </thead>
                 <tbody>

@@ -7,9 +7,9 @@ require_once('nav.php');
             <h2 style="color: whitesmoke" class="mb-4">Listado de Cines</h2>
             <table class="table table-dark">
                 <thead>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Rooms</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Salas</th>
 
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@ require_once('nav.php');
                         <td><?php echo $cinema->getAddress() ?></td>
                         <td>
                             <form action="<?php echo FRONT_ROOT ?>Room/ShowRoomListView_User" method="POST">
-                                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>"> Rooms </button>
+                                <button type="submit" formmethod="POST" name="btnSeeRoom" class="btn btn-danger" value="<?php echo $cinema->getId()?>">Salas</button>
                             </form>
                         </td>
 
