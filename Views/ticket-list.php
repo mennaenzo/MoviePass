@@ -10,13 +10,16 @@
                     <form id= "ticketList" action="<?php echo FRONT_ROOT ?>Ticket/filter" method="post" class="bg-light-alpha p-5">
                         <label style="color: whitesmoke" for="lblGenres">Tickets por Pelicula</label>
                         <select name ="selectMovie">
-                            <option value="0">Pelicula</option>
+                            <option value="0">Seleccionar pelicula</option>
                             <?php foreach($ticketFilter as $movie){ ?>
                                 <option value="<?php echo $movie->getId(); ?>"> <?php echo $movie->getName(); ?> </option>
                             <?php }?>
                         </select>
+                        <br>
                         <input type="hidden" name="User" value="<?php echo $user; ?>">
+                        <label style="color: whitesmoke" for="lblGenres">Fecha </label>
                         <input type="date" name="date" value="" class="form-control-xlg">
+                        <br>
                         <button type="submit" name="btnOrder" class="btn btn-danger" value="">Ordenar</button>
                     </form>
                 </div>
